@@ -2,66 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>English Battle - Aksana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Battle - Aksana Professional</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 20px 10px; z-index: 10; text-align: center; }
-        .profile-img { width: 120px; height: 120px; background: #fff; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; margin-bottom: 15px; }
+        .sidebar { width: 260px; background: #051937; border-right: 3px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 15px; z-index: 10; text-align: center; }
+        .profile-img { width: 110px; height: 110px; background: #fff; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; margin-bottom: 10px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .school-name { color: var(--accent); font-weight: bold; font-size: 1rem; margin-top: 5px; }
-        .teacher-name { font-weight: bold; color: #fff; font-size: 1.2rem; margin: 5px 0; }
-        .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .teacher-name { font-weight: bold; color: #fff; font-size: 1.1rem; margin: 5px 0; }
+        .school-name { color: var(--accent); font-size: 0.9rem; font-weight: bold; }
+        .main-stage { margin-left: 260px; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.08); padding: 25px; border-radius: 20px; text-align: center; width: 800px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
-        .arena-container { display: flex; width: 98%; gap: 10px; height: 95vh; padding: 10px; }
-        .arena { flex: 1; background: rgba(0,0,0,0.6); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
-        .q-img { width: 100%; height: 240px; object-fit: cover; border-radius: 12px; border: 2px solid white; }
-        .score { font-size: 3rem; color: var(--gold); font-weight: bold; margin: 0; }
-        .ans-in { width: 85%; padding: 12px; font-size: 1.6rem; text-align: center; border-radius: 10px; border: 3px solid #fff; outline: none; font-weight: bold; }
+        .box { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; width: 80%; max-width: 800px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .arena-container { display: flex; width: 95%; gap: 15px; height: 90vh; }
+        .arena { flex: 1; background: rgba(0,0,0,0.5); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
+        .q-img { width: 100%; height: 220px; object-fit: contain; border-radius: 10px; background: #fff; }
+        .score { font-size: 3rem; color: var(--gold); font-weight: bold; margin: 5px 0; }
+        .ans-in { width: 80%; padding: 12px; font-size: 1.5rem; text-align: center; border-radius: 10px; border: 3px solid #fff; outline: none; }
         .ans-in.correct { background: #2ecc71 !important; color: white; }
-        .btn { padding: 12px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: #010a24; transition: 0.2s; }
-        .btn:hover { transform: scale(1.03); }
-        .bonus-badge { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; display: none; }
+        .btn { padding: 12px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: #010a24; width: 100%; }
+        .btn:hover { background: #f39c12; }
     </style>
 </head>
 <body>
-<audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
 
 <div class="sidebar">
     <div class="profile-img"><img src="96064.jpg" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'"></div>
     <p class="teacher-name">Aksana Tukubai kyzy</p>
     <p class="school-name">Kenesh General School</p>
-    <hr style="width: 80%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 20px 0;">
+    <hr style="width: 80%; border: 0.5px solid var(--gold); margin: 20px 0;">
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h1 style="color:var(--gold);">BATTLE REGISTRATION</h1>
-        <div style="margin: 20px; display: flex; justify-content: center; gap: 15px;">
-            <input type="text" id="t1" value="LIONS" style="padding:12px; font-size:1.2rem; width: 40%;">
-            <input type="text" id="t2" value="EAGLES" style="padding:12px; font-size:1.2rem; width: 40%;">
+        <h2 style="color:var(--gold);">BATTLE REGISTRATION</h2>
+        <div style="display:flex; gap:10px; margin: 20px 0;">
+            <input type="text" id="t1" value="TEAM A" style="flex:1; padding:10px; font-size:1.2rem;">
+            <input type="text" id="t2" value="TEAM B" style="flex:1; padding:10px; font-size:1.2rem;">
         </div>
-        <button class="btn" style="width: 180px;" onclick="openMenu()">CONTINUE</button>
+        <button class="btn" onclick="showMenu()">CONTINUE</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
+        <h2 style="color:var(--gold);">SELECT TOPIC</h2>
         <div class="menu-grid" id="menu-grid"></div>
     </div>
 
     <div id="battle-screen" class="arena-container hidden">
-        <div class="arena" id="area-1">
-            <div class="bonus-badge" id="bonus-1">⚡ FAST! +50</div>
-            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
-            <div class="score" id="score-1">0</div>
-            <img id="img-1" class="q-img">
-            <p id="text-1" style="font-weight:bold; height:50px;"></p>
-            <input type="text" id="input-1" class="ans-in" autocomplete="off" oninput="check(1)">
-        </div>
-        <div class="arena" id="area-2">
-            <div class="bonus-badge" id="bonus-2">⚡ FAST! +50</div>
-            <h2 id="name-2" style="color:var(--accent); margin:0;"></h2>
-            <div class="score" id="score
+        <div class="
