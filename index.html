@@ -7,30 +7,50 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #050a18; color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        .main-content { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
-        .sidebar { width: 180px; background: linear-gradient(180deg, #1e3799, #0c2461); border-left: 4px solid #f1c40f; display: flex; flex-direction: column; align-items: center; padding-top: 20px; box-shadow: -5px 0 15px rgba(0,0,0,0.5); }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #f1c40f; object-fit: cover; margin-bottom: 10px; }
-        .sidebar h3 { font-size: 1rem; margin: 5px; color: #f1c40f; }
-        .sidebar p { font-size: 0.8rem; padding: 0 10px; }
+        
+        /* СОЛ ЖАКТАГЫ ТИЛКЕ (SIDEBAR) */
+        .sidebar { width: 220px; background: linear-gradient(180deg, #1e3799, #0c2461); border-right: 4px solid #f1c40f; display: flex; flex-direction: column; align-items: center; padding-top: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.5); z-index: 10; }
+        .profile-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid #f1c40f; object-fit: cover; margin-bottom: 10px; }
+        .sidebar h3 { font-size: 1.1rem; margin: 5px; color: #f1c40f; text-align: center; }
+        .sidebar .school-name { font-size: 0.85rem; padding: 10px; text-align: center; font-style: italic; border-top: 1px solid rgba(241, 196, 15, 0.3); margin-top: 10px; line-height: 1.4; }
 
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; text-align: center; position: relative; }
         .hidden { display: none !important; }
+        
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 700px; margin: auto; padding: 20px; }
         .topic-btn { padding: 20px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .topic-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
         .battle-container { display: flex; justify-content: space-around; padding: 20px; gap: 20px; height: 80vh; align-items: center; }
         .arena { width: 45%; background: rgba(255,255,255,0.05); border-radius: 25px; border: 2px solid #333; padding: 20px; box-sizing: border-box; }
-        .q-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; border: 2px solid white; }
+        .q-img { width: 100%; height: 180px; border-radius: 15px; object-fit: cover; border: 2px solid white; }
         .q-text { background: white; color: #111; padding: 15px; border-radius: 10px; margin: 15px 0; font-weight: bold; font-size: 1.2rem; min-height: 50px; display: flex; align-items: center; justify-content: center; }
-        .ans-input { width: 90%; padding: 15px; border-radius: 10px; border: 3px solid #3498db; font-size: 1.3rem; text-align: center; outline: none; }
+        .ans-input { width: 90%; padding: 15px; border-radius: 10px; border: 3px solid #3498db; font-size: 1.3rem; text-align: center; outline: none; background: white; color: black; }
         .star-box { font-size: 1.8rem; color: #f1c40f; margin-bottom: 10px; }
 
         #victory-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050a18; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        
+        /* МУЗЫКА БАСТЫРМАСЫ */
+        #music-control { position: absolute; top: 10px; right: 10px; background: #2ecc71; border: none; color: white; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div class="sidebar">
+        <img src="96064.jpg" class="profile-img" alt="Aksana">
+        <h3>Тукубай кызы Аксана</h3>
+        <p style="margin: 0; font-size: 0.9rem;">English Teacher</p>
+        <div class="school-name">Кеңеш жалпы билим берүү орто мектеби мекемеси</div>
+        <hr style="width: 80%; border: 0.5px solid #f1c40f; margin: 20px 0;">
+        <div style="font-size: 0.8rem; opacity: 0.9; text-align: center;">
+            <p>Score Points ⭐</p>
+            <p>Win the Trophy 🏆</p>
+        </div>
+    </div>
+
     <div class="main-content">
+        <button id="music-control" onclick="toggleMusic()">🎵 Music: OFF</button>
+        
         <div id="home-screen">
             <h1 style="font-size: 2.5rem; margin-top: 50px;">English Battle Game</h1>
             <p>Теманы тандап, мелдешти баштаңыз!</p>
@@ -51,34 +71,23 @@
                     <div class="star-box">⭐ <span id="s1">0</span></div>
                     <img id="img1" class="q-img" src="">
                     <div id="q1" class="q-text"></div>
-                    <input type="text" id="in1" class="ans-input" autocomplete="off" placeholder="..." oninput="checkAns(1)">
+                    <input type="text" id="in1" class="ans-input" autocomplete="off" placeholder="Write here..." oninput="checkAns(1)">
                 </div>
                 <div class="arena">
                     <h2 id="t2-n" style="color:#3498db; margin:0;">TEAM 2</h2>
                     <div class="star-box">⭐ <span id="s2">0</span></div>
                     <img id="img2" class="q-img" src="">
                     <div id="q2" class="q-text"></div>
-                    <input type="text" id="in2" class="ans-input" autocomplete="off" placeholder="..." oninput="checkAns(2)">
+                    <input type="text" id="in2" class="ans-input" autocomplete="off" placeholder="Write here..." oninput="checkAns(2)">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="sidebar">
-        <img src="96064.jpg" class="profile-img" alt="Aksana">
-        <h3>Aksana</h3>
-        <p>English Teacher</p>
-        <hr style="width: 80%; border: 0.5px solid #f1c40f; margin: 20px 0;">
-        <div style="font-size: 0.7rem; opacity: 0.8;">
-            <p>Score Points</p>
-            <p>Win the Cup</p>
-        </div>
-    </div>
-
     <div id="victory-screen" class="hidden">
-        <h1 id="winner-tag" style="font-size: 4rem; color: #f1c40f;">WINNER!</h1>
-        <div style="font-size: 8rem;">🏆</div>
-        <button class="topic-btn" style="background:white; color:black; padding:15px 40px; margin-top:30px;" onclick="location.reload()">RESTART</button>
+        <h1 id="winner-tag" style="font-size: 3.5rem; color: #f1c40f;">WINNER!</h1>
+        <div style="font-size: 7rem; margin: 20px;">🏆</div>
+        <button class="topic-btn" style="background:white; color:black; padding:15px 40px;" onclick="location.reload()">RESTART GAME</button>
     </div>
 
     <audio id="bg-music" loop src="https://upload.wikimedia.org/wikipedia/commons/0/07/Kyrgyz_instrumental_music.mp3"></audio>
@@ -92,10 +101,9 @@
             {q:"Biggest land animal?", a:"elephant", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"}
         ],
         numbers: [
-            {q:"How many months in a year?", a:"twelve", i:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400"},
-            {q:"How many days in a week?", a:"seven", i:"https://images.unsplash.com/photo-1435527173128-983b87501f4d?w=400"},
-            {q:"How many seasons in a year?", a:"four", i:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400"},
-            {q:"How many minutes in 1 hour?", a:"sixty", i:"https://images.unsplash.com/photo-1508962914676-134849a727f0?w=400"}
+            {q:"Months in a year?", a:"twelve", i:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400"},
+            {q:"Days in a week?", a:"seven", i:"https://images.unsplash.com/photo-1435527173128-983b87501f4d?w=400"},
+            {q:"Minutes in 1 hour?", a:"sixty", i:"https://images.unsplash.com/photo-1508962914676-134849a727f0?w=400"}
         ],
         school: [
             {q:"You read it?", a:"book", i:"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400"},
@@ -107,6 +115,23 @@
     };
 
     let p1L = [], p2L = [], p1I = 0, p2I = 0, sc1 = 0, sc2 = 0;
+    let musicPlaying = false;
+
+    function toggleMusic() {
+        const music = document.getElementById('bg-music');
+        const btn = document.getElementById('music-control');
+        if (!musicPlaying) {
+            music.play();
+            btn.innerText = "🎵 Music: ON";
+            btn.style.background = "#e74c3c";
+            musicPlaying = true;
+        } else {
+            music.pause();
+            btn.innerText = "🎵 Music: OFF";
+            btn.style.background = "#2ecc71";
+            musicPlaying = false;
+        }
+    }
 
     function startBattle(topic) {
         let n1 = prompt("Team 1:", "LIONS");
@@ -119,8 +144,7 @@
         
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        document.getElementById('bg-music').play().catch(()=>{});
-
+        
         render(1); render(2);
     }
 
@@ -135,8 +159,8 @@
         
         const input = document.getElementById('in' + p);
         input.value = "";
-        // Подсказканы өчүрүү үчүн динамикалык ат берилет
-        input.setAttribute('name', 'field_' + Math.random());
+        input.setAttribute('name', 'f_' + Math.random());
+        input.focus();
     }
 
     function checkAns(p) {
@@ -161,7 +185,18 @@
             let win = sc1 > sc2 ? document.getElementById('t1-n').innerText : (sc2 > sc1 ? document.getElementById('t2-n').innerText : "TIE");
             document.getElementById('winner-tag').innerText = win + " WINS!";
             
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            // Салют эффект
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
         }
     }
 </script>
