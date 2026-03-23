@@ -3,57 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aksana Tukubai kyzy - English Battle Mega</title>
+    <title>Aksana Tukubai kyzy - English Battle</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #0b0e23; color: white; text-align: center; margin: 0; padding: 10px; overflow-x: hidden; }
-        .hidden { display: none; }
-        
-        /* ВИЗИТКА */
-        .profile-container { background: rgba(255, 255, 255, 0.05); padding: 30px 20px; border-radius: 30px; max-width: 700px; margin: 15px auto; border: 2px solid #f1c40f; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #f1c40f; object-fit: cover; margin-bottom: 15px; }
+        .hidden { display: none !important; }
+        .profile-container { background: rgba(255, 255, 255, 0.05); padding: 30px 20px; border-radius: 30px; max-width: 700px; margin: 15px auto; border: 2px solid #f1c40f; }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #f1c40f; object-fit: cover; }
         .teacher-name { font-size: 2rem; color: #f1c40f; margin: 5px 0; font-weight: 800; }
-        .teacher-info { font-size: 1.1rem; color: #ecf0f1; margin-bottom: 15px; }
-        .ai-tag { display: inline-block; background: linear-gradient(135deg, #6c5ce7, #00cec9); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; }
-
-        /* МЕНЮ */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 700px; margin: 20px auto; }
-        .topic-card { background: #1e3799; padding: 25px; border-radius: 20px; cursor: pointer; font-size: 1.2rem; font-weight: bold; border: 3px solid #4a69bd; transition: 0.3s; box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
-        .topic-card:hover { transform: translateY(-5px); border-color: #f1c40f; background: #0c2461; }
-
-        /* ОЮН ТАЛААСЫ */
+        .topic-card { background: #1e3799; padding: 25px; border-radius: 20px; cursor: pointer; font-size: 1.2rem; font-weight: bold; border: 3px solid #4a69bd; transition: 0.3s; }
         .battle-header { display: flex; justify-content: space-around; margin-bottom: 10px; }
         .team { width: 44%; padding: 10px; border-radius: 15px; background: #161e3d; border: 2px solid #333; }
-        .active-team { border: 3px solid #f1c40f; box-shadow: 0 0 15px #f1c40f; transform: scale(1.03); }
-        .score-bar { width: 100%; background: #222; height: 12px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
+        .active-team { border: 3px solid #f1c40f; box-shadow: 0 0 15px #f1c40f; }
+        .score-bar { width: 100%; background: #222; height: 12px; border-radius: 10px; overflow: hidden; }
         .fill { width: 0%; height: 100%; transition: 0.5s; }
         .game-img { width: 90%; max-width: 380px; height: 230px; border-radius: 20px; object-fit: cover; border: 4px solid white; margin: 15px 0; }
         .question-box { background: white; color: #111; padding: 18px; border-radius: 15px; width: 90%; max-width: 600px; margin: 0 auto 15px; font-size: 1.3rem; font-weight: bold; }
-        .spelling-input { width: 80%; max-width: 380px; padding: 12px; font-size: 1.5rem; border-radius: 10px; border: 3px solid #3498db; text-align: center; outline: none; }
-        .submit-btn { background: #2ecc71; color: white; border: none; padding: 12px 35px; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold; margin-top: 10px; }
-
-        /* ЖЕҢИШ ЭКРАНЫ */
+        .spelling-input { width: 80%; max-width: 380px; padding: 12px; font-size: 1.5rem; border-radius: 10px; text-align: center; }
+        .submit-btn { background: #2ecc71; color: white; border: none; padding: 12px 35px; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
         #victory-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1e3799, #0b0e23); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .winner-name { font-size: 3.5rem; color: #f1c40f; text-shadow: 0 0 25px #f1c40f; }
-        .star { position: fixed; color: #f1c40f; font-size: 2rem; pointer-events: none; animation: fly 1.5s forwards; }
-        @keyframes fly { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(2) translateY(-600px); opacity: 0; } }
     </style>
 </head>
 <body>
-
     <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
     <audio id="win-music" src="https://actions.google.com/sounds/v1/human_voices/applause.ogg"></audio>
 
     <div id="home-screen">
         <div class="profile-container">
-            <img src="96064.jpg" class="profile-img" alt="Aksana">
+            <img src="96064.jpg.jpeg" class="profile-img" alt="Aksana">
             <div class="teacher-name">Тукубай кызы Аксана</div>
-            <div class="teacher-info">
-                🌍 Англис тили мугалими <br>
-                🏫 Кеңеш жалпы билим берүү мектеби мекемеси
-            </div>
-            <div class="ai-tag">🤖 Gemini AI жардамы менен түзүлдү</div>
+            <p>English Teacher | Kenesh School</p>
         </div>
-        <h2 style="color: #f1c40f; margin-bottom: 20px;">SELECT TOPIC / ТЕМАНЫ ТАНДАҢЫЗ:</h2>
         <div class="menu-grid">
             <div class="topic-card" onclick="startBattle('family')">👨‍👩‍👧‍👦 FAMILY</div>
             <div class="topic-card" onclick="startBattle('animals')" style="background: #e74c3c;">🦁 ANIMALS</div>
@@ -66,143 +46,73 @@
 
     <div id="battle-screen" class="hidden">
         <div class="battle-header">
-            <div id="team-1" class="team active-team"><h2 id="name-1" style="margin:0;">T1</h2><div class="score-bar"><div id="fill-1" class="fill" style="background: #e74c3c;"></div></div><p id="txt-1" style="font-size:1.3rem; margin:0;">0</p></div>
-            <div id="team-2" class="team"><h2 id="name-2" style="margin:0;">T2</h2><div class="score-bar"><div id="fill-2" class="fill" style="background: #3498db;"></div></div><p id="txt-2" style="font-size:1.3rem; margin:0;">0</p></div>
+            <div id="team-1" class="team active-team"><h2 id="name-1">T1</h2><div class="score-bar"><div id="fill-1" class="fill" style="background: #e74c3c;"></div></div><p id="txt-1">0</p></div>
+            <div id="team-2" class="team"><h2 id="name-2">T2</h2><div class="score-bar"><div id="fill-2" class="fill" style="background: #3498db;"></div></div><p id="txt-2">0</p></div>
         </div>
         <img src="" id="display-img" class="game-img">
         <div class="question-box" id="display-q"></div>
         <input type="text" id="answer-input" class="spelling-input" placeholder="...">
-        <br>
-        <button class="submit-btn" onclick="submitAnswer()">SUBMIT</button>
+        <br><button class="submit-btn" onclick="submitAnswer()">SUBMIT</button>
     </div>
 
     <div id="victory-screen" class="hidden">
-        <h1 style="font-size: 80px; margin: 0;">🏆</h1>
-        <div class="winner-name" id="winner-text"></div>
+        <h1 style="font-size: 80px;">🏆</h1>
+        <div id="winner-text" style="font-size: 3rem; color: #f1c40f;"></div>
         <button class="submit-btn" onclick="location.reload()">RESTART</button>
     </div>
 
 <script>
     const database = {
-        family: [
-            { q: "Head of the family?", a: "father", img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500" },
-            { q: "Kindest person?", a: "mother", img: "https://images.unsplash.com/photo-1510154221590-ff63e90a136f?w=500" },
-            { q: "Son of your parents?", a: "brother", img: "https://images.unsplash.com/photo-1543132220-4bf3de6e10ae?w=500" },
-            { q: "Daughter of your parents?", a: "sister", img: "https://images.unsplash.com/photo-1513159419869-1d42a6e9704e?w=500" },
-            { q: "Father's brother?", a: "uncle", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500" },
-            { q: "Mother's sister?", a: "aunt", img: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500" },
-            { q: "Father's father?", a: "grandfather", img: "https://images.unsplash.com/photo-1542610118-2e0f46c31043?w=500" },
-            { q: "Mother's mother?", a: "grandmother", img: "https://images.unsplash.com/photo-1533420108341-396599661502?w=500" },
-            { q: "A small child?", a: "baby", img: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500" },
-            { q: "Your family group?", a: "family", img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500" }
-        ],
-        animals: [
-            { q: "King of the jungle?", a: "lion", img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=500" },
-            { q: "Has a very long neck?", a: "giraffe", img: "https://images.unsplash.com/photo-1547721064-3625b669fa95?w=500" },
-            { q: "Man's best friend?", a: "dog", img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500" },
-            { q: "Likes to catch mice?", a: "cat", img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" },
-            { q: "Big animal with trunk?", a: "elephant", img: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=500" },
-            { q: "Gives us milk?", a: "cow", img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=500" },
-            { q: "Hops and likes carrots?", a: "rabbit", img: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=500" },
-            { q: "Lives in water?", a: "fish", img: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=500" },
-            { q: "Smartest sea animal?", a: "dolphin", img: "https://images.unsplash.com/photo-1607335614551-3062bf90f30e?w=500" },
-            { q: "Forest animal with horns?", a: "deer", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?w=500" }
-        ],
-        clothes: [
-            { q: "On your head?", a: "hat", img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8?w=500" },
-            { q: "On your feet?", a: "socks", img: "https://images.unsplash.com/photo-1582966298431-99c6a1e8d44c?w=500" },
-            { q: "For rainy days?", a: "boots", img: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=500" },
-            { q: "Girls' party wear?", a: "dress", img: "https://images.unsplash.com/photo-1515343483170-f44d85041f2a?w=500" },
-            { q: "Keeps you warm?", a: "coat", img: "https://images.unsplash.com/photo-1539533318053-1ed746927b3d?w=500" },
-            { q: "Sports shoes?", a: "sneakers", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" },
-            { q: "Wear them on legs?", a: "trousers", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
-            { q: "Men's formal wear?", a: "shirt", img: "https://images.unsplash.com/photo-1596755094514-f87034a26cc1?w=500" },
-            { q: "Wear it on a T-shirt?", a: "jacket", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" },
-            { q: "Winter hand wear?", a: "gloves", img: "https://images.unsplash.com/photo-1543393235-9032644265bc?w=500" }
-        ],
-        food: [
-            { q: "Red fruit?", a: "apple", img: "https://images.unsplash.com/photo-1560806887-1e47018ca0a5?w=500" },
-            { q: "Yellow long fruit?", a: "banana", img: "https://images.unsplash.com/photo-1571771894821-ad99024107b8?w=500" },
-            { q: "Orange vegetable?", a: "carrot", img: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500" },
-            { q: "White liquid?", a: "milk", img: "https://images.unsplash.com/photo-1563636619-e9107da5a1bb?w=500" },
-            { q: "Cold dessert?", a: "icecream", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500" },
-            { q: "Baked from flour?", a: "bread", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500" },
-            { q: "Chicken gives us?", a: "egg", img: "https://images.unsplash.com/photo-1582722134903-b1299d211ffe?w=500" },
-            { q: "Bees make this?", a: "honey", img: "https://images.unsplash.com/photo-1587049633562-ad3025605c48?w=500" },
-            { q: "Round Italian food?", a: "pizza", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
-            { q: "Sweet fruit with seeds?", a: "watermelon", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500" }
-        ],
-        school: [
-            { q: "Who teaches?", a: "teacher", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500" },
-            { q: "Where you study?", a: "school", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" },
-            { q: "You read this?", a: "book", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500" },
-            { q: "You write with?", a: "pen", img: "https://images.unsplash.com/photo-1585336261022-69c6e29ce53b?w=500" },
-            { q: "Your bag?", a: "backpack", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500" },
-            { q: "You sit on it?", a: "chair", img: "https://images.unsplash.com/photo-1503602642458-232111445657?w=500" },
-            { q: "You write on it?", a: "desk", img: "https://images.unsplash.com/photo-1518655061766-4825d10c267a?w=500" },
-            { q: "Use it for straight lines?", a: "ruler", img: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=500" },
-            { q: "Teacher writes on it?", a: "board", img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500" },
-            { q: "Electronic computer?", a: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" }
-        ],
-        colors: [
-            { q: "Color of the sun?", a: "yellow", img: "https://images.unsplash.com/photo-1585127623106-4852c4b8e03d?w=500" },
-            { q: "Color of the sky?", a: "blue", img: "https://images.unsplash.com/photo-1501635316140-57502e48270b?w=500" },
-            { q: "Color of grass?", a: "green", img: "https://images.unsplash.com/photo-1524169358666-79f22534bc6e?w=500" },
-            { q: "Color of an apple?", a: "red", img: "https://images.unsplash.com/photo-1550592704-6c76defa9985?w=500" },
-            { q: "Color of an orange?", a: "orange", img: "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=500" },
-            { q: "Color of a pig?", a: "pink", img: "https://images.unsplash.com/photo-1596733430284-f7437764b1a9?w=500" },
-            { q: "Color of snow?", a: "white", img: "https://images.unsplash.com/photo-1418985991508-e473a3d7f381?w=500" },
-            { q: "Color of night?", a: "black", img: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=500" },
-            { q: "Color of chocolate?", a: "brown", img: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=500" },
-            { q: "Color of a grape?", a: "purple", img: "https://images.unsplash.com/photo-1533604195573-0972418a8039?w=500" }
-        ]
+        family: [{ q: "Head of the family?", a: "father", img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500" }, { q: "Kindest person?", a: "mother", img: "https://images.unsplash.com/photo-1510154221590-ff63e90a136f?w=500" }, { q: "Son of your parents?", a: "brother", img: "https://images.unsplash.com/photo-1543132220-4bf3de6e10ae?w=500" }, { q: "Daughter of your parents?", a: "sister", img: "https://images.unsplash.com/photo-1513159419869-1d42a6e9704e?w=500" }, { q: "Father's brother?", a: "uncle", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500" }, { q: "Mother's sister?", a: "aunt", img: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500" }, { q: "Father's father?", a: "grandfather", img: "https://images.unsplash.com/photo-1542610118-2e0f46c31043?w=500" }, { q: "Mother's mother?", a: "grandmother", img: "https://images.unsplash.com/photo-1533420108341-396599661502?w=500" }, { q: "A small child?", a: "baby", img: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500" }, { q: "Your family group?", a: "family", img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500" }],
+        animals: [{ q: "King of the jungle?", a: "lion", img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=500" }, { q: "Very long neck?", a: "giraffe", img: "https://images.unsplash.com/photo-1547721064-3625b669fa95?w=500" }, { q: "Man's best friend?", a: "dog", img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500" }, { q: "Likes to catch mice?", a: "cat", img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" }, { q: "Big animal with trunk?", a: "elephant", img: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=500" }, { q: "Gives us milk?", a: "cow", img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=500" }, { q: "Hops and likes carrots?", a: "rabbit", img: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=500" }, { q: "Lives in water?", a: "fish", img: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=500" }, { q: "Smartest sea animal?", a: "dolphin", img: "https://images.unsplash.com/photo-1607335614551-3062bf90f30e?w=500" }, { q: "Forest animal with horns?", a: "deer", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?w=500" }],
+        clothes: [{ q: "On your head?", a: "hat", img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8?w=500" }, { q: "On your feet?", a: "socks", img: "https://images.unsplash.com/photo-1582966298431-99c6a1e8d44c?w=500" }, { q: "For rainy days?", a: "boots", img: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=500" }, { q: "Girls' party wear?", a: "dress", img: "https://images.unsplash.com/photo-1515343483170-f44d85041f2a?w=500" }, { q: "Keeps you warm?", a: "coat", img: "https://images.unsplash.com/photo-1539533318053-1ed746927b3d?w=500" }, { q: "Sports shoes?", a: "sneakers", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" }, { q: "Wear them on legs?", a: "trousers", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" }, { q: "Men's formal wear?", a: "shirt", img: "https://images.unsplash.com/photo-1596755094514-f87034a26cc1?w=500" }, { q: "Wear it on T-shirt?", a: "jacket", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" }, { q: "Winter hand wear?", a: "gloves", img: "https://images.unsplash.com/photo-1543393235-9032644265bc?w=500" }],
+        food: [{ q: "Red fruit?", a: "apple", img: "https://images.unsplash.com/photo-1560806887-1e47018ca0a5?w=500" }, { q: "Yellow long fruit?", a: "banana", img: "https://images.unsplash.com/photo-1571771894821-ad99024107b8?w=500" }, { q: "Orange vegetable?", a: "carrot", img: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500" }, { q: "White liquid?", a: "milk", img: "https://images.unsplash.com/photo-1563636619-e9107da5a1bb?w=500" }, { q: "Cold dessert?", a: "icecream", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500" }, { q: "Baked from flour?", a: "bread", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500" }, { q: "Chicken gives us?", a: "egg", img: "https://images.unsplash.com/photo-1582722134903-b1299d211ffe?w=500" }, { q: "Bees make this?", a: "honey", img: "https://images.unsplash.com/photo-1587049633562-ad3025605c48?w=500" }, { q: "Round Italian food?", a: "pizza", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" }, { q: "Sweet with seeds?", a: "watermelon", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500" }],
+        school: [{ q: "Who teaches?", a: "teacher", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500" }, { q: "Where you study?", a: "school", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" }, { q: "You read this?", a: "book", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500" }, { q: "You write with?", a: "pen", img: "https://images.unsplash.com/photo-1585336261022-69c6e29ce53b?w=500" }, { q: "Your bag?", a: "backpack", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500" }, { q: "You sit on it?", a: "chair", img: "https://images.unsplash.com/photo-1503602642458-232111445657?w=500" }, { q: "You write on it?", a: "desk", img: "https://images.unsplash.com/photo-1518655061766-4825d10c267a?w=500" }, { q: "For straight lines?", a: "ruler", img: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=500" }, { q: "Teacher writes on?", a: "board", img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500" }, { q: "Electronic computer?", a: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" }],
+        colors: [{ q: "Color of the sun?", a: "yellow", img: "https://images.unsplash.com/photo-1585127623106-4852c4b8e03d?w=500" }, { q: "Color of the sky?", a: "blue", img: "https://images.unsplash.com/photo-1501635316140-57502e48270b?w=500" }, { q: "Color of grass?", a: "green", img: "https://images.unsplash.com/photo-1524169358666-79f22534bc6e?w=500" }, { q: "Color of an apple?", a: "red", img: "https://images.unsplash.com/photo-1550592704-6c76defa9985?w=500" }, { q: "Color of an orange?", a: "orange", img: "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=500" }, { q: "Color of a pig?", a: "pink", img: "https://images.unsplash.com/photo-1596733430284-f7437764b1a9?w=500" }, { q: "Color of snow?", a: "white", img: "https://images.unsplash.com/photo-1418985991508-e473a3d7f381?w=500" }, { q: "Color of night?", a: "black", img: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=500" }, { q: "Color of chocolate?", a: "brown", img: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=500" }, { q: "Color of a grape?", a: "purple", img: "https://images.unsplash.com/photo-1533604195573-0972418a8039?w=500" }]
     };
 
     let currentList = [], step = 0, score1 = 0, score2 = 0, isLions = true, t1 = "LIONS", t2 = "EAGLES";
 
     function startBattle(topic) {
-        const n1 = prompt("1-Команданын аты:", "LIONS");
-        const n2 = prompt("2-Команданын аты:", "EAGLES");
+        const n1 = prompt("1-Team Name:", "LIONS");
+        const n2 = prompt("2-Team Name:", "EAGLES");
         if(n1) t1 = n1.toUpperCase(); if(n2) t2 = n2.toUpperCase();
         document.getElementById('name-1').innerText = t1;
         document.getElementById('name-2').innerText = t2;
         document.getElementById('bg-music').play();
-        document.getElementById('bg-music').volume = 0.2;
         currentList = database[topic];
         step = 0; score1 = 0; score2 = 0; isLions = true;
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        updateUI(); loadNext();
+        loadNext();
     }
 
     function loadNext() {
         if (step >= currentList.length) { showVictory(); return; }
         const cur = currentList[step];
         const active = isLions ? t1 : t2;
-        document.getElementById('display-q').innerHTML = `<span style="color:${isLions?'#e74c3c':'#3498db'}">${active}:</span> ${cur.q}`;
+        document.getElementById('display-q').innerHTML = active + ": " + cur.q;
         document.getElementById('display-img').src = cur.img;
         document.getElementById('answer-input').value = "";
         document.getElementById('answer-input').focus();
-        speak(active + ", " + cur.q);
     }
 
     function submitAnswer() {
         if (document.getElementById('answer-input').value.trim().toLowerCase() === currentList[step].a) {
-            celebrate(); speak("Correct!");
             if(isLions) score1++; else score2++;
-        } else { speak("Incorrect. It was " + currentList[step].a); }
+        }
         step++; isLions = !isLions;
         updateUI();
-        setTimeout(loadNext, 1200);
+        loadNext();
     }
 
     function updateUI() {
-        document.getElementById('fill-1').style.width = (score1 / (currentList.length/2)) * 100 + "%";
-        document.getElementById('fill-2').style.width = (score2 / (currentList.length/2)) * 100 + "%";
         document.getElementById('txt-1').innerText = score1;
         document.getElementById('txt-2').innerText = score2;
-        document.getElementById('team-1').className = isLions ? "team active-team" : "team";
-        document.getElementById('team-2').className = !isLions ? "team active-team" : "team";
+        document.getElementById('fill-1').style.width = (score1 / (currentList.length/2)) * 100 + "%";
+        document.getElementById('fill-2').style.width = (score2 / (currentList.length/2)) * 100 + "%";
+        document.getElementById('team-1').classList.toggle('active-team', isLions);
+        document.getElementById('team-2').classList.toggle('active-team', !isLions);
     }
 
     function showVictory() {
@@ -212,25 +122,7 @@
         document.getElementById('victory-screen').classList.remove('hidden');
         let win = score1 > score2 ? t1 : (score2 > score1 ? t2 : "TIE");
         document.getElementById('winner-text').innerText = win + " WINS!";
-        speak("Congratulations! " + win + " wins the battle!");
-        setInterval(celebrate, 600);
     }
-
-    function celebrate() {
-        for(let i=0; i<15; i++) {
-            let s = document.createElement('div'); s.className = 'star'; s.innerHTML = '⭐';
-            s.style.left = Math.random() * 100 + "vw"; s.style.top = Math.random() * 100 + "vh";
-            document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
-        }
-    }
-
-    function speak(t) {
-        window.speechSynthesis.cancel();
-        let m = new SpeechSynthesisUtterance(t); m.lang = 'en-US';
-        window.speechSynthesis.speak(m);
-    }
-
-    document.getElementById('answer-input').addEventListener("keypress", (e) => { if(e.key === "Enter") submitAnswer(); });
 </script>
 </body>
 </html>
