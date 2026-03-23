@@ -3,104 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Universe - Kenesh Education School</title>
+    <title>English Universe - Teacher Aksana</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --blue: #1e3799; --red: #e74c3c; --green: #2ecc71; --purple: #8e44ad; }
         body { font-family: 'Arial Black', sans-serif; background: #020617; color: white; margin: 0; overflow: hidden; }
-        
         .sidebar { width: 260px; background: linear-gradient(180deg, var(--blue), #0c2461); border-right: 4px solid var(--gold); height: 100vh; float: left; display: flex; flex-direction: column; align-items: center; padding: 20px; box-sizing: border-box; }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 0 20px var(--gold); }
-        .school-info { font-size: 0.8rem; text-align: center; color: var(--gold); margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; width: 100%; }
-
-        .main-stage { margin-left: 260px; height: 100vh; position: relative; overflow-y: auto; }
+        .profile-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid white; object-fit: cover; box-shadow: 0 0 15px var(--gold); }
+        .main-stage { margin-left: 260px; height: 100vh; position: relative; overflow-y: auto; background: #050c1f; }
         .hidden { display: none !important; }
-
-        /* CATEGORY SECTIONS */
-        .section-title { text-align: center; color: var(--gold); font-size: 1.8rem; margin: 30px 0 15px 0; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--gold); display: inline-block; padding: 0 20px; }
-        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 0 40px 40px 40px; }
-        .topic-btn { padding: 20px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px #000; font-size: 0.9rem; }
-        .topic-btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
-
-        /* BATTLE ELEMENTS */
-        .timer-box { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; }
-        .timer-svg { transform: rotate(-90deg); width: 80px; height: 80px; }
-        .timer-circle { fill: none; stroke: var(--gold); stroke-width: 6; stroke-dasharray: 251; stroke-dashoffset: 0; transition: 0.1s linear; }
-        .battle-zone { display: flex; justify-content: space-around; align-items: center; height: 85vh; padding: 20px; }
-        .arena { width: 46%; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 20px; border: 2px solid var(--gold); text-align: center; }
-        .q-img { width: 100%; height: 200px; border-radius: 20px; object-fit: cover; border: 2px solid #fff; margin-bottom: 10px; }
-        .ans-in { width: 85%; padding: 15px; border-radius: 12px; font-size: 1.8rem; text-align: center; border: none; outline: none; }
+        .section-title { text-align: center; color: var(--gold); font-size: 1.4rem; margin: 15px 0; text-transform: uppercase; border-bottom: 2px solid var(--gold); display: inline-block; padding: 0 10px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 25px 25px 25px; }
+        .topic-btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.75rem; box-shadow: 0 4px #000; }
+        .topic-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        .timer-box { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 70px; height: 70px; z-index: 5; }
+        .timer-svg { transform: rotate(-90deg); width: 70px; height: 70px; }
+        .timer-circle { fill: none; stroke: var(--gold); stroke-width: 6; stroke-dasharray: 220; stroke-dashoffset: 0; transition: 0.1s linear; }
+        .battle-zone { display: flex; justify-content: space-around; align-items: center; height: 85vh; padding: 0 15px; }
+        .arena { width: 47%; background: rgba(255,255,255,0.05); border-radius: 25px; padding: 20px; border: 2px solid var(--gold); text-align: center; }
+        .q-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; border: 2px solid #fff; margin-bottom: 10px; background: #000; }
+        .ans-in { width: 90%; padding: 12px; border-radius: 10px; font-size: 1.6rem; text-align: center; border: none; outline: none; font-weight: bold; }
+        #win-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, var(--blue), #000); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; }
+        .winner-anim { animation: blink 0.5s infinite alternate; }
+        @keyframes blink { from { opacity: 1; transform: scale(1); } to { opacity: 0.7; transform: scale(1.1); } }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <img src="96064.jpg" class="profile-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/194/194931.png'">
-        <h3 style="margin: 15px 0; text-align: center;">Tukubai kyzy Aksana</h3>
-        <p style="color: var(--gold);">English Teacher</p>
-        <div class="school-info">Kenesh Education School</div>
+        <h3 style="margin: 10px 0; text-align: center; font-size: 0.9rem;">Tukubai kyzy Aksana</h3>
+        <p style="color: var(--gold); font-size: 0.7rem;">English Teacher</p>
+        <div style="font-size: 0.7rem; color: white; margin-top: auto;">Kenesh Education School</div>
     </div>
 
     <div class="main-stage">
         <div id="home-screen">
-            <h1 style="text-align: center; font-size: 3rem; color: var(--gold); padding-top: 30px; margin-bottom: 0;">ENGLISH UNIVERSE</h1>
+            <h1 style="text-align: center; font-size: 2.5rem; color: var(--gold); margin: 20px 0;">ENGLISH UNIVERSE</h1>
             
-            <center><div class="section-title">📘 Vocabulary</div></center>
+            <center><div class="section-title">📘 Vocabulary (15+ Q)</div></center>
             <div class="menu-grid">
                 <button class="topic-btn" style="background:#e67e22" onclick="start('animals')">🦁 ANIMALS</button>
                 <button class="topic-btn" style="background:#3498db" onclick="start('food')">🍔 FOOD</button>
                 <button class="topic-btn" style="background:#2ecc71" onclick="start('school')">📚 SCHOOL</button>
                 <button class="topic-btn" style="background:#f1c40f; color:#000" onclick="start('family')">👪 FAMILY</button>
-                <button class="topic-btn" style="background:#e74c3c" onclick="start('body')">👃 BODY</button>
-                <button class="topic-btn" style="background:#1abc9c" onclick="start('colors')">🎨 COLORS</button>
-                <button class="topic-btn" style="background:#9b59b6" onclick="start('clothes')">👕 CLOTHES</button>
-                <button class="topic-btn" style="background:#34495e" onclick="start('opposites')">↔️ OPPOSITES</button>
             </div>
 
-            <center><div class="section-title">📝 Grammar</div></center>
+            <center><div class="section-title">📝 Grammar (15+ Q)</div></center>
             <div class="menu-grid">
-                <button class="topic-btn" style="background:var(--purple)" onclick="start('tobe')">✏️ TO BE</button>
-                <button class="topic-btn" style="background:#d35400" onclick="start('present_perfect')">📌 PRES. PERFECT</button>
-                <button class="topic-btn" style="background:#27ae60" onclick="start('past_simple')">🕒 PAST SIMPLE</button>
-                <button class="topic-btn" style="background:#c0392b" onclick="start('modals')">⚡ MODAL VERBS</button>
-                <button class="topic-btn" style="background:#2980b9" onclick="start('comparison')">📏 COMPARISON</button>
-                <button class="topic-btn" style="background:#16a085" onclick="start('havegot')">💎 HAVE GOT</button>
-                <button class="topic-btn" style="background:#8e44ad" onclick="start('plural')">👥 PLURAL FORMS</button>
-                <button class="topic-btn" style="background:#7f8c8d" onclick="start('past_cont')">🔄 PAST CONT.</button>
+                <button class="topic-btn" style="background:var(--purple)" onclick="start('present_perfect')">📌 PRES. PERFECT</button>
+                <button class="topic-btn" style="background:#d35400" onclick="start('past_simple')">🕒 PAST SIMPLE</button>
+                <button class="topic-btn" style="background:#27ae60" onclick="start('modals')">⚡ MODALS</button>
+                <button class="topic-btn" style="background:#c0392b" onclick="start('comparison')">📏 COMPARISON</button>
             </div>
         </div>
 
         <div id="battle-screen" class="hidden">
             <div class="timer-box">
-                <svg class="timer-svg"><circle class="timer-circle" cx="40" cy="40" r="36"></circle></svg>
+                <svg class="timer-svg"><circle class="timer-circle" cx="35" cy="35" r="32"></circle></svg>
             </div>
             <div class="battle-zone">
                 <div class="arena">
-                    <h2 style="color:var(--red);">LIONS ⭐ <span id="s1">0</span></h2>
+                    <h2 style="color:var(--red);">LIONS: <span id="s1">0</span></h2>
                     <img id="img1" class="q-img" src="">
-                    <div id="txt1" style="font-size:1.2rem; margin-bottom:15px;"></div>
-                    <input type="text" id="in1" class="ans-in" oninput="check(1)" placeholder="Type..." autocomplete="off">
+                    <p id="txt1" style="min-height:40px; font-size:1rem;"></p>
+                    <input type="text" id="in1" class="ans-in" oninput="check(1)" autocomplete="off">
                 </div>
                 <div class="arena">
-                    <h2 style="color:#3498db;">EAGLES ⭐ <span id="s2">0</span></h2>
+                    <h2 style="color:#3498db;">EAGLES: <span id="s2">0</span></h2>
                     <img id="img2" class="q-img" src="">
-                    <div id="txt2" style="font-size:1.2rem; margin-bottom:15px;"></div>
-                    <input type="text" id="in2" class="ans-in" oninput="check(2)" placeholder="Type..." autocomplete="off">
+                    <p id="txt2" style="min-height:40px; font-size:1rem;"></p>
+                    <input type="text" id="in2" class="ans-in" oninput="check(2)" autocomplete="off">
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="win-screen" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, var(--blue), #000); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:100;">
-        <h1 id="winner-txt" style="font-size:5rem; color:var(--gold);">WINNER!</h1>
-        <button style="padding:20px 50px; border-radius:50px; cursor:pointer;" onclick="location.reload()">RESTART</button>
+    <div id="win-screen" class="hidden">
+        <div style="font-size: 8rem;">🏆</div>
+        <h1 id="winner-txt" class="winner-anim" style="font-size: 4rem; color: var(--gold);">WINNER!</h1>
+        <button style="padding: 15px 40px; font-size: 1.2rem; cursor: pointer; border-radius: 30px; background: white; border: none; font-weight: bold; margin-top: 20px;" onclick="location.reload()">PLAY AGAIN</button>
     </div>
+
+    <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
+    <audio id="win-sound" src="https://actions.google.com/sounds/v1/human_voices/crowd_cheer.ogg"></audio>
+    <audio id="win-music" src="https://actions.google.com/sounds/v1/impacts/crash_metal.ogg"></audio>
 
 <script>
     const database = {
-        animals: [{q:"lion", t:"The king of jungle", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"}],
-        tobe: [{q:"is", t:"He ___ a teacher.", i:"https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?w=300"}],
-        // ... Калган маалыматтарды ушул жерге кошуп койсоңуз болот
+        animals: [
+            {q:"lion", t:"King of the jungle", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"},
+            {q:"elephant", t:"Has a long trunk", i:"https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?w=300"},
+            {q:"giraffe", t:"Very long neck", i:"https://images.pexels.com/photos/806441/pexels-photo-806441.jpeg?w=300"},
+            {q:"monkey", t:"Loves bananas", i:"https://images.pexels.com/photos/110820/pexels-photo-110820.jpeg?w=300"},
+            {q:"tiger", t:"Big cat with stripes", i:"https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg?w=300"},
+            {q:"rabbit", t:"Eats carrots", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=300"},
+            {q:"snake", t:"Long body, no legs", i:"https://images.pexels.com/photos/1108192/pexels-photo-1108192.jpeg?w=300"},
+            {q:"zebra", t:"Black and white stripes", i:"https://images.pexels.com/photos/1054655/pexels-photo-1054655.jpeg?w=300"},
+            {q:"bear", t:"Loves honey", i:"https://images.pexels.com/photos/35435/pexels-photo-35435.jpeg?w=300"},
+            {q:"fox", t:"Red and clever", i:"https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?w=300"},
+            {q:"penguin", t:"Lives in ice, can't fly", i:"https://images.pexels.com/photos/52509/penguins-antarctica-snow-ice-52509.jpeg?w=300"},
+            {q:"panda", t:"Eats bamboo", i:"https://images.pexels.com/photos/3608263/pexels-photo-3608263.jpeg?w=300"},
+            {q:"wolf", t:"Howls at night", i:"https://images.pexels.com/photos/158441/wolf-wolf-pack-lupus-canis-lupus-158441.jpeg?w=300"},
+            {q:"kangaroo", t:"Jumps in Australia", i:"https://images.pexels.com/photos/63632/kangaroo-australia-outback-nature-63632.jpeg?w=300"},
+            {q:"crocodile", t:"Big teeth, lives in rivers", i:"https://images.pexels.com/photos/1424430/pexels-photo-1424430.jpeg?w=300"},
+            {q:"cow", t:"Gives us milk", i:"https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?w=300"}
+        ],
+        food: [
+            {q:"pizza", t:"Italian flat bread", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=300"},
+            {q:"apple", t:"Red healthy fruit", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=300"},
+            {q:"burger", t:"Meat in a bun", i:"https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?w=300"},
+            {q:"banana", t:"Long yellow fruit", i:"https://images.pexels.com/photos/2870882/pexels-photo-2870882.jpeg?w=300"},
+            {q:"cake", t:"Sweet for birthdays", i:"https://images.pexels.com/photos/1126354/pexels-photo-1126354.jpeg?w=300"},
+            {q:"milk", t:"White drink from cows", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=300"},
+            {q:"egg", t:"Chicken gives us this", i:"https://images.pexels.com/photos/162712/egg-white-food-protein-162712.jpeg?w=300"},
+            {q:"bread", t:"Baked dough", i:"https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?w=300"},
+            {q:"orange", t:"Juicy orange fruit", i:"https://images.pexels.com/photos/207085/pexels-photo-207085.jpeg?w=300"},
+            {q:"fish", t:"Lives in water", i:"https://images.pexels.com/photos/2290070/pexels-photo-2290070.jpeg?w=300"},
+            {q:"cheese", t:"Yellow and salty", i:"https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?w=300"},
+            {q:"ice cream", t:"Cold and sweet", i:"https://images.pexels.com/photos/1362534/pexels-photo-1362534.jpeg?w=300"},
+            {q:"carrot", t:"Orange vegetable", i:"https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?w=300"},
+            {q:"potato", t:"We make chips from it", i:"https://images.pexels.com/photos/144248/pexels-photo-144248.jpeg?w=300"},
+            {q:"honey", t:"Made by bees", i:"https://images.pexels.com/photos/34299/honey-bee-sweet-food.jpg?w=300"}
+        ],
+        present_perfect: [
+            {q:"seen", t:"I have ____ (see) it.", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=300"},
+            {q:"written", t:"She has ____ (write) it.", i:"https://images.pexels.com/photos/210661/pexels-photo-210661.jpeg?w=300"},
+            {q:"broken", t:"He has ____ (break) the cup.", i:"https://images.pexels.com/photos/5202925/pexels-photo-5202925.jpeg?w=300"},
+            {q:"gone", t:"They have ____ (go) out.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=300"},
+            {q:"drunk", t:"I have ____ (drink) tea.", i:"https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?w=300"},
+            {q:"eaten", t:"We have ____ (eat) lunch.", i:"https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?w=300"},
+            {q:"slept", t:"You have ____ (sleep) long.", i:"https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?w=300"},
+            {q:"bought", t:"She has ____ (buy) milk.", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=300"},
+            {q:"done", t:"I have ____ (do) my task.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=300"},
+            {q:"lost", t:"He has ____ (lose) keys.", i:"https://images.pexels.com/photos/101808/pexels-photo-101808.jpeg?w=300"},
+            {q:"given", t:"They have ____ (give) money.", i:"https://images.pexels.com/photos/264787/pexels-photo-264787.jpeg?w=300"},
+            {q:"known", t:"We have ____ (know) him.", i:"https://images.pexels.com/photos/459466/pexels-photo-459466.jpeg?w=300"},
+            {q:"run", t:"She has ____ (run) fast.", i:"https://images.pexels.com/photos/3775168/pexels-photo-3775168.jpeg?w=300"},
+            {q:"sung", t:"I have ____ (sing) a song.", i:"https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?w=300"},
+            {q:"spoken", t:"He has ____ (speak) English.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=300"}
+        ]
     };
 
     let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, bonus=10, timer;
@@ -111,6 +153,7 @@
         p2L = [...list].sort(() => Math.random() - 0.5);
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
+        document.getElementById('bg-music').play();
         load(1); load(2);
         resetTimer();
     }
@@ -122,7 +165,7 @@
         timer = setInterval(() => {
             left -= 0.1;
             bonus = Math.max(1, Math.ceil(left));
-            circ.style.strokeDashoffset = 251 - (left/10)*251;
+            circ.style.strokeDashoffset = 220 - (left/10)*220;
             if(left <= 0) left = 10;
         }, 100);
     }
@@ -131,8 +174,8 @@
         let idx = (p==1) ? p1i : p2i;
         let list = (p==1) ? p1L : p2L;
         if(idx >= list.length) {
-            document.getElementById('txt'+p).innerText = "DONE!";
-            document.getElementById('in'+p).style.display = "none";
+            document.getElementById('txt'+p).innerText = "FINISH!";
+            document.getElementById('in'+p).style.visibility = "hidden";
             if(p1i >= p1L.length && p2i >= p2L.length) finish();
             return;
         }
@@ -155,10 +198,18 @@
 
     function finish() {
         clearInterval(timer);
+        document.getElementById('bg-music').pause();
+        document.getElementById('win-sound').play();
         document.getElementById('battle-screen').classList.add('hidden');
         document.getElementById('win-screen').classList.remove('hidden');
-        document.getElementById('winner-txt').innerText = sc1 > sc2 ? "LIONS WIN!" : "EAGLES WIN!";
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        document.getElementById('winner-txt').innerText = sc1 > sc2 ? "LIONS WIN!" : (sc2 > sc1 ? "EAGLES WIN!" : "TIE!");
+        
+        let end = Date.now() + (5 * 1000);
+        (function frame() {
+            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        }());
     }
 </script>
 </body>
