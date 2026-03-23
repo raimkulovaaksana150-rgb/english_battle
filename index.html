@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Battle - Aksana Professional</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        .sidebar { width: 260px; background: #051937; border-right: 3px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 15px; z-index: 10; text-align: center; }
-        .profile-img { width: 110px; height: 110px; background: #fff; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; margin-bottom: 10px; }
+        .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; z-index: 10; text-align: center; }
+        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .teacher-name { font-weight: bold; color: #fff; font-size: 1.1rem; margin: 5px 0; }
-        .school-name { color: var(--accent); font-size: 0.9rem; font-weight: bold; }
-        .main-stage { margin-left: 260px; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .school-name { color: var(--accent); font-weight: bold; font-size: 1.1rem; margin-top: 10px; line-height: 1.4; }
+        .teacher-name { font-weight: bold; color: #fff; font-size: 1.3rem; margin: 5px 0; }
+        .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; width: 80%; max-width: 800px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
+        .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-        .arena-container { display: flex; width: 95%; gap: 15px; height: 90vh; }
-        .arena { flex: 1; background: rgba(0,0,0,0.5); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
-        .q-img { width: 100%; height: 220px; object-fit: contain; border-radius: 10px; background: #fff; }
-        .score { font-size: 3rem; color: var(--gold); font-weight: bold; margin: 5px 0; }
-        .ans-in { width: 80%; padding: 12px; font-size: 1.5rem; text-align: center; border-radius: 10px; border: 3px solid #fff; outline: none; }
+        .arena-container { display: flex; width: 98%; gap: 15px; height: 95vh; padding: 10px; box-sizing: border-box; }
+        .arena { flex: 1; background: rgba(0,0,0,0.6); border: 3px solid var(--gold); border-radius: 25px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
+        .q-img { width: 100%; height: 260px; object-fit: contain; border-radius: 15px; border: 2px solid white; background: white; }
+        .score { font-size: 3.8rem; color: var(--gold); font-weight: bold; margin: 0; }
+        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; }
         .ans-in.correct { background: #2ecc71 !important; color: white; }
-        .btn { padding: 12px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: #010a24; width: 100%; }
-        .btn:hover { background: #f39c12; }
+        .btn { padding: 15px 10px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1rem; color: #010a24; transition: 0.3s; width: 100%; }
+        .btn:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -32,18 +31,18 @@
 <div class="sidebar">
     <div class="profile-img"><img src="96064.jpg" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'"></div>
     <p class="teacher-name">Aksana Tukubai kyzy</p>
-    <p class="school-name">Kenesh General School</p>
-    <hr style="width: 80%; border: 0.5px solid var(--gold); margin: 20px 0;">
+    <p class="school-name">Kenesh General <br> Education School</p>
+    <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 25px 0;">
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold);">BATTLE REGISTRATION</h2>
-        <div style="display:flex; gap:10px; margin: 20px 0;">
-            <input type="text" id="t1" value="TEAM A" style="flex:1; padding:10px; font-size:1.2rem;">
-            <input type="text" id="t2" value="TEAM B" style="flex:1; padding:10px; font-size:1.2rem;">
+        <h1 style="color:var(--gold); font-size: 2.5rem;">BATTLE REGISTRATION</h1>
+        <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px;">
+            <input type="text" id="t1" value="LIONS" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
+            <input type="text" id="t2" value="EAGLES" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
         </div>
-        <button class="btn" onclick="showMenu()">CONTINUE</button>
+        <button class="btn" style="width: 200px;" onclick="openMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
@@ -52,4 +51,9 @@
     </div>
 
     <div id="battle-screen" class="arena-container hidden">
-        <div class="
+        <div class="arena">
+            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
+            <div class="score" id="score-1">0</div>
+            <img id="img-1" class="q-img">
+            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
+            <input type="text" id="input-
