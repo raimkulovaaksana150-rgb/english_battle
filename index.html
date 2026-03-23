@@ -2,103 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Speed Battle - Aksana Tukubai kyzy</title>
+    <title>English Battle PRO - Aksana Tukubai kyzy</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --blue: #1e3799; --dark: #010a24; --accent: #00d4ff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
         .sidebar { width: 280px; background: linear-gradient(180deg, #051937, #004d7a); border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; box-sizing: border-box; z-index: 10; }
         .logo-circle { width: 110px; height: 110px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 4px solid var(--gold); overflow: hidden; }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { color: var(--gold); font-size: 1.1rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; }
-        .school-name { color: #00d4ff; font-size: 0.8rem; text-align: center; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100%; padding-bottom: 10px;}
-        .teacher-info { font-size: 1rem; text-align: center; color: #ecf0f1; font-weight: 600; }
         .main-stage { margin-left: 280px; height: 100vh; background: radial-gradient(circle at center, #0a2e5c 0%, #010a24 100%); display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
         .box { background: rgba(255,255,255,0.07); padding: 30px; border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 850px; backdrop-filter: blur(10px); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; background: #2980b9; font-size: 1rem; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; margin: 0 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-        .q-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; border: 2px solid white; margin-bottom: 10px; }
-        .question-box { min-height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
-        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; font-weight: bold; color: #010a24; transition: 0.2s; margin: 0 auto; border: 4px solid transparent; }
-        .ans-in.correct { background-color: #2ecc71 !important; color: white !important; border-color: #27ae60; }
-        .ans-in.wrong { background-color: #e74c3c !important; color: white !important; border-color: #c0392b; }
-        .score-val { font-size: 2.8rem; color: var(--gold); font-weight: bold; text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); }
-        .bonus-badge { position: absolute; top: 10px; right: 20px; color: #00d4ff; font-weight: bold; font-size: 1.2rem; opacity: 0; transition: 0.5s; }
-        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-top: 40px; }
-        .podium-step { width: 180px; border-radius: 15px 15px 0 0; display: flex; flex-direction: column; align-items: center; padding-top: 15px; color: #010a24; font-weight: bold; }
-        .first-place { height: 250px; background: linear-gradient(180deg, #ffd700, #daa520); box-shadow: 0 0 40px rgba(241,196,15,0.6); }
-        .second-place { height: 180px; background: linear-gradient(180deg, #bdc3c7, #7f8c8d); }
+        .q-img { width: 100%; height: 220px; border-radius: 15px; object-fit: cover; border: 2px solid white; }
+        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; font-weight: bold; border: 4px solid transparent; outline: none; transition: 0.3s; }
+        .ans-in.correct { background-color: #2ecc71 !important; color: white !important; }
+        .ans-in.wrong { background-color: #e74c3c !important; color: white !important; }
+        .score-val { font-size: 3rem; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
+        .btn { padding: 15px 30px; border-radius: 12px; border: none; background: var(--gold); color: black; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
+        .btn:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
     <div class="logo-circle"><img src="96064.jpg" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'"></div>
-    <h1 class="brand-name">SOURCE OF KNOWLEDGE</h1>
-    <div class="school-name">KENESH SECONDARY SCHOOL</div>
-    <div class="teacher-info">Aksana Tukubai kyzy<br><span style="color:var(--gold); font-size:0.8rem;">Best Teacher - 2026</span></div>
+    <h1 style="color:var(--gold); font-size:1.1rem; text-align:center;">SOURCE OF KNOWLEDGE</h1>
+    <div style="text-align:center; font-size:0.9rem; border-top:1px solid rgba(255,255,255,0.2); padding-top:10px;">Aksana Tukubai kyzy</div>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold); font-size: 2.5rem;">ENGLISH SPEED BATTLE</h2>
-        <div style="margin-bottom: 20px; font-size: 1.1rem;">Enter Team Names:</div>
-        <input type="text" id="name1" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none;" value="LIONS">
-        <input type="text" id="name2" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none;" value="EAGLES">
+        <h2 style="color:var(--gold); font-size: 2.5rem;">SPEED BATTLE</h2>
+        <input type="text" id="name1" style="width:60%; padding:12px; margin:10px; border-radius:8px;" value="LIONS">
+        <input type="text" id="name2" style="width:60%; padding:12px; margin:10px; border-radius:8px;" value="EAGLES">
         <br><br>
-        <button class="btn" style="background:var(--gold); color:black; width:50%;" onclick="showMenu()">CONTINUE ➔</button>
+        <button class="btn" onclick="showMenu()">GO TO TOPICS ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h3 style="color:var(--gold); margin-bottom: 25px;">SELECT TOPIC</h3>
-        <div class="grid">
+        <h3 style="color:var(--gold);">CHOOSE TOPIC</h3>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:20px;">
             <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
             <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="startBattle('school')">🎒 School Items</button>
-            <button class="btn" onclick="startBattle('be')">🐝 To Be (am/is/are)</button>
-            <button class="btn" onclick="startBattle('past')">🕒 Past Simple</button>
+            <button class="btn" onclick="startBattle('school')">🎒 School</button>
+            <button class="btn" onclick="startBattle('be')">🐝 To Be</button>
+            <button class="btn" style="grid-column: span 2;" onclick="startBattle('past')">🕒 Past Simple</button>
         </div>
     </div>
 
-    <div id="battle-screen" class="hidden" style="display:flex; width:98%;">
+    <div id="battle-screen" class="hidden" style="display:flex; width:95%;">
         <div class="arena">
-            <div id="bonus-1" class="bonus-badge">FAST! +20</div>
-            <h3 id="dn1" style="color:#ff4757; font-size:1.8rem; margin:5px 0;"></h3>
-            <div class="score-val"><span id="s1">0</span></div>
+            <h3 id="dn1" style="color:#ff4757; margin:0;"></h3>
+            <div class="score-val" id="s1">0</div>
             <img id="img1" class="q-img" src="">
-            <div id="qText1" class="question-box"></div>
-            <input type="text" id="in1" class="ans-in" placeholder="Type here..." oninput="checkAnswer(1)" autocomplete="new-password" spellcheck="false">
+            <div id="qText1" style="margin:10px 0; font-weight:bold;"></div>
+            <input type="text" id="in1" class="ans-in" placeholder="..." readonly onfocus="this.removeAttribute('readonly');" oninput="checkAnswer(1)" autocomplete="off">
         </div>
         <div class="arena">
-            <div id="bonus-2" class="bonus-badge">FAST! +20</div>
-            <h3 id="dn2" style="color:var(--accent); font-size:1.8rem; margin:5px 0;"></h3>
-            <div class="score-val"><span id="s2">0</span></div>
+            <h3 id="dn2" style="color:var(--accent); margin:0;"></h3>
+            <div class="score-val" id="s2">0</div>
             <img id="img2" class="q-img" src="">
-            <div id="qText2" class="question-box"></div>
-            <input type="text" id="in2" class="ans-in" placeholder="Type here..." oninput="checkAnswer(2)" autocomplete="new-password" spellcheck="false">
+            <div id="qText2" style="margin:10px 0; font-weight:bold;"></div>
+            <input type="text" id="in2" class="ans-in" placeholder="..." readonly onfocus="this.removeAttribute('readonly');" oninput="checkAnswer(2)" autocomplete="off">
         </div>
     </div>
 </div>
 
 <div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; z-index:1000; background:rgba(1,10,36,0.98); display:flex; flex-direction:column; justify-content:center; align-items:center;">
-    <h1 id="winner-banner" style="color:var(--gold); font-size:4rem; margin:0;">TEAM LIONS WINS!</h1>
-    <div class="podium-container">
-        <div class="podium-step second-place">
-            <div id="p-name2" style="color:white; margin-bottom:10px;"></div>
-            <div style="font-size:1.8rem; color:#010a24;"><span id="p-score2"></span></div>
-            <div style="font-size:3rem; margin-top:auto;">🥈</div>
-        </div>
-        <div class="podium-step first-place">
-            <div id="p-name1" style="color:white; margin-bottom:10px;"></div>
-            <div style="font-size:2.2rem; color:#010a24;"><span id="p-score1"></span></div>
-            <div style="font-size:4rem; margin-top:auto;">👑</div>
-        </div>
-    </div>
-    <button class="btn" style="background:var(--gold); color:black; padding:15px 60px; margin-top:40px;" onclick="location.reload()">PLAY AGAIN</button>
+    <h1 id="win-msg" style="color:var(--gold); font-size:4rem;"></h1>
+    <div id="final-scores" style="font-size:2.5rem; margin-bottom:30px;"></div>
+    <button class="btn" onclick="location.reload()">PLAY AGAIN</button>
 </div>
 
 <script>
@@ -107,34 +81,36 @@
             {q:"elephant", s:"Which animal has a big nose?", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
             {q:"lion", s:"The king of the jungle.", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
             {q:"giraffe", s:"It has a very long neck.", i:"https://images.unsplash.com/photo-1547721064-36202181c922?w=400"},
-            {q:"monkey", s:"It loves climbing and bananas.", i:"https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=400"},
-            {q:"snake", s:"A long animal with no legs.", i:"https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400"}
+            {q:"monkey", s:"It loves bananas and climbing.", i:"https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=400"},
+            {q:"rabbit", s:"It has long ears and jumps.", i:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400"}
         ],
         fruits: [
             {q:"apple", s:"A round red or green fruit.", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"},
             {q:"banana", s:"A long yellow fruit.", i:"https://images.unsplash.com/photo-1571771894821-ad9b588640ba?w=400"},
-            {q:"lemon", s:"A yellow sour fruit.", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400"},
-            {q:"orange", s:"A round orange-colored fruit.", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400"}
+            {q:"lemon", s:"It is yellow and very sour.", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400"},
+            {q:"watermelon", s:"Big, green outside, red inside.", i:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400"}
         ],
         school: [
-            {q:"pencil", s:"You use this to write or draw.", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
-            {q:"book", s:"You read this to learn.", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"},
-            {q:"ruler", s:"Used to measure length.", i:"https://images.unsplash.com/photo-1586075010633-24701bd6e8b4?w=400"},
-            {q:"bag", s:"You carry your books in this.", i:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"}
+            {q:"pencil", s:"What do you use to draw?", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
+            {q:"book", s:"What do you use to read?", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"},
+            {q:"eraser", s:"It cleans your mistakes.", i:"https://images.unsplash.com/photo-1586075010633-24701bd6e8b4?w=400"},
+            {q:"bag", s:"You carry books in it.", i:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"}
         ],
         be: [
-            {q:"am", s:"I ___ a good student.", i:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400"},
-            {q:"is", s:"The weather ___ sunny today.", i:"https://images.unsplash.com/photo-1419133203517-f3b3ed0ba2bb?w=400"},
-            {q:"are", s:"You ___ my best friend.", i:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400"}
+            {q:"am", s:"I ___ a student.", i:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400"},
+            {q:"is", s:"The sun ___ hot today.", i:"https://images.unsplash.com/photo-1419133203517-f3b3ed0ba2bb?w=400"},
+            {q:"are", s:"We ___ happy friends.", i:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400"},
+            {q:"is", s:"She ___ a teacher.", i:"https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400"}
         ],
         past: [
             {q:"was", s:"Yesterday I ___ at home.", i:"https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400"},
-            {q:"were", s:"They ___ happy at the party.", i:"https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400"},
-            {q:"went", s:"We ___ to the park last Sunday.", i:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400"}
+            {q:"were", s:"They ___ in the park.", i:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400"},
+            {q:"went", s:"We ___ to school last week.", i:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400"},
+            {q:"had", s:"I ___ a big breakfast.", i:"https://images.unsplash.com/photo-1493770348161-369560ae357d?w=400"}
         ]
     };
 
-    let p1List=[], p2List=[], p1Idx=0, p2Idx=0, score1=0, score2=0, isActive=false, startTime1, startTime2;
+    let p1Idx=0, p2Idx=0, score1=0, score2=0, currentList=[], startTime1, startTime2, isActive=false;
 
     function showMenu() {
         document.getElementById('setup-screen').classList.add('hidden');
@@ -142,8 +118,7 @@
     }
 
     function startBattle(topic) {
-        p1List = [...quizData[topic]].sort(() => Math.random() - 0.5);
-        p2List = [...quizData[topic]].sort(() => Math.random() - 0.5);
+        currentList = [...quizData[topic]].sort(() => Math.random() - 0.5);
         document.getElementById('dn1').innerText = document.getElementById('name1').value;
         document.getElementById('dn2').innerText = document.getElementById('name2').value;
         document.getElementById('menu-screen').classList.add('hidden');
@@ -153,44 +128,38 @@
     }
 
     function updatePlayer(p) {
-        let list = (p==1) ? p1List : p2List;
         let idx = (p==1) ? p1Idx : p2Idx;
-        if(idx >= list.length) { checkFinish(); return; }
+        if(idx >= currentList.length) { checkFinish(); return; }
         
-        document.getElementById('img'+p).src = list[idx].i;
-        document.getElementById('qText'+p).innerText = list[idx].s;
+        document.getElementById('img'+p).src = currentList[idx].i;
+        document.getElementById('qText'+p).innerText = currentList[idx].s;
         if(p==1) startTime1 = Date.now(); else startTime2 = Date.now();
         
-        let input = document.getElementById('in'+p);
-        input.value = ""; 
-        input.className = "ans-in";
-        setTimeout(() => input.focus(), 50);
+        let input = document.getElementById('in1');
+        let input2 = document.getElementById('in2');
+        
+        let target = (p==1) ? input : input2;
+        target.value = ""; 
+        target.className = "ans-in";
+        target.setAttribute('readonly', true);
+        target.name = "field_" + Math.random(); // Браузерди алдоо
     }
 
     function checkAnswer(p) {
         if(!isActive) return;
         let input = document.getElementById('in'+p);
         let val = input.value.toLowerCase().trim();
-        let correct = (p==1 ? p1List[p1Idx] : p2List[p2Idx]).q;
+        let correct = currentList[(p==1 ? p1Idx : p2Idx)].q;
 
         if(val === correct) {
-            let timeTaken = (Date.now() - (p==1 ? startTime1 : startTime2)) / 1000;
-            let bonus = Math.max(5, Math.round(25 - timeTaken)); // Тез жоопко 25ке чейин упай
+            let time = (Date.now() - (p==1 ? startTime1 : startTime2)) / 1000;
+            let bonus = Math.max(5, Math.round(25 - time));
             
             input.classList.add('correct');
-            if(p==1) { score1 += bonus; document.getElementById('s1').innerText = score1; }
-            else { score2 += bonus; document.getElementById('s2').innerText = score2; }
+            if(p==1) { score1 += bonus; document.getElementById('s1').innerText = score1; p1Idx++; }
+            else { score2 += bonus; document.getElementById('s2').innerText = score2; p2Idx++; }
             
-            // Бонус жазуусун көрсөтүү
-            let b = document.getElementById('bonus-'+p);
-            b.innerText = "+" + bonus + " PTS!";
-            b.style.opacity = "1"; b.style.top = "-20px";
-            
-            setTimeout(() => { 
-                b.style.opacity = "0"; b.style.top = "10px";
-                if(p==1) p1Idx++; else p2Idx++; 
-                updatePlayer(p); 
-            }, 600);
+            setTimeout(() => updatePlayer(p), 500);
         } else if(val.length > 0 && !correct.startsWith(val)) {
             input.classList.add('wrong');
             setTimeout(() => { input.classList.remove('wrong'); input.value = ""; }, 400);
@@ -198,41 +167,22 @@
     }
 
     function checkFinish() {
-        if(p1Idx >= p1List.length && p2Idx >= p2List.length) {
+        if(p1Idx >= currentList.length && p2Idx >= currentList.length) {
             isActive = false;
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('win-screen').classList.remove('hidden');
             
             let n1 = document.getElementById('name1').value, n2 = document.getElementById('name2').value;
-            if(score1 >= score2) { 
-                fillPodium(n1, score1, n2, score2); 
-                document.getElementById('winner-banner').innerText = n1 + " WINS!";
-            } else { 
-                fillPodium(n2, score2, n1, score1); 
-                document.getElementById('winner-banner').innerText = n2 + " WINS!";
-            }
+            document.getElementById('win-msg').innerText = (score1 > score2 ? n1 : n2) + " WINS!";
+            document.getElementById('final-scores').innerText = `${n1}: ${score1} | ${n2}: ${score2}`;
             
-            // Конфетти эффект
-            var duration = 5 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-            var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) return clearInterval(interval);
-                var particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
+            var end = Date.now() + 4000;
+            (function frame() {
+                confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 } });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
         }
-    }
-
-    function fillPodium(wN, wS, lN, lS) {
-        document.getElementById('p-name1').innerText = wN;
-        document.getElementById('p-score1').innerText = wS;
-        document.getElementById('p-name2').innerText = lN;
-        document.getElementById('p-score2').innerText = lS;
     }
 </script>
 </body>
