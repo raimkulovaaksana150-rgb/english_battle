@@ -1,232 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Source of Knowledge - Aksana Tukubai kyzy</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        :root { --gold: #f1c40f; --blue: #1e3799; --dark: #010a24; --accent: #00d4ff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        
-        .sidebar { width: 280px; background: linear-gradient(180deg, #051937, #004d7a); border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; box-sizing: border-box; z-index: 10; }
-        .logo-circle { width: 110px; height: 110px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 4px solid var(--gold); overflow: hidden; }
-        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { color: var(--gold); font-size: 1.2rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; }
-        .school-name { color: #00d4ff; font-size: 0.8rem; text-align: center; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100%; padding-bottom: 10px;}
-        
-        .main-stage { margin-left: 280px; height: 100vh; background: radial-gradient(circle at center, #0a2e5c 0%, #010a24 100%); display: flex; align-items: center; justify-content: center; }
-        .hidden { display: none !important; }
-        
-        .box { background: rgba(255,255,255,0.07); padding: 30px; border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 700px; backdrop-filter: blur(10px); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;}
-        .btn { padding: 12px; border-radius: 10px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; background: #2980b9; }
-        .btn:hover { transform: scale(1.05); filter: brightness(1.2); }
-
-        .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; margin: 0 10px; }
-        .q-img { width: 100%; height: 180px; border-radius: 15px; object-fit: cover; border: 2px solid white; }
-        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.8rem; text-align: center; border: 3px solid transparent; margin: 15px 0; font-weight: bold; transition: 0.2s; color: #010a24;}
-        .ans-in:focus { border-color: var(--gold); outline: none; background: #fff; }
-        
-        #win-screen { position: fixed; inset: 0; background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
-        .score-val { font-size: 2rem; color: var(--gold); font-weight: bold; }
-    </style>
-</head>
-<body>
-
-<div class="sidebar">
-    <div class="logo-circle"><img src="96064.jpg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3306/3306613.png'"></div>
-    <h1 class="brand-name">SOURCE OF KNOWLEDGE</h1>
-    <div class="school-name">КЕНЕШ ЖАЛПЫ БИЛИМ БЕРҮҮ МЕКТЕБИ</div>
-    <div style="font-size: 1rem; color: white;">Аксана Тукубай кызы</div>
-    <div style="margin-top: auto; font-size: 0.7rem; color: #bdc3c7; text-align: center;">Created by Aksana with Gemini AI</div>
-</div>
-
-<div class="main-stage">
-    <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold);">BATTLE OF KNOWLEDGE</h2>
-        <p>Ким биринчи бүтсө оюн токтойт, упайы көп команда жеңет!</p>
-        <input type="text" id="name1" style="width:80%; padding:12px; margin:5px; border-radius:8px;" value="LIONS">
-        <input type="text" id="name2" style="width:80%; padding:12px; margin:5px; border-radius:8px;" value="EAGLES">
-        <br><br>
-        <button class="btn" style="background:var(--gold); color:black; width:50%; font-size:1.2rem;" onclick="showMenu()">GO! ➔</button>
-    </div>
-
-    <div id="menu-screen" class="box hidden">
-        <h2 style="color:white;">SELECT TOPIC</h2>
-        <div class="grid">
-            <button class="btn" onclick="start('animals')">🦁 Animals</button>
-            <button class="btn" onclick="start('school')">🎒 School Items</button>
-            <button class="btn" onclick="start('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="start('colors')">🎨 Colors</button>
-            <button class="btn" onclick="start('past')">🕒 Past Simple</button>
-            <button class="btn" onclick="start('be')">🐝 To Be</button>
-        </div>
-    </div>
-
-    <div id="battle-screen" class="hidden" style="display:flex; width:95%;">
-        <div class="arena">
-            <h3 id="dn1" style="color:#ff4757; margin:5px 0;"></h3>
-            <div class="score-val">Score: <span id="s1">0</span></div>
-            <img id="img1" class="q-img">
-            <p id="h1" style="font-style:italic; color:#ccc; margin:5px;"></p>
-            <input type="text" id="in1" class="ans-in" placeholder="..." oninput="check(1)" autocomplete="off">
-        </div>
-        
-        <div class="arena">
-            <h3 id="dn2" style="color:var(--accent); margin:5px 0;"></h3>
-            <div class="score-val">Score: <span id="s2">0</span></div>
-            <img id="img2" class="q-img">
-            <p id="h2" style="font-style:italic; color:#ccc; margin:5px;"></p>
-            <input type="text" id="in2" class="ans-in" placeholder="..." oninput="check(2)" autocomplete="off">
-        </div>
-    </div>
-</div>
-
-<div id="win-screen" class="hidden">
-    <h1 id="win-msg" style="color:var(--gold); font-size:4rem; margin:0;">🏆 WINNER!</h1>
-    <h2 id="final-team" style="font-size:3rem; color:white; margin:10px 0;"></h2>
-    <div style="font-size:2rem; color:#bdc3c7;">Final Scores:</div>
-    <div id="final-scores" style="font-size:1.5rem; margin-bottom:20px;"></div>
-    <button class="btn" style="background:white; color:black; padding:15px 50px;" onclick="location.reload()">REPLAY</button>
-</div>
-
-<script>
-    const db = {
-        animals: [
-            {q:"cat", h:"Meow", i:"https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?w=300"},
-            {q:"dog", h:"Woof", i:"https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=300"},
-            {q:"lion", h:"King", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"},
-            {q:"elephant", h:"Big nose", i:"https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?w=300"},
-            {q:"monkey", h:"Banana", i:"https://images.pexels.com/photos/1207915/pexels-photo-1207915.jpeg?w=300"},
-            {q:"tiger", h:"Stripes", i:"https://images.pexels.com/photos/792381/pexels-tiger-792381.jpeg?w=300"},
-            {q:"rabbit", h:"Long ears", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=300"},
-            {q:"giraffe", h:"Long neck", i:"https://images.pexels.com/photos/802112/pexels-photo-802112.jpeg?w=300"},
-            {q:"wolf", h:"Forest dog", i:"https://images.pexels.com/photos/684441/pexels-photo-684441.jpeg?w=300"},
-            {q:"fox", h:"Orange tail", i:"https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?w=300"}
-        ],
-        school: [
-            {q:"pen", h:"Write", i:"https://images.pexels.com/photos/163703/pen-writing-fountain-pen-ink-163703.jpeg?w=300"},
-            {q:"book", h:"Read", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=300"},
-            {q:"bag", h:"Carry", i:"https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?w=300"},
-            {q:"ruler", h:"Lines", i:"https://images.pexels.com/photos/590561/pexels-photo-590561.jpeg?w=300"},
-            {q:"eraser", h:"Remove", i:"https://images.pexels.com/photos/35202/eraser-office-supplies-rubber-clean.jpg?w=300"},
-            {q:"pencil", h:"Draw", i:"https://images.pexels.com/photos/159751/pencil-office-design-creative-159751.jpeg?w=300"},
-            {q:"desk", h:"Sit", i:"https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?w=300"},
-            {q:"clock", h:"Time", i:"https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?w=300"},
-            {q:"paper", h:"Write on", i:"https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?w=300"},
-            {q:"teacher", h:"Teaches", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=300"}
-        ],
+const db = {
         fruits: [
             {q:"apple", h:"Red", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=300"},
             {q:"banana", h:"Yellow", i:"https://images.pexels.com/photos/2870882/pexels-photo-2870882.jpeg?w=300"},
-            {q:"orange", h:"Juicy", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=300"},
-            {q:"lemon", h:"Sour", i:"https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?w=300"},
-            {q:"pear", h:"Green", i:"https://images.pexels.com/photos/568471/pexels-photo-568471.jpeg?w=300"},
-            {q:"grapes", h:"Purple", i:"https://images.pexels.com/photos/760281/pexels-photo-760281.jpeg?w=300"},
-            {q:"strawberry", h:"Red berry", i:"https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?w=300"},
-            {q:"cherry", h:"Small", i:"https://images.pexels.com/photos/1435737/pexels-photo-1435737.jpeg?w=300"},
-            {q:"melon", h:"Sweet", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=300"},
-            {q:"kiwi", h:"Green", i:"https://images.pexels.com/photos/51312/kiwi-fruit-vitamins-healthy-eating-51312.jpeg?w=300"}
+            {q:"orange", h:"Orange color", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=300"},
+            {q:"lemon", h:"Yellow and sour", i:"https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?w=300"},
+            {q:"pear", h:"Green fruit", i:"https://images.pexels.com/photos/568471/pexels-photo-568471.jpeg?w=300"},
+            {q:"grapes", h:"Purple or green", i:"https://images.pexels.com/photos/760281/pexels-photo-760281.jpeg?w=300"},
+            {q:"strawberry", h:"Small red berry", i:"https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?w=300"},
+            {q:"cherry", h:"Small and round", i:"https://images.pexels.com/photos/1435737/pexels-photo-1435737.jpeg?w=300"},
+            {q:"watermelon", h:"Big and sweet", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=300"},
+            {q:"kiwi", h:"Green inside", i:"https://images.pexels.com/photos/51312/kiwi-fruit-vitamins-healthy-eating-51312.jpeg?w=300"}
         ],
-        colors: [
-            {q:"red", h:"Apple", i:"https://images.pexels.com/photos/326311/pexels-photo-326311.jpeg?w=300"},
-            {q:"blue", h:"Sky", i:"https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpeg?w=300"},
-            {q:"green", h:"Grass", i:"https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?w=300"},
-            {q:"yellow", h:"Sun", i:"https://images.pexels.com/photos/3805983/pexels-photo-3805983.jpeg?w=300"},
-            {q:"white", h:"Snow", i:"https://images.pexels.com/photos/60504/pexels-photo-60504.jpeg?w=300"},
-            {q:"black", h:"Night", i:"https://images.pexels.com/photos/96627/pexels-photo-96627.jpeg?w=300"},
-            {q:"pink", h:"Rose", i:"https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?w=300"},
-            {q:"brown", h:"Bear", i:"https://images.pexels.com/photos/235725/pexels-photo-235725.jpeg?w=300"},
-            {q:"purple", h:"Grape", i:"https://images.pexels.com/photos/41311/pexels-photo-41311.jpeg?w=300"},
-            {q:"gray", h:"Mouse", i:"https://images.pexels.com/photos/211718/pexels-photo-211718.jpeg?w=300"}
-        ],
-        past: [
-            {q:"went", h:"Go (Past)", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=300"},
-            {q:"ate", h:"Eat (Past)", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=300"},
-            {q:"saw", h:"See (Past)", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=300"},
-            {q:"did", h:"Do (Past)", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=300"},
-            {q:"drank", h:"Drink (Past)", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=300"},
-            {q:"slept", h:"Sleep (Past)", i:"https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?w=300"},
-            {q:"bought", h:"Buy (Past)", i:"https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?w=300"},
-            {q:"ran", h:"Run (Past)", i:"https://images.pexels.com/photos/3625446/pexels-photo-3625446.jpeg?w=300"},
-            {q:"wrote", h:"Write (Past)", i:"https://images.pexels.com/photos/210661/pexels-photo-210661.jpeg?w=300"},
-            {q:"read", h:"Read (Past)", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=300"}
-        ],
-        be: [
-            {q:"am", h:"I ___ happy.", i:"https://images.pexels.com/photos/236164/pexels-photo-236164.jpeg?w=300"},
-            {q:"is", h:"He ___ a student.", i:"https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=300"},
-            {q:"are", h:"We ___ friends.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=300"},
-            {q:"is", h:"She ___ beautiful.", i:"https://images.pexels.com/photos/1912868/pexels-photo-1912868.jpeg?w=300"},
-            {q:"are", h:"They ___ playing.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=300"},
-            {q:"is", h:"It ___ a cat.", i:"https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?w=300"},
-            {q:"are", h:"You ___ smart.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=300"},
-            {q:"am", h:"I ___ a teacher.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=300"},
-            {q:"is", h:"The sun ___ yellow.", i:"https://images.pexels.com/photos/3805983/pexels-photo-3805983.jpeg?w=300"},
-            {q:"are", h:"Books ___ good.", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=300"}
-        ]
+        // Башка категориялар (animals, school ж.б.) ошол бойдон калат...
     };
 
-    let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, isOver=false;
-
-    function showMenu() {
-        document.getElementById('setup-screen').classList.add('hidden');
-        document.getElementById('menu-screen').classList.remove('hidden');
-    }
-
-    function start(c) {
-        document.getElementById('dn1').innerText = document.getElementById('name1').value;
-        document.getElementById('dn2').innerText = document.getElementById('name2').value;
-        p1L = [...db[c]].sort(() => Math.random() - 0.5);
-        p2L = [...db[c]].sort(() => Math.random() - 0.5);
-        p1i=0; p2i=0; sc1=0; sc2=0; isOver=false;
-        document.getElementById('menu-screen').classList.add('hidden');
-        document.getElementById('battle-screen').classList.remove('hidden');
-        load(1); load(2);
-    }
-
-    function load(p) {
+    // Текшерүү функциясын Enter басканда иштөөгө ылайыкташтыруу:
+    function nextQue(p) {
         if(isOver) return;
-        let i = (p==1)?p1i:p2i; let l = (p==1)?p1L:p2L;
-        if(i >= 10) { finish(); return; } // Ким биринчи 10го жетсе оюн токтойт
-        document.getElementById('img'+p).src = l[i].i;
-        document.getElementById('h'+p).innerText = l[i].h;
-        document.getElementById('in'+p).value = "";
-        document.getElementById('in'+p).focus();
-    }
-
-    function check(p) {
-        if(isOver) return;
-        let v = document.getElementById('in'+p).value.toLowerCase().trim();
-        let l = (p==1)?p1L:p2L; let i = (p==1)?p1i:p2i;
+        let inputField = document.getElementById('in'+p);
+        let v = inputField.value.toLowerCase().trim(); // Пробелдерди алып салат
+        let l = (p==1)?p1L:p2L; 
+        let i = (p==1)?p1i:p2i;
         
+        // Англисче туура жазылышын текшерүү (мисалы: lemon)
         if(v === l[i].q) {
-            if(p==1) { sc1+=10; p1i++; document.getElementById('s1').innerText=sc1; }
-            else { sc2+=10; p2i++; document.getElementById('s2').innerText=sc2; }
-            load(p);
+            if(p==1) { sc1+=10; document.getElementById('s1').innerText=sc1; }
+            else { sc2+=10; document.getElementById('s2').innerText=sc2; }
+            document.getElementById('sound-correct').play();
+        } else {
+            document.getElementById('sound-wrong').play();
         }
-    }
 
-    function finish() {
-        if(isOver) return;
-        isOver = true;
-        
-        document.getElementById('battle-screen').classList.add('hidden');
-        document.getElementById('win-screen').classList.remove('hidden');
-        
-        let n1 = document.getElementById('name1').value;
-        let n2 = document.getElementById('name2').value;
-        
-        // Жеңүүчүнү упай боюнча аныктоо
-        let winName = "";
-        if(sc1 > sc2) winName = n1;
-        else if(sc2 > sc1) winName = n2;
-        else winName = "IT'S A TIE!"; // Упайлар тең болсо
-        
-        document.getElementById('final-team').innerText = winName;
-        document.getElementById('final-scores').innerText = `${n1}: ${sc1} | ${n2}: ${sc2}`;
-        
-        confetti({particleCount: 250, spread: 100, origin: { y: 0.6 }});
+        if(p==1) p1i++; else p2i++;
+        load(p);
     }
-</script>
-</body>
-</html>
