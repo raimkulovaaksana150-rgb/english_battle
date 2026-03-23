@@ -6,60 +6,67 @@
     <title>English Universe - Kenesh Education School</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --gold: #f1c40f; --blue: #1e3799; --red: #e74c3c; --green: #2ecc71; }
+        :root { --gold: #f1c40f; --blue: #1e3799; --red: #e74c3c; --green: #2ecc71; --purple: #8e44ad; }
         body { font-family: 'Arial Black', sans-serif; background: #020617; color: white; margin: 0; overflow: hidden; }
         
         .sidebar { width: 260px; background: linear-gradient(180deg, var(--blue), #0c2461); border-right: 4px solid var(--gold); height: 100vh; float: left; display: flex; flex-direction: column; align-items: center; padding: 20px; box-sizing: border-box; }
         .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 0 20px var(--gold); }
         .school-info { font-size: 0.8rem; text-align: center; color: var(--gold); margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; width: 100%; }
 
-        .main-stage { margin-left: 260px; height: 100vh; position: relative; }
+        .main-stage { margin-left: 260px; height: 100vh; position: relative; overflow-y: auto; }
         .hidden { display: none !important; }
 
-        /* CIRCULAR TIMER */
+        /* CATEGORY SECTIONS */
+        .section-title { text-align: center; color: var(--gold); font-size: 1.8rem; margin: 30px 0 15px 0; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--gold); display: inline-block; padding: 0 20px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 0 40px 40px 40px; }
+        .topic-btn { padding: 20px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px #000; font-size: 0.9rem; }
+        .topic-btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
+
+        /* BATTLE ELEMENTS */
         .timer-box { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; }
         .timer-svg { transform: rotate(-90deg); width: 80px; height: 80px; }
         .timer-circle { fill: none; stroke: var(--gold); stroke-width: 6; stroke-dasharray: 251; stroke-dashoffset: 0; transition: 0.1s linear; }
-
-        /* MENU */
-        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 30px; }
-        .topic-btn { padding: 18px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 0.8rem; transition: 0.3s; box-shadow: 0 5px #000; }
-        .topic-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
-
-        /* BATTLE AREA */
         .battle-zone { display: flex; justify-content: space-around; align-items: center; height: 85vh; padding: 20px; }
-        .arena { width: 46%; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 20px; border: 2px solid var(--gold); text-align: center; position: relative; }
-        .q-img { width: 100%; height: 180px; border-radius: 15px; object-fit: cover; border: 2px solid #fff; margin-bottom: 10px; }
-        .q-text { font-size: 1.2rem; color: #fff; margin-bottom: 15px; min-height: 50px; }
-        .ans-in { width: 85%; padding: 12px; border-radius: 10px; font-size: 1.6rem; text-align: center; border: none; font-weight: bold; }
-        
-        .points-pop { position: absolute; top: -30px; right: 30px; font-size: 2rem; color: var(--green); animation: flyUp 0.8s forwards; display: none; }
-        @keyframes flyUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-40px); } }
-
-        #win-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, var(--blue), #000); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .arena { width: 46%; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 20px; border: 2px solid var(--gold); text-align: center; }
+        .q-img { width: 100%; height: 200px; border-radius: 20px; object-fit: cover; border: 2px solid #fff; margin-bottom: 10px; }
+        .ans-in { width: 85%; padding: 15px; border-radius: 12px; font-size: 1.8rem; text-align: center; border: none; outline: none; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <img src="96064.jpg" class="profile-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/194/194931.png'">
-        <h3 style="margin: 15px 0; text-align: center; font-size: 1rem;">Tukubai kyzy Aksana</h3>
-        <p style="color: var(--gold); font-size: 0.8rem;">English Teacher</p>
+        <h3 style="margin: 15px 0; text-align: center;">Tukubai kyzy Aksana</h3>
+        <p style="color: var(--gold);">English Teacher</p>
         <div class="school-info">Kenesh Education School</div>
     </div>
 
     <div class="main-stage">
         <div id="home-screen">
-            <h1 style="text-align: center; font-size: 3.5rem; color: var(--gold); padding-top: 40px;">ENGLISH UNIVERSE</h1>
+            <h1 style="text-align: center; font-size: 3rem; color: var(--gold); padding-top: 30px; margin-bottom: 0;">ENGLISH UNIVERSE</h1>
+            
+            <center><div class="section-title">📘 Vocabulary</div></center>
             <div class="menu-grid">
-                <button class="topic-btn" style="background:#e74c3c" onclick="start('animals')">🦁 ANIMALS</button>
+                <button class="topic-btn" style="background:#e67e22" onclick="start('animals')">🦁 ANIMALS</button>
                 <button class="topic-btn" style="background:#3498db" onclick="start('food')">🍔 FOOD</button>
                 <button class="topic-btn" style="background:#2ecc71" onclick="start('school')">📚 SCHOOL</button>
                 <button class="topic-btn" style="background:#f1c40f; color:#000" onclick="start('family')">👪 FAMILY</button>
-                <button class="topic-btn" style="background:#9b59b6" onclick="start('present_perfect')">📌 PRES. PERFECT</button>
-                <button class="topic-btn" style="background:#e67e22" onclick="start('past_simple')">🕒 PAST SIMPLE</button>
-                <button class="topic-btn" style="background:#1abc9c" onclick="start('modals')">⚡ MODALS</button>
-                <button class="topic-btn" style="background:#d35400" onclick="start('comparison')">📏 COMPARISON</button>
+                <button class="topic-btn" style="background:#e74c3c" onclick="start('body')">👃 BODY</button>
+                <button class="topic-btn" style="background:#1abc9c" onclick="start('colors')">🎨 COLORS</button>
+                <button class="topic-btn" style="background:#9b59b6" onclick="start('clothes')">👕 CLOTHES</button>
+                <button class="topic-btn" style="background:#34495e" onclick="start('opposites')">↔️ OPPOSITES</button>
+            </div>
+
+            <center><div class="section-title">📝 Grammar</div></center>
+            <div class="menu-grid">
+                <button class="topic-btn" style="background:var(--purple)" onclick="start('tobe')">✏️ TO BE</button>
+                <button class="topic-btn" style="background:#d35400" onclick="start('present_perfect')">📌 PRES. PERFECT</button>
+                <button class="topic-btn" style="background:#27ae60" onclick="start('past_simple')">🕒 PAST SIMPLE</button>
+                <button class="topic-btn" style="background:#c0392b" onclick="start('modals')">⚡ MODAL VERBS</button>
+                <button class="topic-btn" style="background:#2980b9" onclick="start('comparison')">📏 COMPARISON</button>
+                <button class="topic-btn" style="background:#16a085" onclick="start('havegot')">💎 HAVE GOT</button>
+                <button class="topic-btn" style="background:#8e44ad" onclick="start('plural')">👥 PLURAL FORMS</button>
+                <button class="topic-btn" style="background:#7f8c8d" onclick="start('past_cont')">🔄 PAST CONT.</button>
             </div>
         </div>
 
@@ -69,49 +76,34 @@
             </div>
             <div class="battle-zone">
                 <div class="arena">
-                    <div id="pop1" class="points-pop">+10</div>
-                    <h2 style="color:var(--red);">LIONS</h2>
-                    <div style="font-size: 2rem; color: var(--gold);">⭐ <span id="s1">0</span></div>
+                    <h2 style="color:var(--red);">LIONS ⭐ <span id="s1">0</span></h2>
                     <img id="img1" class="q-img" src="">
-                    <div id="txt1" class="q-text"></div>
-                    <input type="text" id="in1" class="ans-in" oninput="check(1)" autocomplete="off">
+                    <div id="txt1" style="font-size:1.2rem; margin-bottom:15px;"></div>
+                    <input type="text" id="in1" class="ans-in" oninput="check(1)" placeholder="Type..." autocomplete="off">
                 </div>
                 <div class="arena">
-                    <div id="pop2" class="points-pop">+10</div>
-                    <h2 style="color:#3498db;">EAGLES</h2>
-                    <div style="font-size: 2rem; color: var(--gold);">⭐ <span id="s2">0</span></div>
+                    <h2 style="color:#3498db;">EAGLES ⭐ <span id="s2">0</span></h2>
                     <img id="img2" class="q-img" src="">
-                    <div id="txt2" class="q-text"></div>
-                    <input type="text" id="in2" class="ans-in" oninput="check(2)" autocomplete="off">
+                    <div id="txt2" style="font-size:1.2rem; margin-bottom:15px;"></div>
+                    <input type="text" id="in2" class="ans-in" oninput="check(2)" placeholder="Type..." autocomplete="off">
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="win-screen" class="hidden">
-        <div style="font-size: 10rem;">🏆</div>
-        <h1 id="winner-txt" style="font-size: 4rem; color: var(--gold);">WINNER!</h1>
-        <button style="padding: 20px 60px; font-size: 1.5rem; cursor: pointer; border-radius: 50px;" onclick="location.reload()">REPLAY</button>
+    <div id="win-screen" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, var(--blue), #000); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:100;">
+        <h1 id="winner-txt" style="font-size:5rem; color:var(--gold);">WINNER!</h1>
+        <button style="padding:20px 50px; border-radius:50px; cursor:pointer;" onclick="location.reload()">RESTART</button>
     </div>
-
-    <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
 <script>
     const database = {
-        animals: [
-            {q:"lion", t:"The king of the jungle?", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"},
-            {q:"elephant", t:"The biggest land animal?", i:"https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?w=300"}
-        ],
-        present_perfect: [
-            {q:"seen", t:"I have ______ (see) this movie.", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=300"},
-            {q:"broken", t:"He has ______ (break) the window.", i:"https://images.pexels.com/photos/5202925/pexels-photo-5202925.jpeg?w=300"}
-        ],
-        comparison: [
-            {q:"taller", t:"Giraffe is ______ than lion.", i:"https://images.pexels.com/photos/806441/pexels-photo-806441.jpeg?w=300"}
-        ]
+        animals: [{q:"lion", t:"The king of jungle", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"}],
+        tobe: [{q:"is", t:"He ___ a teacher.", i:"https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?w=300"}],
+        // ... Калган маалыматтарды ушул жерге кошуп койсоңуз болот
     };
 
-    let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, currentBonus=10, timerInt;
+    let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, bonus=10, timer;
 
     function start(topic) {
         let list = database[topic] || database.animals;
@@ -119,20 +111,19 @@
         p2L = [...list].sort(() => Math.random() - 0.5);
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        document.getElementById('bg-music').play();
         load(1); load(2);
         resetTimer();
     }
 
     function resetTimer() {
-        clearInterval(timerInt);
-        let timeLeft = 10;
-        const circle = document.querySelector('.timer-circle');
-        timerInt = setInterval(() => {
-            timeLeft -= 0.1;
-            currentBonus = Math.max(1, Math.ceil(timeLeft));
-            circle.style.strokeDashoffset = 251 - (timeLeft / 10) * 251;
-            if(timeLeft <= 0) timeLeft = 10;
+        clearInterval(timer);
+        let left = 10;
+        const circ = document.querySelector('.timer-circle');
+        timer = setInterval(() => {
+            left -= 0.1;
+            bonus = Math.max(1, Math.ceil(left));
+            circ.style.strokeDashoffset = 251 - (left/10)*251;
+            if(left <= 0) left = 10;
         }, 100);
     }
 
@@ -140,7 +131,7 @@
         let idx = (p==1) ? p1i : p2i;
         let list = (p==1) ? p1L : p2L;
         if(idx >= list.length) {
-            document.getElementById('txt'+p).innerText = "DONE! ✅";
+            document.getElementById('txt'+p).innerText = "DONE!";
             document.getElementById('in'+p).style.display = "none";
             if(p1i >= p1L.length && p2i >= p2L.length) finish();
             return;
@@ -156,33 +147,18 @@
         let list = (p==1) ? p1L : p2L;
         let idx = (p==1) ? p1i : p2i;
         if(val === list[idx].q.toLowerCase()) {
-            let pts = currentBonus;
-            if(p==1) { sc1 += pts; p1i++; document.getElementById('s1').innerText=sc1; }
-            else { sc2 += pts; p2i++; document.getElementById('s2').innerText=sc2; }
-            showPop(p, pts);
-            load(p);
-            resetTimer();
+            if(p==1) { sc1 += bonus; p1i++; document.getElementById('s1').innerText=sc1; }
+            else { sc2 += bonus; p2i++; document.getElementById('s2').innerText=sc2; }
+            load(p); resetTimer();
         }
     }
 
-    function showPop(p, pts) {
-        let el = document.getElementById('pop'+p);
-        el.innerText = "+" + pts; el.style.display = "block";
-        setTimeout(() => el.style.display = "none", 800);
-    }
-
     function finish() {
-        clearInterval(timerInt);
+        clearInterval(timer);
         document.getElementById('battle-screen').classList.add('hidden');
         document.getElementById('win-screen').classList.remove('hidden');
-        let win = sc1 > sc2 ? "LIONS WIN!" : (sc2 > sc1 ? "EAGLES WIN!" : "DRAW!");
-        document.getElementById('winner-txt').innerText = win;
-        let end = Date.now() + 10000;
-        (function frame() {
-            confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 } });
-            confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 } });
-            if (Date.now() < end) requestAnimationFrame(frame);
-        }());
+        document.getElementById('winner-txt').innerText = sc1 > sc2 ? "LIONS WIN!" : "EAGLES WIN!";
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     }
 </script>
 </body>
