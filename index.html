@@ -3,43 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega English Battle - Teacher Aksana</title>
+    <title>Teacher Aksana - English Battle</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #050a18; color: white; margin: 0; text-align: center; overflow-x: hidden; }
         .hidden { display: none !important; }
-        .profile-card { background: linear-gradient(135deg, #1e3799, #0c2461); padding: 20px; border-radius: 0 0 50px 50px; border-bottom: 4px solid #f1c40f; margin-bottom: 20px; }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #f1c40f; object-fit: cover; }
-        
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 900px; margin: 10px auto; padding: 10px; }
-        .topic-btn { padding: 15px; border-radius: 10px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
-        .topic-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,0.2); }
-
-        .battle-container { display: flex; justify-content: space-around; padding: 10px; gap: 10px; }
+        .profile-card { background: linear-gradient(135deg, #1e3799, #0c2461); padding: 15px; border-radius: 0 0 50px 50px; border-bottom: 4px solid #f1c40f; margin-bottom: 10px; }
+        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #f1c40f; object-fit: cover; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 900px; margin: 5px auto; padding: 10px; }
+        .topic-btn { padding: 12px; border-radius: 10px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .topic-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
         .arena { width: 48%; background: rgba(255,255,255,0.05); border-radius: 20px; border: 2px solid #333; padding: 10px; }
-        
         .battery-outer { width: 50px; height: 25px; border: 2px solid #fff; border-radius: 4px; position: relative; margin: 5px auto; }
         .battery-level { height: 100%; background: #2ecc71; width: 0%; transition: width 0.4s; }
-        .star-count { font-size: 1.5rem; color: #f1c40f; }
-
-        .q-img { width: 100%; height: 150px; border-radius: 12px; object-fit: cover; border: 2px solid white; }
-        .q-text { background: white; color: #111; padding: 10px; border-radius: 8px; margin: 8px 0; font-weight: bold; min-height: 40px; font-size: 1rem; }
-        .ans-input { width: 80%; padding: 10px; border-radius: 8px; border: 2px solid #3498db; font-size: 1.1rem; text-align: center; }
-
-        #victory-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050a18; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .win-banner { background: #f1c40f; color: black; padding: 15px 40px; border-radius: 40px; font-size: 2rem; font-weight: 900; margin-bottom: 20px; }
+        .star-count { font-size: 1.4rem; color: #f1c40f; font-weight: bold; }
+        .q-img { width: 100%; height: 140px; border-radius: 12px; object-fit: cover; border: 2px solid white; }
+        .q-text { background: white; color: #111; padding: 10px; border-radius: 8px; margin: 8px 0; font-weight: bold; min-height: 40px; font-size: 0.95rem; }
+        .ans-input { width: 85%; padding: 10px; border-radius: 8px; border: 2px solid #3498db; font-size: 1.1rem; text-align: center; outline: none; }
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <audio id="bg-music" loop src="https://upload.wikimedia.org/wikipedia/commons/0/07/Kyrgyz_instrumental_music.mp3"></audio>
     <audio id="win-music" src="https://cdn.pixabay.com/audio/2021/08/04/audio_bbd1303901.mp3"></audio>
 
     <div id="home-screen">
         <div class="profile-card">
             <img src="96064.jpg" class="profile-img" alt="Aksana">
             <h2 style="margin:5px 0;">Teacher Aksana</h2>
-            <p>Mega English Battle - 12 Levels</p>
+            <p style="margin:0;">English Battle: Komuz Edition</p>
         </div>
         <div class="menu-grid">
             <button class="topic-btn" style="background:#e74c3c" onclick="startBattle('animals')">🦁 ANIMALS</button>
@@ -47,92 +39,91 @@
             <button class="topic-btn" style="background:#9b59b6" onclick="startBattle('grammar')">📝 TO BE</button>
             <button class="topic-btn" style="background:#2ecc71" onclick="startBattle('school')">🏫 SCHOOL</button>
             <button class="topic-btn" style="background:#f39c12" onclick="startBattle('food')">🍎 FOOD</button>
-            <button class="topic-btn" style="background:#e67e22" onclick="startBattle('verbs')">🏃 VERBS</button>
-            <button class="topic-btn" style="background:#1abc9c" onclick="startBattle('colors')">🎨 COLORS</button>
-            <button class="topic-btn" style="background:#d35400" onclick="startBattle('body')">👃 BODY</button>
-            <button class="topic-btn" style="background:#7f8c8d" onclick="startBattle('opposites')">↔️ OPPOSITES</button>
-            <button class="topic-btn" style="background:#c0392b" onclick="startBattle('numbers')">🔢 NUMBERS</button>
-            <button class="topic-btn" style="background:#27ae60" onclick="startBattle('jobs')">👨‍⚕️ JOBS</button>
-            <button class="topic-btn" style="background:#2980b9" onclick="startBattle('irregular')">📚 IRREGULAR V.</button>
+            <button class="topic-btn" style="background:#c0392b" onclick="startBattle('numbers')">📅 TIME & CALENDAR</button>
         </div>
     </div>
 
     <div id="battle-screen" class="hidden">
-        <div class="battle-container">
+        <div style="display: flex; justify-content: space-around; padding: 10px; gap: 10px;">
             <div class="arena">
-                <div id="t1-n" style="font-weight:bold; color:#e74c3c;">TEAM 1</div>
+                <div id="t1-n" style="font-weight:bold; color:#e74c3c;">LIONS</div>
                 <div class="star-count">⭐ <span id="s1">0</span></div>
                 <div class="battery-outer"><div id="bat1" class="battery-level"></div></div>
                 <img id="img1" class="q-img" src="">
                 <div id="q1" class="q-text"></div>
-                <input type="text" id="in1" class="ans-input" oninput="check(1)">
+                <input type="text" id="in1" class="ans-input" autocomplete="off" placeholder="..." oninput="check(1)">
             </div>
             <div class="arena">
-                <div id="t2-n" style="font-weight:bold; color:#3498db;">TEAM 2</div>
+                <div id="t2-n" style="font-weight:bold; color:#3498db;">EAGLES</div>
                 <div class="star-count">⭐ <span id="s2">0</span></div>
                 <div class="battery-outer"><div id="bat2" class="battery-level"></div></div>
                 <img id="img2" class="q-img" src="">
                 <div id="q2" class="q-text"></div>
-                <input type="text" id="in2" class="ans-input" oninput="check(2)">
+                <input type="text" id="in2" class="ans-input" autocomplete="off" placeholder="..." oninput="check(2)">
             </div>
         </div>
     </div>
 
-    <div id="victory-screen" class="hidden">
-        <img src="96064.jpg" style="width:100px; border-radius:50%; border:3px solid #f1c40f; margin-bottom:10px;">
-        <div class="win-banner" id="winner-name">WINNER</div>
-        <h1 style="font-size: 3rem; margin:0;">🏆</h1>
-        <button class="topic-btn" style="background:white; color:black; padding:10px 30px; margin-top:20px;" onclick="location.reload()">RESTART</button>
+    <div id="victory-screen" class="hidden" style="position:fixed; top:0; width:100%; height:100%; background:#050a18; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:999;">
+        <img src="96064.jpg" style="width:120px; border-radius:50%; border:4px solid #f1c40f; margin-bottom:15px;">
+        <div id="winner-tag" style="background:#f1c40f; color:black; padding:20px 60px; border-radius:50px; font-size:2.2rem; font-weight:900; margin-bottom:20px;">WINNER!</div>
+        <h1 style="font-size: 5rem; margin:0;">🏆</h1>
+        <button class="topic-btn" style="background:white; color:black; padding:15px 40px; margin-top:30px;" onclick="location.reload()">Оюнду кайра баштоо</button>
     </div>
 
 <script>
     const data = {
         animals: [
-            {q:"King of jungle?", a:"lion", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=200"},
-            {q:"Long neck?", a:"giraffe", i:"https://images.unsplash.com/photo-1547721064-3625b669fa95?w=200"},
-            {q:"Jump and carry baby?", a:"kangaroo", i:"https://images.unsplash.com/photo-1549281899-f75600a24107?w=200"}
+            {q:"King of the jungle?", a:"lion", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=300"},
+            {q:"Long neck animal?", a:"giraffe", i:"https://images.unsplash.com/photo-1547721064-3625b669fa95?w=300"},
+            {q:"Lives in the ocean, huge?", a:"whale", i:"https://images.unsplash.com/photo-1568430462989-441609751d0c?w=300"},
+            {q:"Can jump high, Australia?", a:"kangaroo", i:"https://images.unsplash.com/photo-1549281899-f75600a24107?w=300"},
+            {q:"Biggest land animal?", a:"elephant", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=300"},
+            {q:"Smartest ocean animal?", a:"dolphin", i:"https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=300"}
+        ],
+        numbers: [
+            {q:"Months in a year?", a:"twelve", i:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=300"},
+            {q:"Days in a week?", a:"seven", i:"https://images.unsplash.com/photo-1435527173128-983b87501f4d?w=300"},
+            {q:"Seasons in a year?", a:"four", i:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=300"},
+            {q:"Colors in a rainbow?", a:"seven", i:"https://images.unsplash.com/photo-1439405326854-014607f694d7?w=300"},
+            {q:"Minutes in 1 hour?", a:"sixty", i:"https://images.unsplash.com/photo-1508962914676-134849a727f0?w=300"}
         ],
         grammar: [
-            {q:"I ___ a teacher.", a:"am", i:"https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200"},
-            {q:"You ___ brave.", a:"are", i:"https://images.unsplash.com/photo-1533227268408-a77469c79f71?w=200"},
-            {q:"He ___ strong.", a:"is", i:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200"}
+            {q:"I ___ a teacher.", a:"am", i:"https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=300"},
+            {q:"They ___ playing.", a:"are", i:"https://images.unsplash.com/photo-1526676037777-05a232554f77?w=300"},
+            {q:"She ___ my sister.", a:"is", i:"https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=300"}
         ],
-        opposites: [
-            {q:"Opposite of BIG?", a:"small", i:"https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=200"},
-            {q:"Opposite of FAST?", a:"slow", i:"https://images.unsplash.com/photo-1534143048286-0f3d9ce95ed1?w=200"}
+        school: [
+            {q:"You read it?", a:"book", i:"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=300"},
+            {q:"You sit on it?", a:"chair", i:"https://images.unsplash.com/photo-1503602642458-232111445657?w=300"},
+            {q:"You write on it?", a:"board", i:"https://images.unsplash.com/photo-1541170716948-9944963bf973?w=300"}
         ],
-        jobs: [
-            {q:"Who treats people?", a:"doctor", i:"https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=200"},
-            {q:"Who flies planes?", a:"pilot", i:"https://images.unsplash.com/photo-1517976547714-720226b864c1?w=200"}
+        food: [
+            {q:"Yellow fruit?", a:"banana", i:"https://images.unsplash.com/photo-1571771894821-ad9958a3f747?w=300"},
+            {q:"White drink?", a:"milk", i:"https://images.unsplash.com/photo-1550583724-125581cc255b?w=300"},
+            {q:"Red fruit?", a:"apple", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300"}
         ],
-        irregular: [
-            {q:"Past of GO?", a:"went", i:"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200"},
-            {q:"Past of EAT?", a:"ate", i:"https://images.unsplash.com/photo-1476224483472-38361662c68c?w=200"}
-        ],
-        colors:[{q:"Sky color?", a:"blue", i:"https://images.unsplash.com/photo-1501747315-124a0eaca060?w=200"}],
-        family:[{q:"Father's sister?", a:"aunt", i:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=200"}],
-        school:[{q:"You sit on it?", a:"chair", i:"https://images.unsplash.com/photo-1503602642458-232111445657?w=200"}],
-        food:[{q:"Sweet cold food?", a:"ice cream", i:"https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=200"}],
-        verbs:[{q:"You do this in water?", a:"swim", i:"https://images.unsplash.com/photo-1530549387631-afb16881127e?w=200"}],
-        body:[{q:"You taste with it?", a:"tongue", i:"https://images.unsplash.com/photo-1516139008210-96e45dccd83b?w=200"}],
-        numbers:[{q:"10 + 5 = ?", a:"fifteen", i:"https://images.unsplash.com/photo-1509228468518-180dd4864904?w=200"}]
+        family: [{q:"Father's wife?", a:"mother", i:"https://images.unsplash.com/photo-1510154221590-ff63e90a136f?w=300"}]
     };
 
     let p1L = [], p2L = [], p1I = 0, p2I = 0, sc1 = 0, sc2 = 0, st1, st2;
 
     function startBattle(topic) {
-        let n1 = prompt("Team 1:", "LIONS"); let n2 = prompt("Team 2:", "EAGLES");
+        let n1 = prompt("Команда 1:", "LIONS"); let n2 = prompt("Команда 2:", "EAGLES");
         document.getElementById('t1-n').innerText = n1; document.getElementById('t2-n').innerText = n2;
-        p1L = [...data[topic]].sort(()=>Math.random()-0.5); p2L = [...data[topic]].sort(()=>Math.random()-0.5);
+        p1L = [...data[topic]].sort(()=>Math.random()-0.5); 
+        p2L = [...data[topic]].sort(()=>Math.random()-0.5); 
+        if(p1L[0].q === p2L[0].q) p2L.reverse();
+
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        document.getElementById('bg-music').play();
-        rn(1); rn(2);
+        document.getElementById('bg-music').play().catch(()=>console.log("Music blocked"));
+        render(1); render(2);
     }
 
-    function rn(p) {
-        if((p===1 && p1I>=p1L.length) || (p===2 && p2I>=p2L.length)) return cE();
-        const cur = p===1 ? p1L[p1I] : p2L[p2I];
+    function render(p) {
+        if((p===1 && p1I>=p1L.length) || (p===2 && p2I>=p2L.length)) return checkEnd();
+        const cur = (p===1) ? p1L[p1I] : p2L[p2I];
         document.getElementById('q'+p).innerText = cur.q;
         document.getElementById('img'+p).src = cur.i;
         document.getElementById('in'+p).value = "";
@@ -140,24 +131,43 @@
     }
 
     function check(p) {
-        let v = document.getElementById('in'+p).value.trim().toLowerCase();
-        let a = p===1 ? p1L[p1I].a : p2L[p2I].a;
-        if(v === a) {
+        let val = document.getElementById('in'+p).value.trim().toLowerCase();
+        let target = (p===1) ? p1L[p1I].a : p2L[p2I].a;
+        if(val === target) {
             let t = (Date.now() - (p===1?st1:st2))/1000;
-            let pts = t<3?3:(t<6?2:1);
-            if(p===1){ sc1+=pts; p1I++; document.getElementById('s1').innerText=sc1; document.getElementById('bat1').style.width=(p1I/p1L.length*100)+"%"; rn(1); }
-            else { sc2+=pts; p2I++; document.getElementById('s2').innerText=sc2; document.getElementById('bat2').style.width=(p2I/p2L.length*100)+"%"; rn(2); }
+            let pts = t<4?3:(t<8?2:1);
+            if(p===1){ sc1+=pts; p1I++; document.getElementById('s1').innerText=sc1; document.getElementById('bat1').style.width=(p1I/p1L.length*100)+"%"; render(1); }
+            else { sc2+=pts; p2I++; document.getElementById('s2').innerText=sc2; document.getElementById('bat2').style.width=(p2I/p2L.length*100)+"%"; render(2); }
         }
     }
 
-    function cE() {
+    function launchSalute() {
+        var duration = 5 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+        var interval = setInterval(function() {
+            var timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+            var particleCount = 50 * (timeLeft / duration);
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        }, 250);
+    }
+
+    function checkEnd() {
         if(p1I>=p1L.length && p2I>=p2L.length) {
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('victory-screen').classList.remove('hidden');
-            document.getElementById('bg-music').pause(); document.getElementById('win-music').play();
-            let win = sc1>sc2?document.getElementById('t1-n').innerText:(sc2>sc1?document.getElementById('t2-n').innerText:"TIE");
-            document.getElementById('winner-name').innerText = win + " WINS!";
-            var e=Date.now()+5000; (function f(){ confetti({particleCount:5,angle:60,spread:55,origin:{x:0}}); confetti({particleCount:5,angle:120,spread:55,origin:{x:1}}); if(Date.now()<e)requestAnimationFrame(f); })();
+            document.getElementById('bg-music').pause(); 
+            document.getElementById('win-music').play();
+            
+            let win = sc1>sc2?document.getElementById('t1-n').innerText:(sc2>sc1?document.getElementById('t2-n').innerText:"ТЕҢ ЧЫГЫШ!");
+            document.getElementById('winner-tag').innerText = win + (sc1==sc2?"":" ЖЕҢДИ!");
+            
+            launchSalute();
         }
     }
 </script>
