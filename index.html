@@ -2,61 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>English Speed Battle Extreme - Aksana Tukubai kyzy
-    General School Kenesh</title>
+    <title>English Speed Battle - Aksana Tukubai kyzy</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        .sidebar { width: 260px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; z-index: 10; }
-        .main-stage { margin-left: 260px; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        
+        /* Sidebar Profile */
+        .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; z-index: 10; text-align: center; }
+        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; }
+        .profile-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 800px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
-        .arena-container { display: flex; width: 98%; gap: 10px; height: 95vh; padding: 10px; box-sizing: border-box; }
+        .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
+        
+        .arena-container { display: flex; width: 98%; gap: 15px; height: 95vh; padding: 10px; box-sizing: border-box; }
         .arena { flex: 1; background: rgba(0,0,0,0.6); border: 3px solid var(--gold); border-radius: 25px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
-        .q-img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; border: 2px solid white; }
-        .score { font-size: 4rem; color: var(--gold); font-weight: bold; margin: 0; text-shadow: 0 0 15px rgba(241,196,15,0.5); }
-        .ans-in { width: 90%; padding: 15px; font-size: 2rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; }
+        .q-img { width: 100%; height: 260px; object-fit: cover; border-radius: 15px; border: 2px solid white; }
+        .score { font-size: 3.8rem; color: var(--gold); font-weight: bold; margin: 0; }
+        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; }
         .ans-in.correct { background: #2ecc71 !important; color: white; }
         .ans-in.wrong { background: #e74c3c !important; color: white; }
-        .btn { padding: 15px 30px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
-        .podium-box { display: flex; align-items: flex-end; gap: 20px; margin-top: 30px; justify-content: center; }
-        .step { width: 160px; border-radius: 15px 15px 0 0; display: flex; flex-direction: column; align-items: center; color: #010a24; font-weight: bold; padding: 15px; }
-        .step.gold { height: 220px; background: linear-gradient(#ffd700, #f1c40f); box-shadow: 0 0 30px var(--gold); }
-        .step.silver { height: 150px; background: linear-gradient(#bdc3c7, #95a5a6); }
+        
+        .btn { padding: 15px 30px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.1rem; color: #010a24; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-<audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
 <audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
 <audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
-<audio id="win-music" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
 
 <div class="sidebar">
-    <div style="width:100px; height:100px; background:white; border-radius:50%; border:3px solid var(--gold); margin-bottom:15px; overflow:hidden;">
-        <img src="96064.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
+    <div class="profile-img">
+        <img src="96064.jpg" alt="Aksana Tukubai kyzy" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
     </div>
-    <h3 style="color:var(--gold); text-align:center;">SOURCE OF KNOWLEDGE</h3>
-    <p>Aksana Tukubai</p>
+    <h3 style="color:var(--gold); font-size: 1rem; margin-bottom: 5px; text-transform: uppercase;">Source of Knowledge</h3>
+    <p style="font-weight: bold; color: #fff; font-size: 1.3rem; margin: 5px 0;">Aksana Tukubai kyzy</p>
+    <p style="color: var(--accent); font-weight: bold; font-size: 1rem; margin-top: 5px;">Kenesh General <br> Education School</p>
+    <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 25px 0;">
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h1 style="color:var(--gold);">BATTLE SETUP</h1>
-        <input type="text" id="t1" value="LIONS" style="padding:15px; font-size:1.5rem; border-radius:10px; margin:10px;">
-        <input type="text" id="t2" value="EAGLES" style="padding:15px; font-size:1.5rem; border-radius:10px; margin:10px;">
-        <br><br><button class="btn" onclick="openMenu()">START GAME ➔</button>
+        <h1 style="color:var(--gold); font-size: 2.5rem;">BATTLE REGISTRATION</h1>
+        <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px; align-items: center;">
+            <input type="text" id="t1" value="LIONS" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
+            <span style="font-size: 2rem; font-weight: bold;">VS</span>
+            <input type="text" id="t2" value="EAGLES" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
+        </div>
+        <button class="btn" onclick="openMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h2 style="color:var(--gold);">SELECT TOPIC</h2>
+        <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-            <button class="btn" onclick="start('animals')">🦁 Animals</button>
-            <button class="btn" onclick="start('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="start('school')">🎒 School</button>
-            <button class="btn" onclick="start('be')">🐝 To Be</button>
-            <button class="btn" style="grid-column: span 2;" onclick="start('past')">🕒 Past Simple</button>
+            <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
+            <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
+            <button class="btn" onclick="startBattle('school')">🎒 School</button>
+            <button class="btn" onclick="startBattle('verbs')">🏃 Verbs</button>
         </div>
     </div>
 
@@ -65,149 +71,121 @@
             <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
             <div class="score" id="score-1">0</div>
             <img id="img-1" class="q-img">
-            <p id="text-1" style="font-size:1.5rem; font-weight:bold;"></p>
+            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
             <input type="text" id="input-1" class="ans-in" autocomplete="off" oninput="check(1)">
         </div>
         <div class="arena">
             <h2 id="name-2" style="color:var(--accent); margin:0;"></h2>
             <div class="score" id="score-2">0</div>
             <img id="img-2" class="q-img">
-            <p id="text-2" style="font-size:1.5rem; font-weight:bold;"></p>
+            <p id="text-2" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
             <input type="text" id="input-2" class="ans-in" autocomplete="off" oninput="check(2)">
         </div>
     </div>
 
-    <div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; background:rgba(1,10,36,0.98); z-index:100;">
+    <div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; background:rgba(1,10,36,0.98); z-index:100; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <h1 id="winner-text" style="color:var(--gold); font-size:4rem;"></h1>
-        <div class="podium-box">
-            <div class="step silver"><div id="silver-name"></div><div id="silver-score"></div><div>🥈</div></div>
-            <div class="step gold"><div id="gold-name"></div><div id="gold-score"></div><div>👑</div></div>
+        <div style="display: flex; align-items: flex-end; gap: 20px; margin-top: 30px;">
+            <div style="width:160px; height:150px; background:#bdc3c7; border-radius:15px 15px 0 0; color:#010a24; padding:15px; font-weight:bold;">
+                <div id="silver-name"></div><div id="silver-score" style="font-size:2rem;"></div><div>🥈</div>
+            </div>
+            <div style="width:180px; height:220px; background:#ffd700; border-radius:15px 15px 0 0; color:#010a24; padding:15px; font-weight:bold; box-shadow: 0 0 30px #f1c40f;">
+                <div id="gold-name"></div><div id="gold-score" style="font-size:2.5rem;"></div><div>👑</div>
+            </div>
         </div>
-        <br><button class="btn" onclick="location.reload()">NEW GAME 🔄</button>
+        <br><button class="btn" onclick="location.reload()" style="margin-top:40px;">NEW BATTLE 🔄</button>
     </div>
 </div>
 
 <script>
     const quizData = {
         animals: [
-            {q:"elephant", s:"Big animal with a trunk", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
-            {q:"lion", s:"King of the jungle", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
-            {q:"giraffe", s:"Long necked animal", i:"https://images.unsplash.com/photo-1547721064-36202181c922?w=400"},
-            {q:"monkey", s:"Loves to climb trees", i:"https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=400"},
-            {q:"tiger", s:"Large cat with stripes", i:"https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?w=400"},
-            {q:"zebra", s:"Black and white stripes", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=400"},
-            {q:"rabbit", s:"Long ears and hops", i:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400"},
-            {q:"panda", s:"Black and white bear", i:"https://images.unsplash.com/photo-1564349683136-77e08bef1ef1?w=400"},
-            {q:"kangaroo", s:"Carries baby in a pouch", i:"https://images.unsplash.com/photo-1533228813303-3142200be550?w=400"},
-            {q:"snake", s:"A long reptile without legs", i:"https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?w=400"}
+            {q:"elephant", s:"Big animal with a trunk.", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
+            {q:"lion", s:"The king of the jungle.", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
+            {q:"giraffe", s:"It has a very long neck.", i:"https://images.unsplash.com/photo-1547721064-36202181c922?w=400"},
+            {q:"monkey", s:"Loves climbing and bananas.", i:"https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=400"},
+            {q:"zebra", s:"Black and white stripes.", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=400"},
+            {q:"tiger", s:"Large orange cat with stripes.", i:"https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?w=400"}
         ],
         fruits: [
-            {q:"apple", s:"Red round fruit", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"},
-            {q:"banana", s:"Yellow long fruit", i:"https://images.unsplash.com/photo-1571771894821-ad9b588640ba?w=400"},
-            {q:"lemon", s:"Sour yellow fruit", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400"},
-            {q:"orange", s:"Juicy and orange", i:"https://images.unsplash.com/photo-1519996529931-28322d5a630e?w=400"},
-            {q:"grapes", s:"Small round purple or green", i:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=400"},
-            {q:"watermelon", s:"Green outside, red inside", i:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400"},
-            {q:"strawberry", s:"Small red heart-shaped", i:"https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400"},
-            {q:"pear", s:"Green fruit like a bell", i:"https://images.unsplash.com/photo-1514756331096-242f390efe22?w=400"}
+            {q:"apple", s:"Red or green round fruit.", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"},
+            {q:"banana", s:"Long yellow fruit.", i:"https://images.unsplash.com/photo-1571771894821-ad9b588640ba?w=400"},
+            {q:"lemon", s:"Very sour and yellow.", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400"}
         ],
         school: [
-            {q:"pencil", s:"Used for drawing", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
-            {q:"book", s:"Read it for study", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"},
-            {q:"bag", s:"Carry your books", i:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"},
-            {q:"ruler", s:"Used to draw straight lines", i:"https://images.unsplash.com/photo-1586075010633-24701bd6e8b4?w=400"},
-            {q:"eraser", s:"To remove pencil mistakes", i:"https://images.unsplash.com/photo-1588725804561-f09c855a073c?w=400"},
-            {q:"pen", s:"Writing with ink", i:"https://images.unsplash.com/photo-1585336139118-132f70a4a7dd?w=400"}
+            {q:"pencil", s:"Used to write or draw.", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
+            {q:"book", s:"You read this for study.", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"}
         ],
-        be: [
-            {q:"am", s:"I ___ a student.", i:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400"},
-            {q:"is", s:"He ___ a doctor.", i:"https://images.unsplash.com/photo-1529900748604-07564a03f7a6?w=400"},
-            {q:"are", s:"They ___ happy.", i:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400"},
-            {q:"is", s:"It ___ a big dog.", i:"https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400"},
-            {q:"are", s:"We ___ in the school.", i:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400"}
-        ],
-        past: [
-            {q:"was", s:"I ___ at home yesterday.", i:"https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400"},
-            {q:"were", s:"They ___ busy last night.", i:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400"},
-            {q:"went", s:"She ___ to school at 8 AM.", i:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400"},
-            {q:"had", s:"We ___ a big dinner.", i:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400"}
+        verbs: [
+            {q:"run", s:"To move very fast.", i:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400"},
+            {q:"swim", s:"To move in water.", i:"https://images.unsplash.com/photo-1519315585047-ad8a19a40869?w=400"}
         ]
     };
 
-    let p1List=[], p2List=[], p1Idx=0, p2Idx=0, s1=0, s2=0, active=false;
+    let p1L=[], p2L=[], p1I=0, p2I=0, s1=0, s2=0, playing=false;
 
     function openMenu() {
-        document.getElementById('bg-music').play();
+        document.getElementById('bg-music').play().catch(()=>{});
         document.getElementById('setup-screen').classList.add('hidden');
         document.getElementById('menu-screen').classList.remove('hidden');
     }
 
-    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+    function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
 
-    function start(topic) {
-        p1List = shuffle([...quizData[topic]]);
-        p2List = shuffle([...quizData[topic]]);
+    function startBattle(t) {
+        p1L = shuffle([...quizData[t]]);
+        p2L = shuffle([...quizData[t]]);
         document.getElementById('name-1').innerText = document.getElementById('t1').value;
         document.getElementById('name-2').innerText = document.getElementById('t2').value;
         document.getElementById('menu-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        active = true; p1Idx = 0; p2Idx = 0; s1 = 0; s2 = 0;
+        playing = true; p1I = 0; p2I = 0; s1 = 0; s2 = 0;
         load(1); load(2);
     }
 
     function load(p) {
-        let list = (p==1) ? p1List : p2List;
-        let idx = (p==1) ? p1Idx : p2Idx;
-        if (idx >= list.length) { checkEnd(); return; }
-        document.getElementById('img-'+p).src = list[idx].i;
-        document.getElementById('text-'+p).innerText = list[idx].s;
-        let input = document.getElementById('input-'+p);
-        input.value = ""; input.className = "ans-in"; input.disabled = false;
-        if(p==1) setTimeout(() => input.focus(), 10);
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+        if(i >= l.length) { finish(); return; }
+        document.getElementById('img-'+p).src = l[i].i;
+        document.getElementById('text-'+p).innerText = l[i].s;
+        let inp = document.getElementById('input-'+p);
+        inp.value = ""; inp.className = "ans-in"; inp.disabled = false;
+        if(p==1) setTimeout(()=>inp.focus(), 10);
     }
 
     function check(p) {
-        if (!active) return;
-        let input = document.getElementById('input-'+p);
-        let val = input.value.toLowerCase().trim();
-        let list = (p==1) ? p1List : p2List;
-        let idx = (p==1) ? p1Idx : p2Idx;
-        let correct = list[idx].q;
-
-        if (val === correct) {
+        if(!playing) return;
+        let inp = document.getElementById('input-'+p);
+        let val = inp.value.toLowerCase().trim();
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+        if(val === l[i].q) {
             document.getElementById('correct-sound').play();
-            input.classList.add('correct');
-            input.disabled = true;
-            if (p==1) { s1 += 20; p1Idx++; document.getElementById('score-1').innerText = s1; }
-            else { s2 += 20; p2Idx++; document.getElementById('score-2').innerText = s2; }
-            setTimeout(() => load(p), 500);
-        } else if (val.length >= correct.length) {
+            inp.classList.add('correct'); inp.disabled = true;
+            if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+            else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+            setTimeout(()=>load(p), 400);
+        } else if(val.length >= l[i].q.length) {
             document.getElementById('wrong-sound').play();
-            input.classList.add('wrong');
-            input.disabled = true;
-            setTimeout(() => { if(p==1) p1Idx++; else p2Idx++; load(p); }, 600);
+            inp.classList.add('wrong'); inp.disabled = true;
+            setTimeout(()=>{ if(p==1) p1I++; else p2I++; load(p); }, 600);
         }
     }
 
-    function checkEnd() {
-        if (p1Idx >= p1List.length && p2Idx >= p2List.length) {
-            active = false;
-            document.getElementById('bg-music').pause();
-            document.getElementById('win-music').play();
+    function finish() {
+        if(p1I >= p1L.length && p2I >= p2L.length) {
+            playing = false;
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('win-screen').classList.remove('hidden');
             let n1 = document.getElementById('t1').value, n2 = document.getElementById('t2').value;
-            if (s1 >= s2) showWinner(n1, s1, n2, s2); else showWinner(n2, s2, n1, s1);
-            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+            if(s1 >= s2) { res(n1,s1,n2,s2); } else { res(n2,s2,n1,s1); }
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         }
     }
 
-    function showWinner(wN, wS, lN, lS) {
-        document.getElementById('winner-text').innerText = wN + " WINS! 🏆";
-        document.getElementById('gold-name').innerText = wN;
-        document.getElementById('gold-score').innerText = wS;
-        document.getElementById('silver-name').innerText = lN;
-        document.getElementById('silver-score').innerText = lS;
+    function res(wN, wS, lN, lS) {
+        document.getElementById('winner-text').innerText = wN + " WINS! 👑";
+        document.getElementById('gold-name').innerText = wN; document.getElementById('gold-score').innerText = wS;
+        document.getElementById('silver-name').innerText = lN; document.getElementById('silver-score').innerText = lS;
     }
 </script>
 </body>
