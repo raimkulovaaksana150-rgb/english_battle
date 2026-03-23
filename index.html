@@ -3,150 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aksana - Parallel English Battle</title>
+    <title>Mega English Battle - Teacher Aksana</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #050a18; color: white; margin: 0; text-align: center; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background: #050a18; color: white; margin: 0; text-align: center; overflow-x: hidden; }
         .hidden { display: none !important; }
+        .profile-card { background: linear-gradient(135deg, #1e3799, #0c2461); padding: 20px; border-radius: 0 0 50px 50px; border-bottom: 4px solid #f1c40f; margin-bottom: 20px; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #f1c40f; object-fit: cover; }
         
-        /* Визитка */
-        .profile-card { background: linear-gradient(135deg, #1e3799, #0c2461); padding: 20px; border-radius: 0 0 50px 50px; border-bottom: 4px solid #f1c40f; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #f1c40f; object-fit: cover; }
-        
-        /* Меню */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 600px; margin: 20px auto; padding: 10px; }
-        .topic-btn { padding: 20px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; }
-        .topic-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 900px; margin: 10px auto; padding: 10px; }
+        .topic-btn { padding: 15px; border-radius: 10px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .topic-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,0.2); }
 
-        /* ПАРАЛЛЕЛЬ ТАЛАА */
-        .battle-container { display: flex; justify-content: space-around; padding: 10px; gap: 10px; height: 80vh; }
-        .arena { width: 48%; background: rgba(255,255,255,0.05); border-radius: 20px; border: 2px solid #333; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        .arena-1 { border-color: #e74c3c; }
-        .arena-2 { border-color: #3498db; }
+        .battle-container { display: flex; justify-content: space-around; padding: 10px; gap: 10px; }
+        .arena { width: 48%; background: rgba(255,255,255,0.05); border-radius: 20px; border: 2px solid #333; padding: 10px; }
         
-        .team-name { font-size: 1.5rem; margin-bottom: 10px; text-transform: uppercase; }
-        .score-val { font-size: 3rem; font-weight: bold; margin: 5px 0; }
-        .q-img { width: 100%; max-height: 200px; border-radius: 15px; object-fit: cover; border: 3px solid white; }
-        .q-text { background: white; color: black; padding: 10px; border-radius: 10px; margin: 10px 0; min-height: 50px; font-weight: bold; width: 90%; }
-        .ans-input { width: 80%; padding: 12px; border-radius: 10px; border: none; font-size: 1.2rem; text-align: center; }
+        .battery-outer { width: 50px; height: 25px; border: 2px solid #fff; border-radius: 4px; position: relative; margin: 5px auto; }
+        .battery-level { height: 100%; background: #2ecc71; width: 0%; transition: width 0.4s; }
+        .star-count { font-size: 1.5rem; color: #f1c40f; }
 
-        /* ЖЕҢИШ ЭКРАНЫ */
+        .q-img { width: 100%; height: 150px; border-radius: 12px; object-fit: cover; border: 2px solid white; }
+        .q-text { background: white; color: #111; padding: 10px; border-radius: 8px; margin: 8px 0; font-weight: bold; min-height: 40px; font-size: 1rem; }
+        .ans-input { width: 80%; padding: 10px; border-radius: 8px; border: 2px solid #3498db; font-size: 1.1rem; text-align: center; }
+
         #victory-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050a18; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .win-banner { background: #f1c40f; color: black; padding: 20px 50px; border-radius: 50px; font-size: 2.5rem; font-weight: 900; box-shadow: 0 0 50px #f1c40f; animation: pulse 1s infinite alternate; }
-        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .win-banner { background: #f1c40f; color: black; padding: 15px 40px; border-radius: 40px; font-size: 2rem; font-weight: 900; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <audio id="win-music" src="https://cdn.pixabay.com/audio/2021/08/04/audio_bbd1303901.mp3"></audio>
 
     <div id="home-screen">
         <div class="profile-card">
             <img src="96064.jpg" class="profile-img" alt="Aksana">
-            <h2 style="margin:10px 0;">Тукубай кызы Аксана</h2>
-            <p>English Battle: Parallel Duel</p>
+            <h2 style="margin:5px 0;">Teacher Aksana</h2>
+            <p>Mega English Battle - 12 Levels</p>
         </div>
         <div class="menu-grid">
             <button class="topic-btn" style="background:#e74c3c" onclick="startBattle('animals')">🦁 ANIMALS</button>
             <button class="topic-btn" style="background:#3498db" onclick="startBattle('family')">👨‍👩‍👧‍👦 FAMILY</button>
+            <button class="topic-btn" style="background:#9b59b6" onclick="startBattle('grammar')">📝 TO BE</button>
             <button class="topic-btn" style="background:#2ecc71" onclick="startBattle('school')">🏫 SCHOOL</button>
-            <button class="topic-btn" style="background:#f1c40f; color: black;" onclick="startBattle('food')">🍎 FOOD</button>
+            <button class="topic-btn" style="background:#f39c12" onclick="startBattle('food')">🍎 FOOD</button>
+            <button class="topic-btn" style="background:#e67e22" onclick="startBattle('verbs')">🏃 VERBS</button>
+            <button class="topic-btn" style="background:#1abc9c" onclick="startBattle('colors')">🎨 COLORS</button>
+            <button class="topic-btn" style="background:#d35400" onclick="startBattle('body')">👃 BODY</button>
+            <button class="topic-btn" style="background:#7f8c8d" onclick="startBattle('opposites')">↔️ OPPOSITES</button>
+            <button class="topic-btn" style="background:#c0392b" onclick="startBattle('numbers')">🔢 NUMBERS</button>
+            <button class="topic-btn" style="background:#27ae60" onclick="startBattle('jobs')">👨‍⚕️ JOBS</button>
+            <button class="topic-btn" style="background:#2980b9" onclick="startBattle('irregular')">📚 IRREGULAR V.</button>
         </div>
     </div>
 
     <div id="battle-screen" class="hidden">
         <div class="battle-container">
-            <div class="arena arena-1">
-                <div class="team-name" id="t1-display">Team 1</div>
-                <div class="score-val" id="s1">0</div>
+            <div class="arena">
+                <div id="t1-n" style="font-weight:bold; color:#e74c3c;">TEAM 1</div>
+                <div class="star-count">⭐ <span id="s1">0</span></div>
+                <div class="battery-outer"><div id="bat1" class="battery-level"></div></div>
                 <img id="img1" class="q-img" src="">
                 <div id="q1" class="q-text"></div>
-                <input type="text" id="in1" class="ans-input" placeholder="Answer..." oninput="checkAnswer(1)">
+                <input type="text" id="in1" class="ans-input" oninput="check(1)">
             </div>
-
-            <div class="arena arena-2">
-                <div class="team-name" id="t2-display">Team 2</div>
-                <div class="score-val" id="s2">0</div>
+            <div class="arena">
+                <div id="t2-n" style="font-weight:bold; color:#3498db;">TEAM 2</div>
+                <div class="star-count">⭐ <span id="s2">0</span></div>
+                <div class="battery-outer"><div id="bat2" class="battery-level"></div></div>
                 <img id="img2" class="q-img" src="">
                 <div id="q2" class="q-text"></div>
-                <input type="text" id="in2" class="ans-input" placeholder="Answer..." oninput="checkAnswer(2)">
+                <input type="text" id="in2" class="ans-input" oninput="check(2)">
             </div>
         </div>
     </div>
 
     <div id="victory-screen" class="hidden">
-        <img src="96064.jpg" style="width:150px; border-radius:50%; border:5px solid #f1c40f;">
-        <h3 style="color: #f1c40f;">Congratulations from Teacher Aksana!</h3>
+        <img src="96064.jpg" style="width:100px; border-radius:50%; border:3px solid #f1c40f; margin-bottom:10px;">
         <div class="win-banner" id="winner-name">WINNER</div>
-        <h1 style="font-size: 5rem;">🏆</h1>
-        <button class="topic-btn" style="background: white; color: black; padding: 15px 40px;" onclick="location.reload()">PLAY AGAIN</button>
+        <h1 style="font-size: 3rem; margin:0;">🏆</h1>
+        <button class="topic-btn" style="background:white; color:black; padding:10px 30px; margin-top:20px;" onclick="location.reload()">RESTART</button>
     </div>
 
 <script>
     const data = {
         animals: [
-            {q:"King of jungle?", a:"lion", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
-            {q:"Has a long neck?", a:"giraffe", i:"https://images.unsplash.com/photo-1547721064-3625b669fa95?w=400"},
-            {q:"Big and grey?", a:"elephant", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
-            {q:"Likes carrots?", a:"rabbit", i:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400"},
-            {q:"Man's friend?", a:"dog", i:"https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400"}
+            {q:"King of jungle?", a:"lion", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=200"},
+            {q:"Long neck?", a:"giraffe", i:"https://images.unsplash.com/photo-1547721064-3625b669fa95?w=200"},
+            {q:"Jump and carry baby?", a:"kangaroo", i:"https://images.unsplash.com/photo-1549281899-f75600a24107?w=200"}
         ],
-        family: [
-            {q:"Father's wife?", a:"mother", i:"https://images.unsplash.com/photo-1510154221590-ff63e90a136f?w=400"},
-            {q:"Mother's husband?", a:"father", i:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400"},
-            {q:"Your sister's brother?", a:"brother", i:"https://images.unsplash.com/photo-1543132220-4bf3de6e10ae?w=400"},
-            {q:"Father's father?", a:"grandfather", i:"https://images.unsplash.com/photo-1542610118-2e0f46c31043?w=400"}
-        ]
-        // Каалаганча тема кошсо болот...
+        grammar: [
+            {q:"I ___ a teacher.", a:"am", i:"https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200"},
+            {q:"You ___ brave.", a:"are", i:"https://images.unsplash.com/photo-1533227268408-a77469c79f71?w=200"},
+            {q:"He ___ strong.", a:"is", i:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200"}
+        ],
+        opposites: [
+            {q:"Opposite of BIG?", a:"small", i:"https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=200"},
+            {q:"Opposite of FAST?", a:"slow", i:"https://images.unsplash.com/photo-1534143048286-0f3d9ce95ed1?w=200"}
+        ],
+        jobs: [
+            {q:"Who treats people?", a:"doctor", i:"https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=200"},
+            {q:"Who flies planes?", a:"pilot", i:"https://images.unsplash.com/photo-1517976547714-720226b864c1?w=200"}
+        ],
+        irregular: [
+            {q:"Past of GO?", a:"went", i:"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200"},
+            {q:"Past of EAT?", a:"ate", i:"https://images.unsplash.com/photo-1476224483472-38361662c68c?w=200"}
+        ],
+        colors:[{q:"Sky color?", a:"blue", i:"https://images.unsplash.com/photo-1501747315-124a0eaca060?w=200"}],
+        family:[{q:"Father's sister?", a:"aunt", i:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=200"}],
+        school:[{q:"You sit on it?", a:"chair", i:"https://images.unsplash.com/photo-1503602642458-232111445657?w=200"}],
+        food:[{q:"Sweet cold food?", a:"ice cream", i:"https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=200"}],
+        verbs:[{q:"You do this in water?", a:"swim", i:"https://images.unsplash.com/photo-1530549387631-afb16881127e?w=200"}],
+        body:[{q:"You taste with it?", a:"tongue", i:"https://images.unsplash.com/photo-1516139008210-96e45dccd83b?w=200"}],
+        numbers:[{q:"10 + 5 = ?", a:"fifteen", i:"https://images.unsplash.com/photo-1509228468518-180dd4864904?w=200"}]
     };
 
-    let p1List = [], p2List = [], p1Idx = 0, p2Idx = 0, s1 = 0, s2 = 0;
+    let p1L = [], p2L = [], p1I = 0, p2I = 0, sc1 = 0, sc2 = 0, st1, st2;
 
     function startBattle(topic) {
-        let n1 = prompt("1-Team name:", "LIONS");
-        let n2 = prompt("2-Team name:", "EAGLES");
-        document.getElementById('t1-display').innerText = n1;
-        document.getElementById('t2-display').innerText = n2;
-
-        p1List = [...data[topic]].sort(() => Math.random() - 0.5); // Аралаштыруу
-        p2List = [...data[topic]].sort(() => Math.random() - 0.5); // Аралаштыруу
-        
+        let n1 = prompt("Team 1:", "LIONS"); let n2 = prompt("Team 2:", "EAGLES");
+        document.getElementById('t1-n').innerText = n1; document.getElementById('t2-n').innerText = n2;
+        p1L = [...data[topic]].sort(()=>Math.random()-0.5); p2L = [...data[topic]].sort(()=>Math.random()-0.5);
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
         document.getElementById('bg-music').play();
-        
-        render(1); render(2);
+        rn(1); rn(2);
     }
 
-    function render(p) {
-        if (p === 1) {
-            if (p1Idx >= p1List.length) return checkEnd();
-            document.getElementById('q1').innerText = p1List[p1Idx].q;
-            document.getElementById('img1').src = p1List[p1Idx].i;
-            document.getElementById('in1').value = "";
-        } else {
-            if (p2Idx >= p2List.length) return checkEnd();
-            document.getElementById('q2').innerText = p2List[p2Idx].q;
-            document.getElementById('img2').src = p2List[p2Idx].i;
-            document.getElementById('in2').value = "";
+    function rn(p) {
+        if((p===1 && p1I>=p1L.length) || (p===2 && p2I>=p2L.length)) return cE();
+        const cur = p===1 ? p1L[p1I] : p2L[p2I];
+        document.getElementById('q'+p).innerText = cur.q;
+        document.getElementById('img'+p).src = cur.i;
+        document.getElementById('in'+p).value = "";
+        if(p===1) st1=Date.now(); else st2=Date.now();
+    }
+
+    function check(p) {
+        let v = document.getElementById('in'+p).value.trim().toLowerCase();
+        let a = p===1 ? p1L[p1I].a : p2L[p2I].a;
+        if(v === a) {
+            let t = (Date.now() - (p===1?st1:st2))/1000;
+            let pts = t<3?3:(t<6?2:1);
+            if(p===1){ sc1+=pts; p1I++; document.getElementById('s1').innerText=sc1; document.getElementById('bat1').style.width=(p1I/p1L.length*100)+"%"; rn(1); }
+            else { sc2+=pts; p2I++; document.getElementById('s2').innerText=sc2; document.getElementById('bat2').style.width=(p2I/p2L.length*100)+"%"; rn(2); }
         }
     }
 
-    function checkAnswer(p) {
-        let input = document.getElementById('in' + p).value.trim().toLowerCase();
-        let correct = (p === 1) ? p1List[p1Idx].a : p2List[p2Idx].a;
-
-        if (input === correct) {
-            if (p === 1) { s1++; p1Idx++; document.getElementById('s1').innerText = s1; render(1); }
-            else { s2++; p2Idx++; document.getElementById('s2').innerText = s2; render(2); }
-        }
-    }
-
-    function checkEnd() {
-        if (p1Idx >= p1List.length && p2Idx >= p2List.length) {
+    function cE() {
+        if(p1I>=p1L.length && p2I>=p2L.length) {
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('victory-screen').classList.remove('hidden');
-            let winner = s1 > s2 ? document.getElementById('t1-display').innerText : (s2 > s1 ? document.getElementById('t2-display').innerText : "TIE / ТЕҢ ЧЫГЫШ");
-            document.getElementById('winner-name').innerText = winner;
+            document.getElementById('bg-music').pause(); document.getElementById('win-music').play();
+            let win = sc1>sc2?document.getElementById('t1-n').innerText:(sc2>sc1?document.getElementById('t2-n').innerText:"TIE");
+            document.getElementById('winner-name').innerText = win + " WINS!";
+            var e=Date.now()+5000; (function f(){ confetti({particleCount:5,angle:60,spread:55,origin:{x:0}}); confetti({particleCount:5,angle:120,spread:55,origin:{x:1}}); if(Date.now()<e)requestAnimationFrame(f); })();
         }
     }
 </script>
