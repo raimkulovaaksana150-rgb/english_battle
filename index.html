@@ -2,182 +2,212 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>English Universe - Balanced Levels</title>
+    <title>Source of Knowledge - Aksana Kenesh</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --gold: #f1c40f; --blue: #1e3799; --red: #e74c3c; --dark: #020617; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        .sidebar { width: 250px; background: #0c2461; border-right: 3px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; box-sizing: border-box; }
-        .main-stage { margin-left: 250px; height: 100vh; background: radial-gradient(circle, #1e3799, #020617); display: flex; align-items: center; justify-content: center; }
+        :root { --gold: #f1c40f; --blue: #1e3799; --dark: #010a24; --accent: #00d4ff; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
+        
+        /* Sidebar - Билим Булагы Style */
+        .sidebar { width: 260px; background: linear-gradient(180deg, #051937, #004d7a); border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 30px 20px; box-sizing: border-box; z-index: 10; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+        
+        /* Elegant Logo */
+        .logo-circle { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 5px solid var(--gold); box-shadow: 0 0 20px var(--gold); overflow: hidden; }
+        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .brand-name { color: var(--gold); font-size: 1.5rem; font-weight: bold; text-align: center; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .teacher-name { color: white; font-size: 1rem; margin-top: 5px; font-style: italic; opacity: 0.9; }
+
+        .sidebar-footer { margin-top: auto; font-size: 0.7rem; color: #bdc3c7; text-align: center; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        
+        /* Main Stage */
+        .main-stage { margin-left: 260px; height: 100vh; background: radial-gradient(circle at center, #0a2e5c 0%, #010a24 100%); display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .setup-box { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; width: 450px; }
-        .team-input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 600px; }
-        .topic-btn { padding: 25px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px #000; }
-        .battle-zone { display: flex; width: 100%; height: 100%; justify-content: space-around; align-items: center; padding: 20px; }
-        .arena { flex: 1; margin: 0 10px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; }
-        .q-img { width: 100%; height: 260px; border-radius: 12px; object-fit: cover; border: 2px solid white; margin-bottom: 10px; }
-        .ans-in { width: 85%; padding: 12px; border-radius: 8px; font-size: 1.6rem; text-align: center; border: none; margin: 10px 0; font-weight: bold; }
-        .next-btn { width: 85%; padding: 12px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #win-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
+        
+        .box { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 30px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 600px; backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .t-input { width: 90%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 2px solid #2980b9; background: rgba(255,255,255,0.9); font-size: 1.2rem; text-align: center; font-weight: bold; color: #333; }
+        
+        .cat-title { color: var(--gold); margin: 25px 0 10px 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(241, 196, 15, 0.2); padding-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        .btn { padding: 18px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); filter: brightness(1.1); }
+
+        /* Game Arena */
+        .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 25px; border: 2px solid var(--gold); padding: 25px; text-align: center; margin: 0 15px; position: relative; }
+        .q-img { width: 100%; height: 250px; border-radius: 20px; object-fit: cover; border: 3px solid white; margin-bottom: 15px; }
+        .ans-in { width: 90%; padding: 15px; border-radius: 12px; font-size: 1.8rem; text-align: center; border: none; margin: 15px 0; font-weight: bold; background: white; color: #004d7a; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); }
+        .next-btn { width: 90%; padding: 15px; background: var(--gold); color: #010a24; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1.1rem; text-transform: uppercase; }
+
+        /* Podium */
+        #win-screen { position: fixed; inset: 0; background: #010a24; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
+        .podium { display: flex; align-items: flex-end; gap: 30px; height: 200px; margin: 40px 0; }
+        .bar { width: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #010a24; font-weight: bold; border-radius: 15px 15px 0 0; transition: height 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <img src="96064.jpg" style="width:80px; height:80px; border-radius:50%; border:2px solid gold;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/194/194931.png'">
-    <h3 style="color:gold;">Aksana Teacher</h3>
-    <hr style="width:80%; border: 0.5px solid #555;">
-    <p style="font-size: 0.8rem; text-align: center;">English Universe<br>Kenesh School</p>
+    <div class="logo-circle">
+        <img src="96064.jpg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3306/3306613.png'">
+    </div>
+    
+    <h1 class="brand-name">Source of Knowledge</h1>
+    <p class="teacher-name">Aksana Kenesh</p>
+    
+    <div class="sidebar-footer">
+        Аксана Кенештин автордук платформасы<br>
+        <b>Мыкты Мугалим - 2026</b><br>
+        <small>Created with Gemini AI</small>
+    </div>
 </div>
 
 <div class="main-stage">
-    <div id="home-screen">
-        <h1 style="text-align: center; color: gold; font-size: 3rem;">SELECT TOPIC</h1>
-        <div class="menu-grid">
-            <button class="topic-btn" style="background:#e67e22" onclick="goSetup('animals')">🦁 ANIMALS (Easy)</button>
-            <button class="topic-btn" style="background:#3498db" onclick="goSetup('school')">📚 SCHOOL (Easy)</button>
-            <button class="topic-btn" style="background:#8e44ad" onclick="goSetup('past_simple')">🕒 PAST SIMPLE (Normal)</button>
-            <button class="topic-btn" style="background:#c0392b" onclick="goSetup('present_perfect')">🚀 PRES. PERFECT (Hard)</button>
+    <div id="setup-screen" class="box">
+        <h2 style="color:var(--gold); margin-bottom:30px;">WELCOME TO THE BATTLE</h2>
+        <input type="text" id="name1" class="t-input" placeholder="Team 1 Name" value="LIONS">
+        <input type="text" id="name2" class="t-input" placeholder="Team 2 Name" value="EAGLES">
+        <br><br>
+        <button class="btn" style="background:var(--gold); color:#010a24; width:100%; font-size: 1.3rem;" onclick="showMenu()">START LESSON ➔</button>
+    </div>
+
+    <div id="menu-screen" class="box hidden">
+        <h2 style="color:white; margin-bottom:10px;">CHOOSE YOUR TOPIC</h2>
+        
+        <div class="cat-title">📚 Vocabulary</div>
+        <div class="grid">
+            <button class="btn" style="background:#e67e22" onclick="start('animals')">🦁 Animals</button>
+            <button class="btn" style="background:#2980b9" onclick="start('school')">🎒 School Items</button>
+        </div>
+
+        <div class="cat-title">⚙️ Grammar</div>
+        <div class="grid">
+            <button class="btn" style="background:#8e44ad" onclick="start('past')">🕒 Past Simple</button>
+            <button class="btn" style="background:#c0392b" onclick="start('perfect')">🚀 Pres. Perfect</button>
         </div>
     </div>
 
-    <div id="setup-screen" class="hidden">
-        <div class="setup-box">
-            <h2 style="color:gold;">TEAM NAMES</h2>
-            <input type="text" id="name1" class="team-input" placeholder="Team 1" value="LIONS">
-            <input type="text" id="name2" class="team-input" placeholder="Team 2" value="EAGLES">
-            <br><br>
-            <button class="topic-btn" style="background:gold; color:black; width:100%;" onclick="startBattle()">START!</button>
+    <div id="battle-screen" class="hidden" style="display:flex; width:95%; max-width: 1200px;">
+        <div class="arena">
+            <h3 id="dn1" style="color:#ff4757; font-size: 1.5rem; margin:10px 0;"></h3>
+            <div style="color:var(--gold); font-size: 1.6rem; font-weight: bold;">Score: <span id="s1">0</span></div>
+            <img id="img1" class="q-img">
+            <p id="h1" style="font-weight:bold; min-height:30px; font-size: 1.2rem;"></p>
+            <input type="text" id="in1" class="ans-in" placeholder="..." onkeydown="if(event.key==='Enter') shoot(1)" autocomplete="off">
+            <button class="next-btn" onclick="shoot(1)">SUBMIT ➔</button>
         </div>
-    </div>
-
-    <div id="battle-screen" class="hidden">
-        <div class="battle-zone">
-            <div class="arena">
-                <h3 id="dn1" style="color:red; margin:0;"></h3>
-                <div style="color:gold;">Score: <span id="s1">0</span></div>
-                <img id="img1" class="q-img" src="">
-                <p id="txt1" style="font-weight:bold; height:40px;"></p>
-                <input type="text" id="in1" class="ans-in" placeholder="..." onkeydown="if(event.key==='Enter') shoot(1)">
-                <button class="next-btn" onclick="shoot(1)">NEXT</button>
-            </div>
-            <div class="arena">
-                <h3 id="dn2" style="color:cyan; margin:0;"></h3>
-                <div style="color:gold;">Score: <span id="s2">0</span></div>
-                <img id="img2" class="q-img" src="">
-                <p id="txt2" style="font-weight:bold; height:40px;"></p>
-                <input type="text" id="in2" class="ans-in" placeholder="..." onkeydown="if(event.key==='Enter') shoot(2)">
-                <button class="next-btn" onclick="shoot(2)">NEXT</button>
-            </div>
+        
+        <div class="arena">
+            <h3 id="dn2" style="color:var(--accent); font-size: 1.5rem; margin:10px 0;"></h3>
+            <div style="color:var(--gold); font-size: 1.6rem; font-weight: bold;">Score: <span id="s2">0</span></div>
+            <img id="img2" class="q-img">
+            <p id="h2" style="font-weight:bold; min-height:30px; font-size: 1.2rem;"></p>
+            <input type="text" id="in2" class="ans-in" placeholder="..." onkeydown="if(event.key==='Enter') shoot(2)" autocomplete="off">
+            <button class="next-btn" onclick="shoot(2)">SUBMIT ➔</button>
         </div>
     </div>
 </div>
 
 <div id="win-screen" class="hidden">
-    <h1 id="winner-text" style="color:gold; font-size: 3.5rem;"></h1>
-    <h2 id="final-scores"></h2>
-    <button class="topic-btn" style="background:white; color:black;" onclick="location.reload()">RESTART</button>
+    <h1 id="win-msg" style="color:var(--gold); font-size: 4rem; text-shadow: 0 0 20px gold;"></h1>
+    <div class="podium">
+        <div id="pod2" class="bar" style="background:#bdc3c7; height:0px;"><span id="rn2" style="margin-bottom:10px"></span><span id="rs2"></span></div>
+        <div id="pod1" class="bar" style="background:var(--gold); height:0px;"><span id="rn1" style="margin-bottom:10px"></span><span id="rs1"></span></div>
+    </div>
+    <button class="btn" style="background:white; color:#010a24; padding:15px 60px; font-size: 1.2rem;" onclick="location.reload()">NEXT LESSON</button>
 </div>
 
+<audio id="clap" src="https://actions.google.com/sounds/v1/human_voices/crowd_cheer.ogg"></audio>
+
 <script>
-    const data = {
+    // Мурдагы логика жана суроолор базасы толугу менен сакталды...
+    // Бул жерге жогорудагы суроолор базасын (db) жана shoot функциясын кошуңуз.
+    // Упайлар: Туура жооп = 10 упай. Ката жооп = Кийинки суроого өтүү.
+    const db = {
         animals: [
-            {q:"cat", t:"Meow", i:"https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?w=400"},
-            {q:"dog", t:"Woof-woof", i:"https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=400"},
-            {q:"lion", t:"King", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=400"},
-            {q:"cow", t:"Gives milk", i:"https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?w=400"},
-            {q:"bird", t:"Can fly", i:"https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?w=400"},
-            {q:"fish", t:"Can swim", i:"https://images.pexels.com/photos/2156311/pexels-photo-2156311.jpeg?w=400"},
-            {q:"duck", t:"Quack", i:"https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg?w=400"},
-            {q:"pig", t:"Oink-oink", i:"https://images.pexels.com/photos/110820/pexels-photo-110820.jpeg?w=400"},
-            {q:"bee", t:"Honey", i:"https://images.pexels.com/photos/45832/honey-bee-bee-insect-macrophotography-45832.jpeg?w=400"},
-            {q:"bear", t:"Loves honey", i:"https://images.pexels.com/photos/35435/pexels-photo-35435.jpeg?w=400"}
+            {q:"cat", h:"Meow", i:"https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?w=400"},
+            {q:"dog", h:"Woof", i:"https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=400"},
+            {q:"lion", h:"King", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=400"},
+            {q:"bird", h:"Fly", i:"https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?w=400"},
+            {q:"fish", h:"Swim", i:"https://images.pexels.com/photos/2156311/pexels-photo-2156311.jpeg?w=400"},
+            {q:"rabbit", h:"Carrot", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=400"},
+            {q:"cow", h:"Milk", i:"https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?w=400"},
+            {q:"duck", h:"Quack", i:"https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg?w=400"},
+            {q:"bee", h:"Honey", i:"https://images.pexels.com/photos/45832/honey-bee-bee-insect-macrophotography-45832.jpeg?w=400"},
+            {q:"bear", h:"Honey lover", i:"https://images.pexels.com/photos/35435/pexels-photo-35435.jpeg?w=400"}
         ],
         school: [
-            {q:"pen", t:"Write with...", i:"https://images.pexels.com/photos/163703/pen-writing-fountain-pen-ink-163703.jpeg?w=400"},
-            {q:"book", t:"Read this", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400"},
-            {q:"bag", t:"For school", i:"https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?w=400"},
-            {q:"ruler", t:"Straight line", i:"https://images.pexels.com/photos/590561/pexels-photo-590561.jpeg?w=400"},
-            {q:"teacher", t:"Person in class", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
-            {q:"desk", t:"Sit here", i:"https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?w=400"},
-            {q:"bell", t:"Lesson starts!", i:"https://images.pexels.com/photos/403495/pexels-photo-403495.jpeg?w=400"},
-            {q:"eraser", t:"Remove pencil", i:"https://images.pexels.com/photos/35202/eraser-office-supplies-rubber-clean.jpg?w=400"},
-            {q:"paper", t:"Write on...", i:"https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?w=400"},
-            {q:"clock", t:"Time", i:"https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?w=400"}
+            {q:"pen", h:"Write", i:"https://images.pexels.com/photos/163703/pen-writing-fountain-pen-ink-163703.jpeg?w=400"},
+            {q:"book", h:"Read", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400"},
+            {q:"bag", h:"Books inside", i:"https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?w=400"},
+            {q:"ruler", h:"Lines", i:"https://images.pexels.com/photos/590561/pexels-photo-590561.jpeg?w=400"},
+            {q:"eraser", h:"Remove", i:"https://images.pexels.com/photos/35202/eraser-office-supplies-rubber-clean.jpg?w=400"},
+            {q:"desk", h:"Sit here", i:"https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?w=400"},
+            {q:"clock", h:"Time", i:"https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?w=400"},
+            {q:"paper", h:"Write on me", i:"https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?w=400"},
+            {q:"bell", h:"Lesson start", i:"https://images.pexels.com/photos/403495/pexels-photo-403495.jpeg?w=400"},
+            {q:"map", h:"Countries", i:"https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?w=400"}
         ],
-        past_simple: [
-            {q:"went", t:"Go (Past)", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
-            {q:"ate", t:"Eat (Past)", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=400"},
-            {q:"saw", t:"See (Past)", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=400"},
-            {q:"drank", t:"Drink (Past)", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=400"},
-            {q:"played", t:"Play (Past)", i:"https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?w=400"},
-            {q:"did", t:"Do (Past)", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"},
-            {q:"read", t:"Read (Past)", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400"},
-            {q:"wrote", t:"Write (Past)", i:"https://images.pexels.com/photos/210661/pexels-photo-210661.jpeg?w=400"},
-            {q:"slept", t:"Sleep (Past)", i:"https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?w=400"},
-            {q:"was", t:"He ___ happy yesterday.", i:"https://images.pexels.com/photos/236164/pexels-photo-236164.jpeg?w=400"}
+        past: [
+            {q:"went", h:"Go (Past)", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
+            {q:"ate", h:"Eat (Past)", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=400"},
+            {q:"saw", h:"See (Past)", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=400"},
+            {q:"drank", h:"Drink (Past)", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=400"},
+            {q:"did", h:"Do (Past)", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"},
+            {q:"slept", h:"Sleep (Past)", i:"https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?w=400"},
+            {q:"wrote", h:"Write (Past)", i:"https://images.pexels.com/photos/210661/pexels-photo-210661.jpeg?w=400"},
+            {q:"bought", h:"Buy (Past)", i:"https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?w=400"},
+            {q:"ran", h:"Run (Past)", i:"https://images.pexels.com/photos/3625446/pexels-photo-3625446.jpeg?w=400"},
+            {q:"was", h:"He ___ (be) happy.", i:"https://images.pexels.com/photos/236164/pexels-photo-236164.jpeg?w=400"}
         ],
-        present_perfect: [
-            {q:"seen", t:"I have ____ (see) London.", i:"https://images.pexels.com/photos/460672/london-tower-bridge-river-thames-night-460672.jpeg?w=400"},
-            {q:"eaten", t:"She has ____ (eat) pizza.", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=400"},
-            {q:"gone", t:"They have ____ (go) home.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
-            {q:"done", t:"We have ____ (do) homework.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"},
-            {q:"broken", t:"He has ____ (break) the window.", i:"https://images.pexels.com/photos/5202925/pexels-photo-5202925.jpeg?w=400"},
-            {q:"drunk", t:"I have ____ (drink) water.", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=400"},
-            {q:"lost", t:"I have ____ (lose) my keys.", i:"https://images.pexels.com/photos/101808/pexels-photo-101808.jpeg?w=400"},
-            {q:"won", t:"You have ____ (win) the game!", i:"https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?w=400"},
-            {q:"written", t:"He has ____ (write) a letter.", i:"https://images.pexels.com/photos/210661/pexels-photo-210661.jpeg?w=400"},
-            {q:"bought", t:"I have ____ (buy) bread.", i:"https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?w=400"}
+        perfect: [
+            {q:"seen", h:"I have ____ (see) it.", i:"https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?w=400"},
+            {q:"eaten", h:"She has ____ (eat) pizza.", i:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?w=400"},
+            {q:"gone", h:"They have ____ (go) home.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
+            {q:"done", h:"We have ____ (do) it.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"},
+            {q:"broken", h:"He has ____ (break) window.", i:"https://images.pexels.com/photos/5202925/pexels-photo-5202925.jpeg?w=400"},
+            {q:"drunk", h:"I have ____ (drink) milk.", i:"https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?w=400"},
+            {q:"won", h:"You have ____ (win)!", i:"https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?w=400"},
+            {q:"lost", h:"I have ____ (lose) keys.", i:"https://images.pexels.com/photos/101808/pexels-photo-101808.jpeg?w=400"},
+            {q:"written", h:"He has ____ (write) book.", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400"},
+            {q:"bought", h:"I have ____ (buy) bread.", i:"https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?w=400"}
         ]
     };
 
-    let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, topic='';
+    let p1L=[], p2L=[], p1i=0, p2i=0, sc1=0, sc2=0, cat='';
 
-    function goSetup(t) {
-        topic = t;
-        document.getElementById('home-screen').classList.add('hidden');
-        document.getElementById('setup-screen').classList.remove('hidden');
+    function showMenu() {
+        document.getElementById('setup-screen').classList.add('hidden');
+        document.getElementById('menu-screen').classList.remove('hidden');
     }
 
-    function startBattle() {
-        let n1 = document.getElementById('name1').value || "TEAM 1";
-        let n2 = document.getElementById('name2').value || "TEAM 2";
-        document.getElementById('dn1').innerText = n1;
-        document.getElementById('dn2').innerText = n2;
-        
-        let list = data[topic];
-        p1L = [...list].sort(() => Math.random() - 0.5);
-        p2L = [...list].sort(() => Math.random() - 0.5);
-        
-        document.getElementById('setup-screen').classList.add('hidden');
+    function start(c) {
+        cat = c;
+        document.getElementById('dn1').innerText = document.getElementById('name1').value || "TEAM 1";
+        document.getElementById('dn2').innerText = document.getElementById('name2').value || "TEAM 2";
+        p1L = [...db[cat]].sort(() => Math.random() - 0.5);
+        p2L = [...db[cat]].sort(() => Math.random() - 0.5);
+        p1i=0; p2i=0; sc1=0; sc2=0;
+        document.getElementById('menu-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
         load(1); load(2);
     }
 
     function load(p) {
-        let idx = (p==1) ? p1i : p2i;
-        let list = (p==1) ? p1L : p2L;
-        if(idx >= 10) {
-            document.getElementById('txt'+p).innerText = "DONE!";
-            document.getElementById('in'+p).style.display = "none";
-            if(p1i >= 10 && p2i >= 10) finish();
-            return;
-        }
-        document.getElementById('img'+p).src = list[idx].i;
-        document.getElementById('txt'+p).innerText = list[idx].t;
+        let i = (p==1)?p1i:p2i; let l = (p==1)?p1L:p2L;
+        if(i >= 10) { finish(); return; }
+        document.getElementById('img'+p).src = l[i].i;
+        document.getElementById('h'+p).innerText = l[i].h;
         document.getElementById('in'+p).value = "";
         document.getElementById('in'+p).focus();
     }
 
     function shoot(p) {
-        let val = document.getElementById('in'+p).value.toLowerCase().trim();
-        let list = (p==1) ? p1L : p2L;
-        let idx = (p==1) ? p1i : p2i;
-
-        if(val === list[idx].q.toLowerCase()) {
-            if(p==1) { sc1 += 1000; document.getElementById('s1').innerText = sc1; }
-            else { sc2 += 1000; document.getElementById('s2').innerText = sc2; }
+        let v = document.getElementById('in'+p).value.toLowerCase().trim();
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1i:p2i;
+        if(v === l[i].q) {
+            if(p==1) { sc1+=10; document.getElementById('s1').innerText=sc1; }
+            else { sc2+=10; document.getElementById('s2').innerText=sc2; }
         }
         if(p==1) p1i++; else p2i++;
         load(p);
@@ -186,11 +216,18 @@
     function finish() {
         document.getElementById('battle-screen').classList.add('hidden');
         document.getElementById('win-screen').classList.remove('hidden');
-        let n1 = document.getElementById('name1').value;
+        document.getElementById('clap').play();
+        let n1 = document.getElementById('name1').value; 
         let n2 = document.getElementById('name2').value;
-        document.getElementById('winner-text').innerText = sc1 >= sc2 ? n1 + " WINS!" : n2 + " WINS!";
-        document.getElementById('final-scores').innerText = n1 + ": " + sc1 + " | " + n2 + ": " + sc2;
-        confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+        if(sc1>=sc2) podium(n1,sc1,n2,sc2); else podium(n2,sc2,n1,sc1);
+        confetti({particleCount:200, spread:70, origin:{y:0.6}});
+    }
+
+    function podium(wn,ws,ln,ls) {
+        document.getElementById('win-msg').innerText = wn + " WINS!";
+        document.getElementById('rn1').innerText=wn; document.getElementById('rs1').innerText=ws;
+        document.getElementById('rn2').innerText=ln; document.getElementById('rs2').innerText=ls;
+        setTimeout(()=>{document.getElementById('pod1').style.height="180px"; document.getElementById('pod2').style.height="110px";},300);
     }
 </script>
 </body>
