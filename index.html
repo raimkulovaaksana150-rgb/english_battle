@@ -2,40 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Source of Knowledge - Aksana Kenesh</title>
+    <title>Source of Knowledge - Aksana Tukubai kyzy</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --blue: #1e3799; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
         
-        /* Sidebar - Aksana Kenesh англисче жазылды */
+        /* Sidebar */
         .sidebar { width: 280px; background: linear-gradient(180deg, #051937, #004d7a); border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; box-sizing: border-box; z-index: 10; }
         .logo-circle { width: 110px; height: 110px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 4px solid var(--gold); overflow: hidden; }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { color: var(--gold); font-size: 1.2rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; }
+        .brand-name { color: var(--gold); font-size: 1.1rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; letter-spacing: 1px; }
         .school-name { color: #00d4ff; font-size: 0.8rem; text-align: center; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100%; padding-bottom: 10px;}
-        .teacher-info { font-size: 0.9rem; text-align: center; color: #ecf0f1; font-weight: bold; }
+        .teacher-info { font-size: 0.95rem; text-align: center; color: #ecf0f1; font-weight: 600; line-height: 1.4; }
 
-        /* Main Stages */
+        /* Main Content */
         .main-stage { margin-left: 280px; height: 100vh; background: radial-gradient(circle at center, #0a2e5c 0%, #010a24 100%); display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
         .box { background: rgba(255,255,255,0.07); padding: 30px; border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 750px; backdrop-filter: blur(10px); }
         
-        .section-header { color: var(--gold); margin: 20px 0 10px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .section-header { color: var(--gold); margin: 20px 0 10px; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(241, 196, 15, 0.3); display: inline-block; padding: 0 30px 5px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         .btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; background: #2980b9; font-size: 1rem; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); filter: brightness(1.2); }
 
         /* Battle Arena */
-        .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; margin: 0 10px; }
+        .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; margin: 0 10px; display: flex; flex-direction: column; justify-content: space-between; }
         .q-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; border: 2px solid white; margin-bottom: 10px; }
-        .question-box { min-height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 10px; padding: 0 10px; }
-        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; border: 3px solid transparent; font-weight: bold; color: #010a24; transition: 0.3s; }
+        .question-box { min-height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #fff; line-height: 1.3; margin-bottom: 10px; font-weight: 500; }
+        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; border: 3px solid transparent; font-weight: bold; color: #010a24; transition: 0.3s; margin: 0 auto; }
         
         /* Feedback colors */
         .ans-in.correct { background-color: #2ecc71 !important; color: white !important; }
         .ans-in.wrong { background-color: #e74c3c !important; color: white !important; }
-        .score-val { font-size: 2.2rem; color: var(--gold); font-weight: bold; margin-bottom: 10px; }
+        .score-val { font-size: 2.2rem; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -49,19 +49,18 @@
     <h1 class="brand-name">SOURCE OF KNOWLEDGE</h1>
     <div class="school-name">KENESH SECONDARY SCHOOL</div>
     <div class="teacher-info">
-        Teacher: Aksana Kenesh<br>
-        Best Teacher - 2026
+        Aksana Tukubai kyzy<br>
+        <span style="font-size: 0.8rem; color: var(--gold);">Best Teacher - 2026</span>
     </div>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold); font-size: 2rem;">ENGLISH BATTLE</h2>
-        <div style="margin: 20px 0;">
-            <input type="text" id="name1" style="width:80%; padding:15px; margin:10px; border-radius:10px;" value="LIONS">
-            <input type="text" id="name2" style="width:80%; padding:15px; margin:10px; border-radius:10px;" value="EAGLES">
-        </div>
-        <button class="btn" style="background:var(--gold); color:black; width:60%; font-size: 1.2rem;" onclick="openMenu()">START LESSON ➔</button>
+        <h2 style="color:var(--gold); font-size: 2.2rem; margin-bottom: 30px;">ENGLISH BATTLE</h2>
+        <input type="text" id="name1" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none; font-size:1.1rem;" value="LIONS">
+        <input type="text" id="name2" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none; font-size:1.1rem;" value="EAGLES">
+        <br><br>
+        <button class="btn" style="background:var(--gold); color:black; width:50%; font-size: 1.2rem; margin-top: 20px;" onclick="showMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
@@ -69,96 +68,109 @@
         <div class="grid">
             <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
             <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="startBattle('school')">🎒 School</button>
+            <button class="btn" onclick="startBattle('school')">🎒 School Items</button>
             <button class="btn" onclick="startBattle('colors')">🎨 Colors</button>
         </div>
         <div class="section-header">Grammar</div>
         <div class="grid">
-            <button class="btn" style="background:#8e44ad;" onclick="startBattle('be')">🐝 To Be</button>
+            <button class="btn" style="background:#8e44ad;" onclick="startBattle('be')">🐝 To Be (am, is, are)</button>
             <button class="btn" style="background:#8e44ad;" onclick="startBattle('past')">🕒 Past Simple</button>
         </div>
     </div>
 
-    <div id="battle-screen" class="hidden" style="display:flex; width:95%;">
+    <div id="battle-screen" class="hidden" style="display:flex; width:98%; max-width: 1400px;">
         <div class="arena">
-            <h3 id="dn1" style="color:#ff4757; font-size: 1.5rem;"></h3>
+            <h3 id="dn1" style="color:#ff4757; font-size: 1.6rem; margin: 0;"></h3>
             <div class="score-val">Score: <span id="s1">0</span></div>
             <img id="img1" class="q-img">
             <div id="qText1" class="question-box"></div>
-            <input type="text" id="in1" class="ans-in" placeholder="Type here..." oninput="checkAnswer(1)" autocomplete="off">
+            <input type="text" id="in1" class="ans-in" placeholder="..." oninput="checkAnswer(1)" autocomplete="off">
         </div>
         
         <div class="arena">
-            <h3 id="dn2" style="color:var(--accent); font-size: 1.5rem;"></h3>
+            <h3 id="dn2" style="color:var(--accent); font-size: 1.6rem; margin: 0;"></h3>
             <div class="score-val">Score: <span id="s2">0</span></div>
             <img id="img2" class="q-img">
             <div id="qText2" class="question-box"></div>
-            <input type="text" id="in2" class="ans-in" placeholder="Type here..." oninput="checkAnswer(2)" autocomplete="off">
+            <input type="text" id="in2" class="ans-in" placeholder="..." oninput="checkAnswer(2)" autocomplete="off">
         </div>
     </div>
 </div>
 
-<div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; z-index:1000; background:var(--dark); display:flex; flex-direction:column; justify-content:center; align-items:center;">
-    <h1 id="winner-msg" style="color:var(--gold); font-size:4rem;"></h1>
-    <div id="final-res" style="font-size:2rem; margin-bottom:30px;"></div>
-    <button class="btn" style="background:white; color:black; padding:15px 60px;" onclick="location.reload()">PLAY AGAIN</button>
+<div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; z-index:1000; background:rgba(1, 10, 36, 0.95); display:flex; flex-direction:column; justify-content:center; align-items:center;">
+    <h1 id="winner-msg" style="color:var(--gold); font-size:5rem; text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);"></h1>
+    <div id="final-res" style="font-size:2.5rem; margin-bottom:40px; color: white;"></div>
+    <button class="btn" style="background:white; color:black; padding:20px 80px; font-size: 1.3rem;" onclick="location.reload()">NEW GAME</button>
 </div>
 
 <script>
     const quizData = {
         animals: [
-            {q:"elephant", s:"Which animal has got a big nose?", i:"https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?w=300"},
-            {q:"lion", s:"Which animal is the king of the jungle?", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=300"},
-            {q:"giraffe", s:"Which animal has got a very long neck?", i:"https://images.pexels.com/photos/802112/pexels-photo-802112.jpeg?w=300"},
-            {q:"monkey", s:"Which animal likes eating bananas?", i:"https://images.pexels.com/photos/1207915/pexels-photo-1207915.jpeg?w=300"}
+            {q:"elephant", s:"Which animal has got a big nose?", i:"https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?w=400"},
+            {q:"lion", s:"Which animal is the king of the jungle?", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=400"},
+            {q:"giraffe", s:"Which animal has got a very long neck?", i:"https://images.pexels.com/photos/802112/pexels-photo-802112.jpeg?w=400"},
+            {q:"monkey", s:"Which animal likes eating bananas?", i:"https://images.pexels.com/photos/1207915/pexels-photo-1207915.jpeg?w=400"},
+            {q:"rabbit", s:"Which animal has got long ears and jumps?", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=400"}
         ],
         fruits: [
-            {q:"lemon", s:"Which fruit is yellow and very sour?", i:"https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?w=300"},
-            {q:"watermelon", s:"Which fruit is very big and sweet?", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=300"},
-            {q:"orange", s:"Which fruit is orange and full of vitamin C?", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=300"}
+            {q:"lemon", s:"Which fruit is yellow and very sour?", i:"https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?w=400"},
+            {q:"watermelon", s:"Which fruit is very big, green outside and red inside?", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=400"},
+            {q:"orange", s:"Which fruit is orange and round?", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=400"},
+            {q:"apple", s:"Which fruit is red and crunchy?", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=400"}
         ],
         school: [
-            {q:"pencil", s:"What do you use to draw a picture?", i:"https://images.pexels.com/photos/159751/pencil-office-design-creative-159751.jpeg?w=300"},
-            {q:"book", s:"What do you use to read interesting stories?", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=300"}
+            {q:"pencil", s:"What do you use to draw a picture?", i:"https://images.pexels.com/photos/159751/pencil-office-design-creative-159751.jpeg?w=400"},
+            {q:"book", s:"What do you use to read stories?", i:"https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400"},
+            {q:"bag", s:"What do you use to carry your school things?", i:"https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?w=400"}
         ],
         be: [
-            {q:"am", s:"I ___ a very good student.", i:"https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=300"},
-            {q:"is", s:"He ___ playing football now.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=300"},
-            {q:"are", s:"We ___ happy to see you!", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=300"}
+            {q:"am", s:"I ___ a student at school.", i:"https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=400"},
+            {q:"is", s:"The weather ___ very sunny today.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=400"},
+            {q:"are", s:"You ___ my best friend.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"}
         ],
         past: [
-            {q:"went", s:"Yesterday I ___ to the cinema.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=300"},
-            {q:"ate", s:"She ___ a delicious cake for breakfast.", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=300"}
+            {q:"went", s:"Yesterday my family ___ to the park.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
+            {q:"ate", s:"I ___ a very big pizza for lunch.", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=400"}
+        ],
+        colors: [
+            {q:"red", s:"What color is a typical tomato?", i:"https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?w=400"},
+            {q:"blue", s:"What color is the ocean?", i:"https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpeg?w=400"}
         ]
     };
 
-    let p1List=[], p2List=[], p1Index=0, p2Index=0, score1=0, score2=0, gameActive=false;
+    let p1List=[], p2List=[], p1Idx=0, p2Idx=0, score1=0, score2=0, isActive=false;
 
-    function openMenu() {
-        document.getElementById('bg-music').play();
+    function showMenu() {
+        document.getElementById('bg-music').play().catch(() => {});
         document.getElementById('setup-screen').classList.add('hidden');
         document.getElementById('menu-screen').classList.remove('hidden');
     }
 
     function startBattle(topic) {
-        // Эки командага суроолорду эки башка аралаштыруу
+        // Ар бир командага суроолорду өз-өзүнчө аралаштыруу (Shuffle)
         p1List = [...quizData[topic]].sort(() => Math.random() - 0.5);
         p2List = [...quizData[topic]].sort(() => Math.random() - 0.5);
         
+        // Эгер биринчи суроолор кокустан окшош болуп калса, экинчи команданыкынын ордун алмаштыруу
+        if (p1List[0].q === p2List[0].q && p1List.length > 1) {
+            p2List.push(p2List.shift());
+        }
+
         document.getElementById('dn1').innerText = document.getElementById('name1').value;
         document.getElementById('dn2').innerText = document.getElementById('name2').value;
         
         document.getElementById('menu-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
-        gameActive = true;
-        updateUI(1); updateUI(2);
+        
+        isActive = true; p1Idx = 0; p2Idx = 0;
+        updatePlayer(1); updatePlayer(2);
     }
 
-    function updateUI(p) {
+    function updatePlayer(p) {
         let list = (p==1) ? p1List : p2List;
-        let idx = (p==1) ? p1Index : p2Index;
+        let idx = (p==1) ? p1Idx : p2Idx;
         
-        if(idx >= list.length) { checkFinish(); return; }
+        if(idx >= list.length) { checkGameOver(); return; }
         
         document.getElementById('img'+p).src = list[idx].i;
         document.getElementById('qText'+p).innerText = list[idx].s;
@@ -169,48 +181,39 @@
     }
 
     function checkAnswer(p) {
-        if(!gameActive) return;
+        if(!isActive) return;
         let input = document.getElementById('in'+p);
         let val = input.value.toLowerCase().trim();
         let list = (p==1) ? p1List : p2List;
-        let idx = (p==1) ? p1Index : p2Index;
+        let idx = (p==1) ? p1Idx : p2Idx;
         let correct = list[idx].q.toLowerCase();
 
-        // Туура жооп
         if(val === correct) {
             input.classList.add('correct');
             if(p==1) { score1 += 10; document.getElementById('s1').innerText = score1; }
             else { score2 += 10; document.getElementById('s2').innerText = score2; }
             document.getElementById('sound-correct').play();
-            next(p);
+            setTimeout(() => { if(p==1) p1Idx++; else p2Idx++; updatePlayer(p); }, 450);
         } 
-        // Ката жооп (узундугу жеткенде автоматтык өтүү)
         else if(val.length >= correct.length) {
             input.classList.add('wrong');
             document.getElementById('sound-wrong').play();
-            next(p);
+            setTimeout(() => { if(p==1) p1Idx++; else p2Idx++; updatePlayer(p); }, 450);
         }
     }
 
-    function next(p) {
-        setTimeout(() => {
-            if(p==1) p1Index++; else p2Index++;
-            updateUI(p);
-        }, 500);
-    }
-
-    function checkFinish() {
-        if(p1Index >= p1List.length && p2Index >= p2List.length) {
-            gameActive = false;
+    function checkGameOver() {
+        if(p1Idx >= p1List.length && p2Idx >= p2List.length) {
+            isActive = false;
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('win-screen').classList.remove('hidden');
             
             let n1 = document.getElementById('name1').value;
             let n2 = document.getElementById('name2').value;
-            let msg = (score1 > score2) ? n1 + " WINS!" : (score2 > score1) ? n2 + " WINS!" : "DRAW!";
+            let msg = (score1 > score2) ? n1 + " WINS!" : (score2 > score1) ? n2 + " WINS!" : "IT'S A DRAW!";
             document.getElementById('winner-msg').innerText = msg;
-            document.getElementById('final-res').innerText = `${n1}: ${score1} pts | ${n2}: ${score2} pts`;
-            confetti({particleCount: 150, spread: 70, origin: {y: 0.6}});
+            document.getElementById('final-res').innerText = `${n1}: ${score1} | ${n2}: ${score2}`;
+            confetti({particleCount: 200, spread: 80, origin: {y: 0.6}});
         }
     }
 </script>
