@@ -2,48 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Source of Knowledge - Aksana Tukubai kyzy</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <title>English Battle - Aksana Tukubai kyzy</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --gold: #f1c40f; --blue: #1e3799; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        
-        /* Sidebar */
         .sidebar { width: 280px; background: linear-gradient(180deg, #051937, #004d7a); border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; box-sizing: border-box; z-index: 10; }
         .logo-circle { width: 110px; height: 110px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 4px solid var(--gold); overflow: hidden; }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { color: var(--gold); font-size: 1.1rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .brand-name { color: var(--gold); font-size: 1.1rem; font-weight: bold; text-align: center; margin: 5px 0; text-transform: uppercase; }
         .school-name { color: #00d4ff; font-size: 0.8rem; text-align: center; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100%; padding-bottom: 10px;}
         .teacher-info { font-size: 1rem; text-align: center; color: #ecf0f1; font-weight: 600; }
-
-        /* Main Stages */
         .main-stage { margin-left: 280px; height: 100vh; background: radial-gradient(circle at center, #0a2e5c 0%, #010a24 100%); display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.07); padding: 30px; border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 800px; backdrop-filter: blur(10px); }
-        
-        .section-header { color: var(--gold); margin: 20px 0 10px; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(241, 196, 15, 0.3); display: inline-block; padding: 0 30px 5px; }
+        .box { background: rgba(255,255,255,0.07); padding: 30px; border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3); text-align: center; width: 850px; backdrop-filter: blur(10px); }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         .btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; background: #2980b9; font-size: 1rem; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); filter: brightness(1.2); }
-
-        /* Battle Arena */
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .arena { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; border: 2px solid var(--gold); padding: 20px; text-align: center; margin: 0 10px; display: flex; flex-direction: column; justify-content: space-between; }
-        .q-img { width: 100%; height: 220px; border-radius: 15px; object-fit: cover; border: 2px solid white; margin-bottom: 10px; }
-        .question-box { min-height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #fff; margin-bottom: 10px; font-weight: 500; }
-        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; border: 3px solid transparent; font-weight: bold; color: #010a24; transition: 0.3s; margin: 0 auto; }
-        
+        .q-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; border: 2px solid white; margin-bottom: 10px; }
+        .question-box { min-height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 10px; }
+        .ans-in { width: 90%; padding: 15px; border-radius: 10px; font-size: 1.6rem; text-align: center; font-weight: bold; color: #010a24; transition: 0.2s; margin: 0 auto; border: 4px solid transparent; }
         .ans-in.correct { background-color: #2ecc71 !important; color: white !important; border-color: #27ae60; }
         .ans-in.wrong { background-color: #e74c3c !important; color: white !important; border-color: #c0392b; }
-        .score-val { font-size: 2.2rem; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
-
-        /* Podium */
-        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin: 30px 0; }
-        .podium-step { width: 180px; border-radius: 15px 15px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15px; color: #010a24; font-weight: bold; }
-        .first-place { height: 240px; transform: scale(1.1); background: linear-gradient(180deg, #ffd700, #daa520); box-shadow: 0 0 30px rgba(241, 196, 15, 0.5); }
-        .second-place { height: 170px; background: linear-gradient(180deg, #bdc3c7, #7f8c8d); }
-        .podium-name { font-size: 1.2rem; margin-bottom: 5px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-        .podium-score { font-size: 1.6rem; background: rgba(255,255,255,0.3); width: 100%; text-align: center; }
+        .score-val { font-size: 2.2rem; color: var(--gold); font-weight: bold; }
+        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-top: 40px; }
+        .podium-step { width: 180px; border-radius: 15px 15px 0 0; display: flex; flex-direction: column; align-items: center; padding-top: 15px; color: #010a24; font-weight: bold; }
+        .first-place { height: 250px; background: linear-gradient(180deg, #ffd700, #daa520); box-shadow: 0 0 40px rgba(241,196,15,0.6); }
+        .second-place { height: 180px; background: linear-gradient(180deg, #bdc3c7, #7f8c8d); }
+        .pod-name { font-size: 1.3rem; margin-bottom: 5px; color: white; text-shadow: 2px 2px 4px black; }
+        .pod-score { font-size: 1.7rem; background: rgba(255,255,255,0.3); width: 100%; text-align: center; }
     </style>
 </head>
 <body>
@@ -55,72 +43,64 @@
     <div class="logo-circle"><img src="96064.jpg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3306/3306613.png'"></div>
     <h1 class="brand-name">SOURCE OF KNOWLEDGE</h1>
     <div class="school-name">KENESH SECONDARY SCHOOL</div>
-    <div class="teacher-info">
-        Aksana Tukubai kyzy<br>
-        <span style="font-size: 0.8rem; color: var(--gold);">Best Teacher - 2026</span>
-    </div>
+    <div class="teacher-info">Aksana Tukubai kyzy<br><span style="color:var(--gold); font-size:0.8rem;">Best Teacher - 2026</span></div>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold); font-size: 2.5rem; margin-bottom: 30px;">ENGLISH BATTLE</h2>
-        <input type="text" id="name1" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none; font-size:1.2rem;" value="LIONS">
-        <input type="text" id="name2" style="width:70%; padding:15px; margin:10px; border-radius:10px; border:none; font-size:1.2rem;" value="EAGLES">
+        <h2 style="color:var(--gold); font-size: 2.5rem;">ENGLISH BATTLE</h2>
+        <input type="text" id="name1" style="width:70%; padding:15px; margin:10px; border-radius:10px;" value="LIONS">
+        <input type="text" id="name2" style="width:70%; padding:15px; margin:10px; border-radius:10px;" value="EAGLES">
         <br><br>
-        <button class="btn" style="background:var(--gold); color:black; width:50%; font-size: 1.3rem;" onclick="showMenu()">START GAME ➔</button>
+        <button class="btn" style="background:var(--gold); color:black; width:50%;" onclick="showMenu()">GO TO TOPICS ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <div class="section-header">Vocabulary</div>
+        <h3 style="color:var(--gold);">CHOOSE A TOPIC</h3>
         <div class="grid">
-            <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
-            <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
+            <button class="btn" onclick="startBattle('animals')">🦁 Animals (Full)</button>
+            <button class="btn" onclick="startBattle('fruits')">🍎 Fruits (Full)</button>
             <button class="btn" onclick="startBattle('school')">🎒 School Items</button>
             <button class="btn" onclick="startBattle('colors')">🎨 Colors</button>
-        </div>
-        <div class="section-header">Grammar</div>
-        <div class="grid">
             <button class="btn" style="background:#8e44ad;" onclick="startBattle('be')">🐝 To Be (am, is, are)</button>
-            <button class="btn" style="background:#8e44ad;" onclick="startBattle('past')">🕒 Past Simple</button>
+            <button class="btn" style="background:#d35400;" onclick="startBattle('past')">🕒 Past Simple (was, were, ed)</button>
         </div>
     </div>
 
-    <div id="battle-screen" class="hidden" style="display:flex; width:98%; max-width: 1400px;">
+    <div id="battle-screen" class="hidden" style="display:flex; width:98%;">
         <div class="arena">
-            <h3 id="dn1" style="color:#ff4757; font-size: 1.8rem; margin: 0;"></h3>
+            <h3 id="dn1" style="color:#ff4757; font-size:1.8rem;"></h3>
             <div class="score-val">Score: <span id="s1">0</span></div>
             <img id="img1" class="q-img">
             <div id="qText1" class="question-box"></div>
-            <input type="text" id="in1" class="ans-in" placeholder="..." oninput="checkAnswer(1)" autocomplete="off">
+            <input type="text" id="in1" class="ans-in" placeholder="..." oninput="checkAnswer(1)">
         </div>
         <div class="arena">
-            <h3 id="dn2" style="color:var(--accent); font-size: 1.8rem; margin: 0;"></h3>
+            <h3 id="dn2" style="color:var(--accent); font-size:1.8rem;"></h3>
             <div class="score-val">Score: <span id="s2">0</span></div>
             <img id="img2" class="q-img">
             <div id="qText2" class="question-box"></div>
-            <input type="text" id="in2" class="ans-in" placeholder="..." oninput="checkAnswer(2)" autocomplete="off">
+            <input type="text" id="in2" class="ans-in" placeholder="..." oninput="checkAnswer(2)">
         </div>
     </div>
 </div>
 
-<div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; z-index:1000; background:rgba(1, 10, 36, 0.98); display:flex; flex-direction:column; justify-content:center; align-items:center;">
-    <h1 style="color:var(--gold); font-size:4rem; margin-bottom:10px;">🏆 THE RESULTS 🏆</h1>
-    
+<div id="win-screen" class="box hidden" style="position:fixed; inset:0; width:100%; height:100%; z-index:1000; background:rgba(1,10,36,0.98); display:flex; flex-direction:column; justify-content:center; align-items:center;">
+    <h1 style="color:var(--gold); font-size:4rem;">CONGRATULATIONS!</h1>
     <div class="podium-container">
-        <div id="podium2" class="podium-step second-place">
-            <div id="name-p2" class="podium-name">Eagles</div>
-            <div class="podium-score"><span id="score-p2">0</span></div>
-            <div style="font-size: 3rem; margin-top: auto; padding-bottom: 10px;">🥈</div>
+        <div class="podium-step second-place">
+            <div id="p-name2" class="pod-name"></div>
+            <div class="pod-score"><span id="p-score2"></span></div>
+            <div style="font-size:3rem; margin-top:auto;">🥈</div>
         </div>
-        <div id="podium1" class="podium-step first-place">
-            <div id="name-p1" class="podium-name">Lions</div>
-            <div class="podium-score"><span id="score-p1">0</span></div>
-            <div style="font-size: 4rem; margin-top: auto; padding-bottom: 10px;">👑</div>
+        <div class="podium-step first-place">
+            <div id="p-name1" class="pod-name"></div>
+            <div class="pod-score"><span id="p-score1"></span></div>
+            <div style="font-size:4rem; margin-top:auto;">👑</div>
         </div>
     </div>
-
-    <h2 id="winner-msg" style="color:white; font-size:2.8rem; margin-top:20px;"></h2>
-    <button class="btn" style="background:var(--gold); color:black; padding:20px 80px; font-size: 1.5rem; margin-top:30px;" onclick="location.reload()">PLAY AGAIN ➔</button>
+    <h2 id="win-msg" style="color:white; font-size:2.5rem; margin-top:30px;"></h2>
+    <button class="btn" style="background:var(--gold); color:black; padding:15px 60px; margin-top:20px;" onclick="location.reload()">REPLAY BATTLE</button>
 </div>
 
 <script>
@@ -130,13 +110,16 @@
             {q:"lion", s:"Which animal is the king of the jungle?", i:"https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?w=400"},
             {q:"giraffe", s:"Which animal has got a very long neck?", i:"https://images.pexels.com/photos/802112/pexels-photo-802112.jpeg?w=400"},
             {q:"monkey", s:"Which animal likes eating bananas?", i:"https://images.pexels.com/photos/1207915/pexels-photo-1207915.jpeg?w=400"},
-            {q:"rabbit", s:"Which animal has got long ears and jumps?", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=400"}
+            {q:"rabbit", s:"Which animal has got long ears and jumps?", i:"https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?w=400"},
+            {q:"tiger", s:"Which animal has got orange and black stripes?", i:"https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg?w=400"},
+            {q:"snake", s:"Which animal is long and hasn't got legs?", i:"https://images.pexels.com/photos/1108129/pexels-photo-1108129.jpeg?w=400"}
         ],
         fruits: [
             {q:"lemon", s:"Which fruit is yellow and very sour?", i:"https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?w=400"},
-            {q:"watermelon", s:"Which fruit is very big and sweet?", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=400"},
-            {q:"orange", s:"Which fruit is orange and round?", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=400"},
-            {q:"apple", s:"Which fruit is red and crunchy?", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=400"}
+            {q:"watermelon", s:"Which fruit is big, green outside and red inside?", i:"https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?w=400"},
+            {q:"apple", s:"Which fruit is red, sweet and crunchy?", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=400"},
+            {q:"banana", s:"Which fruit is long and yellow?", i:"https://images.pexels.com/photos/2870899/pexels-photo-2870899.jpeg?w=400"},
+            {q:"orange", s:"Which fruit is round and orange?", i:"https://images.pexels.com/photos/161559/orange-fruit-vitamins-healthy-eating-161559.jpeg?w=400"}
         ],
         school: [
             {q:"pencil", s:"What do you use to draw a picture?", i:"https://images.pexels.com/photos/159751/pencil-office-design-creative-159751.jpeg?w=400"},
@@ -146,14 +129,17 @@
         be: [
             {q:"am", s:"I ___ a student at school.", i:"https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=400"},
             {q:"is", s:"The weather ___ very sunny today.", i:"https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=400"},
-            {q:"are", s:"You ___ my best friend.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"}
+            {q:"are", s:"You ___ my best friend.", i:"https://images.pexels.com/photos/159844/pexels-photo-159844.jpeg?w=400"},
+            {q:"are", s:"We ___ very happy today.", i:"https://images.pexels.com/photos/1167192/pexels-photo-1167192.jpeg?w=400"}
         ],
         past: [
-            {q:"went", s:"Yesterday my family ___ to the park.", i:"https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?w=400"},
-            {q:"ate", s:"I ___ a very big pizza for lunch.", i:"https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?w=400"}
+            {q:"was", s:"Yesterday I ___ at the library.", i:"https://images.pexels.com/photos/159711/library-books-reading-study-159711.jpeg?w=400"},
+            {q:"were", s:"They ___ happy at the party last night.", i:"https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?w=400"},
+            {q:"went", s:"My sister ___ to London last summer.", i:"https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?w=400"},
+            {q:"played", s:"We ___ football in the afternoon.", i:"https://images.pexels.com/photos/46734/football-soccer-ball-sport-46734.jpeg?w=400"}
         ],
         colors: [
-            {q:"red", s:"What color is a typical tomato?", i:"https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?w=400"},
+            {q:"red", s:"What color is a typical tomato?", i:"https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?w=400"},
             {q:"blue", s:"What color is the ocean?", i:"https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpeg?w=400"}
         ]
     };
@@ -168,7 +154,6 @@
     function startBattle(topic) {
         p1List = [...quizData[topic]].sort(() => Math.random() - 0.5);
         p2List = [...quizData[topic]].sort(() => Math.random() - 0.5);
-        if (p1List[0].q === p2List[0].q && p1List.length > 1) { p2List.push(p2List.shift()); }
         document.getElementById('dn1').innerText = document.getElementById('name1').value;
         document.getElementById('dn2').innerText = document.getElementById('name2').value;
         document.getElementById('menu-screen').classList.add('hidden');
@@ -180,7 +165,7 @@
     function updatePlayer(p) {
         let list = (p==1) ? p1List : p2List;
         let idx = (p==1) ? p1Idx : p2Idx;
-        if(idx >= list.length) { checkGameOver(); return; }
+        if(idx >= list.length) { checkFinish(); return; }
         document.getElementById('img'+p).src = list[idx].i;
         document.getElementById('qText'+p).innerText = list[idx].s;
         let input = document.getElementById('in'+p);
@@ -191,51 +176,49 @@
         if(!isActive) return;
         let input = document.getElementById('in'+p);
         let val = input.value.toLowerCase().trim();
-        let list = (p==1) ? p1List : p2List;
-        let idx = (p==1) ? p1Idx : p2Idx;
-        let correct = list[idx].q.toLowerCase();
+        let correct = (p==1 ? p1List[p1Idx] : p2List[p2Idx]).q;
 
+        // Жоопту текшерүү алгоритми
         if(val === correct) {
             input.classList.add('correct');
             if(p==1) { score1 += 10; document.getElementById('s1').innerText = score1; }
             else { score2 += 10; document.getElementById('s2').innerText = score2; }
             document.getElementById('sound-correct').play();
             setTimeout(() => { if(p==1) p1Idx++; else p2Idx++; updatePlayer(p); }, 400);
-        } else if(val.length >= correct.length) {
-            input.classList.add('wrong');
-            document.getElementById('sound-wrong').play();
-            setTimeout(() => { if(p==1) p1Idx++; else p2Idx++; updatePlayer(p); }, 400);
+        } else {
+            // Эгер жазылган сөз туура сөзгө окшошпосо (ката тамга болсо) дароо кызартуу
+            if(val.length > 0 && !correct.startsWith(val)) {
+                input.classList.add('wrong');
+                document.getElementById('sound-wrong').play();
+                setTimeout(() => { input.classList.remove('wrong'); input.value = ""; }, 600);
+            }
         }
     }
 
-    function checkGameOver() {
+    function checkFinish() {
         if(p1Idx >= p1List.length && p2Idx >= p2List.length) {
             isActive = false;
             document.getElementById('battle-screen').classList.add('hidden');
             document.getElementById('win-screen').classList.remove('hidden');
-            
             let n1 = document.getElementById('name1').value;
             let n2 = document.getElementById('name2').value;
-
-            if (score1 >= score2) { updatePodium(n1, score1, n2, score2); } 
-            else { updatePodium(n2, score2, n1, score1); }
-
-            // Конфетти чачуу (5 секунд)
-            var end = Date.now() + (5 * 1000);
+            if(score1 >= score2) { fillPodium(n1, score1, n2, score2); } else { fillPodium(n2, score2, n1, score1); }
+            
+            var end = Date.now() + 5000;
             (function frame() {
-                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f1c40f', '#00d4ff'] });
-                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f1c40f', '#00d4ff'] });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f1c40f', '#ffffff'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f1c40f', '#ffffff'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
     }
 
-    function updatePodium(wName, wScore, lName, lScore) {
-        document.getElementById('name-p1').innerText = wName;
-        document.getElementById('score-p1').innerText = wScore;
-        document.getElementById('name-p2').innerText = lName;
-        document.getElementById('score-p2').innerText = lScore;
-        document.getElementById('winner-msg').innerText = wName + " WINS!";
+    function fillPodium(wN, wS, lN, lS) {
+        document.getElementById('p-name1').innerText = wN;
+        document.getElementById('p-score1').innerText = wS;
+        document.getElementById('p-name2').innerText = lN;
+        document.getElementById('p-score2').innerText = lS;
+        document.getElementById('win-msg').innerText = wN + " IS THE WINNER!";
     }
 </script>
 </body>
