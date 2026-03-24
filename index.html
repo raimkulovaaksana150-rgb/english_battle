@@ -2,46 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>English Speed Battle - Aksana Edition</title>
+    <title>English Speed Battle - Aksana Tukubai kyzy Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --gold: #f1c40f; --dark: #010a24; --red: #ff4757; --green: #2ecc71; --accent: #00d4ff; }
+        :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        .sidebar { width: 280px; background: #051937; border-right: 3px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; text-align: center; z-index: 10; }
-        .profile-img { width: 130px; height: 130px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 15px; }
+        
+        .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; z-index: 10; text-align: center; }
+        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
+        
         .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 2px solid var(--gold); backdrop-filter: blur(15px); }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
-        .arena-container { display: flex; width: 95%; gap: 20px; height: 90vh; }
-        .arena { flex: 1; background: rgba(255,255,255,0.07); border: 2px solid var(--gold); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
-        .q-img { max-width: 220px; height: 200px; object-fit: contain; margin-bottom: 15px; background: white; border-radius: 15px; padding: 10px; }
-        .score { font-size: 5rem; color: var(--gold); font-weight: bold; }
-        .ans-in { width: 85%; padding: 15px; font-size: 2rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; background: white; color: black; }
-        .wrong { border-color: var(--red) !important; background: #ffcccc !important; animation: shake 0.4s; }
-        .correct { border-color: var(--green) !important; background: #e6ffed !important; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-        .btn { padding: 15px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: #010a24; width: 100%; }
+        .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
+        
+        .arena-container { display: flex; width: 98%; gap: 15px; height: 95vh; padding: 10px; box-sizing: border-box; }
+        .arena { flex: 1; background: rgba(0,0,0,0.6); border: 3px solid var(--gold); border-radius: 25px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
+        .q-img { width: 100%; height: 260px; object-fit: cover; border-radius: 15px; border: 2px solid white; }
+        .score { font-size: 3.5rem; color: var(--gold); font-weight: bold; margin: 0; }
+        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; }
+        .ans-in.correct { background: #2ecc71 !important; color: white; }
+        
+        .btn { padding: 12px 20px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: #010a24; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .bonus-badge { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; display: none; font-size: 0.8rem; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
     </style>
 </head>
 <body>
 
+<audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+<audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+
 <div class="sidebar">
-    <div class="profile-img"><img src="96064.jpg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1995/1995539.png'"></div>
-    <h3 style="margin: 10px 0;">Аксана Тукубай кызы</h3>
-    <p style="color:var(--accent); font-weight: bold;">Кеңеш жалпы орто билим берүү мектеби</p>
-    <p style="color:var(--gold); margin-top: 20px; font-weight: bold;">MASTER CLASS 2026</p>
+    <div class="profile-img">
+        <img src="96064.jpg" alt="Aksana Tukubai kyzy" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
+    </div>
+    <h3 style="color:var(--gold); font-size: 0.8rem; text-transform: uppercase;">Source of Knowledge</h3>
+    <p style="font-weight: bold; color: #fff; font-size: 1.2rem; margin: 5px 0;">Aksana Tukubai kyzy</p>
+    <p style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">Kenesh General Education School</p>
+    <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 20px 0;">
+    <p style="font-size: 0.8rem; color: #bdc3c7;">Bonus for Speed: +50 pts</p>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h1 style="color:var(--gold);">ENTER TEAM NAMES</h1>
-        <div style="display:flex; gap:20px; margin-bottom: 30px;">
-            <input type="text" id="t1" value="LIONS" style="flex:1; padding:15px; font-size:1.5rem; text-align:center;">
-            <input type="text" id="t2" value="EAGLES" style="flex:1; padding:15px; font-size:1.5rem; text-align:center;">
+        <h1 style="color:var(--gold); font-size: 2.2rem;">ENTER TEAM NAMES</h1>
+        <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px; align-items: center;">
+            <input type="text" id="t1" value="TEAM A" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
+            <span style="font-size: 2rem;">VS</span>
+            <input type="text" id="t2" value="TEAM B" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
         </div>
-        <button class="btn" onclick="showMenu()">START GAME</button>
+        <button class="btn" style="font-size: 1.5rem;" onclick="openMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
@@ -50,118 +63,215 @@
             <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
             <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
             <button class="btn" onclick="startBattle('school')">🎒 School</button>
-            <button class="btn" onclick="startBattle('body')">🦴 Body Parts</button>
+            <button class="btn" onclick="startBattle('verbs')">🏃 Verbs</button>
+            <button class="btn" style="background:#e67e22" onclick="startBattle('colors')">🎨 Colors</button>
+            <button class="btn" style="background:#e67e22" onclick="startBattle('family')">👨‍👩‍👧 Family</button>
+            <button class="btn" style="background:#e67e22" onclick="startBattle('body')">🦴 Body Parts</button>
+            <button class="btn" style="background:#e67e22" onclick="startBattle('clothes')">👕 Clothes</button>
         </div>
     </div>
 
     <div id="battle-screen" class="arena-container hidden">
         <div class="arena">
-            <h2 id="name-1"></h2>
+            <div class="bonus-badge" id="bonus-1">⚡ FIRST FINISH! +50</div>
+            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
             <div class="score" id="score-1">0</div>
             <img id="img-1" class="q-img">
-            <input type="text" id="input-1" class="ans-in" onkeydown="if(event.key==='Enter') check(1)" placeholder="Type & Enter" autocomplete="off">
+            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
+            <input type="text" id="input-1" class="ans-in" autocomplete="off" placeholder="..." oninput="check(1)">
         </div>
         <div class="arena">
-            <h2 id="name-2"></h2>
+            <div class="bonus-badge" id="bonus-2">⚡ FIRST FINISH! +50</div>
+            <h2 id="name-2" style="color:var(--accent); margin:0;"></h2>
             <div class="score" id="score-2">0</div>
             <img id="img-2" class="q-img">
-            <input type="text" id="input-2" class="ans-in" onkeydown="if(event.key==='Enter') check(2)" placeholder="Type & Enter" autocomplete="off">
+            <p id="text-2" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
+            <input type="text" id="input-2" class="ans-in" autocomplete="off" placeholder="..." oninput="check(2)">
         </div>
     </div>
 
     <div id="win-screen" class="box hidden">
-        <h1 id="winner-text" style="color:var(--gold); font-size: 4rem;"></h1>
-        <button class="btn" style="width: 300px;" onclick="location.reload()">RESTART</button>
+        <h1 id="winner-text" style="color:var(--gold); font-size:3.5rem;"></h1>
+        <div style="display: flex; align-items: flex-end; justify-content: center; gap: 20px; margin: 30px 0;">
+            <div style="width:140px; height:120px; background:#bdc3c7; border-radius:10px; color:#010a24; padding:10px;">
+                <div id="silver-name"></div><div id="silver-score" style="font-size:1.8rem;"></div><div>🥈</div>
+            </div>
+            <div style="width:160px; height:180px; background:#ffd700; border-radius:10px; color:#010a24; padding:10px; box-shadow: 0 0 30px #f1c40f;">
+                <div id="gold-name"></div><div id="gold-score" style="font-size:2.2rem;"></div><div>👑</div>
+            </div>
+        </div>
+        <button class="btn" onclick="location.reload()">NEW GAME 🔄</button>
     </div>
 </div>
 
 <script>
-    const data = {
+    const quizData = {
         animals: [
-            {q:"lion", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"}, {q:"tiger", i:"https://cdn-icons-png.flaticon.com/512/616/616416.png"},
-            {q:"zebra", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"}, {q:"elephant", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
-            {q:"monkey", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"}, {q:"panda", i:"https://cdn-icons-png.flaticon.com/512/2311/2311038.png"},
-            {q:"fox", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"}, {q:"rabbit", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
-            {q:"bear", i:"https://cdn-icons-png.flaticon.com/512/616/616424.png"}, {q:"wolf", i:"https://cdn-icons-png.flaticon.com/512/616/616441.png"}
+            {q:"elephant", s:"Large animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
+            {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
+            {q:"zebra", s:"Animal with black and white stripes.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"},
+            {q:"monkey", s:"Loves bananas and climbing trees.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
+            {q:"rabbit", s:"Has long ears and jumps.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
+            {q:"tiger", s:"Large orange cat with black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616416.png"},
+            {q:"panda", s:"Black and white bear from China.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311038.png"},
+            {q:"fox", s:"Smart orange animal with a bushy tail.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
+            {q:"bear", s:"Large strong animal that loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616424.png"},
+            {q:"giraffe", s:"Has a very long neck to eat leaves.", i:"https://cdn-icons-png.flaticon.com/512/616/616434.png"},
+            {q:"wolf", s:"Wild grey dog that howls at the moon.", i:"https://cdn-icons-png.flaticon.com/512/616/616441.png"},
+            {q:"kangaroo", s:"Animal from Australia that hops.", i:"https://cdn-icons-png.flaticon.com/512/616/616437.png"}
         ],
         fruits: [
-            {q:"apple", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"}, {q:"banana", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
-            {q:"orange", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"}, {q:"grapes", i:"https://cdn-icons-png.flaticon.com/512/1155/1155252.png"},
-            {q:"lemon", i:"https://cdn-icons-png.flaticon.com/512/1423/1423146.png"}, {q:"pear", i:"https://cdn-icons-png.flaticon.com/512/3137/3137022.png"},
-            {q:"strawberry", i:"https://cdn-icons-png.flaticon.com/512/590/590685.png"}, {q:"watermelon", i:"https://cdn-icons-png.flaticon.com/512/2909/2909804.png"}
+            {q:"apple", s:"Red or green round fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
+            {q:"banana", s:"Long yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
+            {q:"orange", s:"Orange color and juicy.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
+            {q:"grapes", s:"Small purple or green balls.", i:"https://cdn-icons-png.flaticon.com/512/1155/1155252.png"},
+            {q:"lemon", s:"Yellow and very sour fruit.", i:"https://cdn-icons-png.flaticon.com/512/1423/1423146.png"},
+            {q:"pear", s:"Green fruit shaped like a bell.", i:"https://cdn-icons-png.flaticon.com/512/3137/3137022.png"},
+            {q:"strawberry", s:"Small red fruit with tiny seeds.", i:"https://cdn-icons-png.flaticon.com/512/590/590685.png"},
+            {q:"watermelon", s:"Big green fruit, red inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909804.png"},
+            {q:"cherry", s:"Small, round and red fruit.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311029.png"},
+            {q:"kiwi", s:"Brown and fuzzy, green inside.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728731.png"},
+            {q:"pineapple", s:"Large tropical fruit with spikes.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728751.png"},
+            {q:"mango", s:"Sweet yellow tropical fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909786.png"}
         ],
         school: [
-            {q:"pen", i:"https://cdn-icons-png.flaticon.com/512/1250/1250615.png"}, {q:"pencil", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
-            {q:"book", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"}, {q:"bag", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
-            {q:"ruler", i:"https://cdn-icons-png.flaticon.com/512/567/567222.png"}, {q:"eraser", i:"https://cdn-icons-png.flaticon.com/512/2301/2301213.png"},
-            {q:"copybook", i:"https://cdn-icons-png.flaticon.com/512/2641/2641525.png"}
+            {q:"pencil", s:"Used for writing.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
+            {q:"book", s:"You read this for knowledge.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
+            {q:"bag", s:"You carry books in it.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
+            {q:"ruler", s:"Used to measure lines.", i:"https://cdn-icons-png.flaticon.com/512/567/567222.png"},
+            {q:"eraser", s:"Used to remove pencil marks.", i:"https://cdn-icons-png.flaticon.com/512/2301/2301213.png"},
+            {q:"pen", s:"Used for writing with ink.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250615.png"},
+            {q:"desk", s:"Table for students in school.", i:"https://cdn-icons-png.flaticon.com/512/3516/3516482.png"},
+            {q:"copybook", s:"Paper for writing lessons.", i:"https://cdn-icons-png.flaticon.com/512/2641/2641525.png"},
+            {q:"glue", s:"Used to stick paper together.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069204.png"},
+            {q:"scissors", s:"Used to cut paper.", i:"https://cdn-icons-png.flaticon.com/512/3566/3566373.png"},
+            {q:"board", s:"Teacher writes on this in class.", i:"https://cdn-icons-png.flaticon.com/512/2062/2062327.png"},
+            {q:"sharpener", s:"Used to make pencils sharp.", i:"https://cdn-icons-png.flaticon.com/512/567/567228.png"}
         ],
-        body: [
-            {q:"eye", i:"https://cdn-icons-png.flaticon.com/512/2990/2990145.png"}, {q:"nose", i:"https://cdn-icons-png.flaticon.com/512/2990/2990146.png"},
-            {q:"hand", i:"https://cdn-icons-png.flaticon.com/512/2990/2990147.png"}, {q:"ear", i:"https://cdn-icons-png.flaticon.com/512/2990/2990149.png"},
-            {q:"mouth", i:"https://cdn-icons-png.flaticon.com/512/2990/2990150.png"}
+            {q:"red", s:"Color of a tomato.", i:"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400"},
+            {q:"yellow", s:"Color of the sun.", i:"https://images.unsplash.com/photo-1551029506-0807d4a21f6b?w=400"},
+            {q:"green", s:"Color of grass.", i:"https://images.unsplash.com/photo-1543332164-6e82f355badc?w=400"}
+        ],
+       body: [
+            {q:"eye", s:"You see with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990145.png"},
+            {q:"nose", s:"You smell with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990146.png"},
+            {q:"ear", s:"You hear with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990149.png"},
+            {q:"mouth", s:"You eat and speak with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990150.png"},
+            {q:"hand", s:"You hold things with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990147.png"},
+            {q:"leg", s:"You walk with these.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990148.png"},
+            {q:"head", s:"Part of body with hair and face.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990151.png"},
+            {q:"foot", s:"You put shoes on this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990152.png"},
+            {q:"finger", s:"You have five on each hand.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990153.png"},
+            {q:"hair", s:"Grows on your head.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990154.png"},
+            {q:"tooth", s:"White parts inside the mouth.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990155.png"},
+            {q:"shoulder", s:"Joins your arm to your body.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990156.png"}
+        ],
+        clothes: [
+            {q:"shirt", s:"Clothing for the upper body.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503380.png"},
+            {q:"trousers", s:"Clothing for the legs.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503381.png"},
+            {q:"dress", s:"Clothing for girls and women.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503382.png"},
+            {q:"shoes", s:"You wear these on your feet.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503383.png"},
+            {q:"hat", s:"You wear this on your head.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503384.png"},
+            {q:"socks", s:"You wear these inside shoes.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503385.png"},
+            {q:"jacket", s:"Wear this when it is cold.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503386.png"},
+            {q:"skirt", s:"Bottom clothing for girls.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503387.png"},
+            {q:"gloves", s:"Wear these on your hands.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503388.png"},
+            {q:"scarf", s:"Wear this around your neck.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503389.png"},
+            {q:"t-shirt", s:"Casual short-sleeve shirt.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503390.png"},
+            {q:"boots", s:"Strong shoes for winter.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503391.png"}
         ]
-    };
+    }; // БУЛ ЖЕРДЕ КАША ЖАБЫЛАТ, ЭСКИСИН ӨЧҮРГӨНДӨ БУНУ УНУТПАҢЫЗ
 
-    let p1L, p2L, p1I=0, p2I=0, s1=0, s2=0;
+    let p1L=[], p2L=[], p1I=0, p2I=0, s1=0, s2=0, playing=false, bonusGiven=false;
 
-    function showMenu() {
+    function openMenu() {
+        document.getElementById('bg-music').play().catch(()=>{});
         document.getElementById('setup-screen').classList.add('hidden');
         document.getElementById('menu-screen').classList.remove('hidden');
     }
 
-    function startBattle(topic) {
-        p1L = [...data[topic]].sort(()=>Math.random()-0.5);
-        p2L = [...data[topic]].sort(()=>Math.random()-0.5);
+    function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
+
+    function startBattle(t) {
+        p1L = shuffle([...quizData[t]]);
+        p2L = shuffle([...quizData[t]]);
         document.getElementById('name-1').innerText = document.getElementById('t1').value;
         document.getElementById('name-2').innerText = document.getElementById('t2').value;
         document.getElementById('menu-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
+        playing = true; p1I = 0; p2I = 0; s1 = 0; s2 = 0; bonusGiven = false;
         load(1); load(2);
     }
 
     function load(p) {
-        let list = (p===1) ? p1L : p2L;
-        let idx = (p===1) ? p1I : p2I;
-        if(idx >= list.length) {
-            if(p1I >= p1L.length && p2I >= p2L.length) finish();
-            return;
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+        if(i >= l.length) { 
+            if(!bonusGiven) {
+                bonusGiven = true;
+                if(p==1) { s1 += 50; document.getElementById('bonus-1').style.display = 'block'; }
+                else { s2 += 50; document.getElementById('bonus-2').style.display = 'block'; }
+                document.getElementById('score-'+p).innerText = (p==1?s1:s2);
+            }
+            finish(); return; 
         }
-        document.getElementById('img-'+p).src = list[idx].i;
+        document.getElementById('img-'+p).src = l[i].i;
+        document.getElementById('text-'+p).innerText = l[i].s;
         let inp = document.getElementById('input-'+p);
-        inp.value = ""; inp.className = "ans-in";
-        inp.disabled = false;
-        if(p===1) inp.focus();
+        inp.value = ""; inp.className = "ans-in"; inp.disabled = false;
+        if(p==1) setTimeout(()=>inp.focus(), 10);
     }
 
     function check(p) {
+    if(!playing) return;
+    let inp = document.getElementById('input-'+p);
+    let val = inp.value.toLowerCase().trim();
+    let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+
+    // Эгер жооп туура болсо
+    if(val === l[i].q) {
+        document.getElementById('correct-sound').play();
+        inp.classList.add('correct');
+        inp.disabled = true;
+        if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+        else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+        setTimeout(() => load(p), 400);
+    } 
+    // Эгер жооп КАТА болсо (Сиз каалаган кошумча)
+    else {
+        inp.classList.add('wrong'); // Кызарат
+        inp.disabled = true;
+        if(p==1) p1I++; else p2I++; // Кийинки суроого өткөрөт
+        setTimeout(() => load(p), 600); // 0.6 секунддан кийин жаңы суроо чыгат
+    }
+}
+        if(!playing) return;
         let inp = document.getElementById('input-'+p);
         let val = inp.value.toLowerCase().trim();
-        let list = (p===1) ? p1L : p2L;
-        let idx = (p===1) ? p1I : p2I;
-
-        if(val === list[idx].q) {
-            inp.classList.add('correct');
-            if(p===1) { s1+=10; p1I++; document.getElementById('score-1').innerText = s1; }
-            else { s2+=10; p2I++; document.getElementById('score-2').innerText = s2; }
-            inp.disabled = true;
-            setTimeout(() => load(p), 300);
-        } else {
-            // ЭГЕР КАТА БОЛСО - КЫЗАРЫП ЖАНА КИЙИНКИГЕ ӨТӨТ
-            inp.classList.add('wrong');
-            inp.disabled = true;
-            if(p===1) p1I++; else p2I++;
-            setTimeout(() => load(p), 500);
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+        if(val === l[i].q) {
+            document.getElementById('correct-sound').play();
+            inp.classList.add('correct'); inp.disabled = true;
+            if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+            else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+            setTimeout(()=>load(p), 400);
         }
     }
 
     function finish() {
-        document.getElementById('battle-screen').classList.add('hidden');
-        document.getElementById('win-screen').classList.remove('hidden');
-        let t1 = document.getElementById('t1').value;
-        let t2 = document.getElementById('t2').value;
-        document.getElementById('winner-text').innerText = s1 > s2 ? t1 + " WINS! 🏆" : (s2 > s1 ? t2 + " WINS! 🏆" : "DRAW! 🤝");
-        confetti({ particleCount: 200, spread: 100 });
+        if(p1I >= p1L.length && p2I >= p2L.length) {
+            playing = false;
+            document.getElementById('battle-screen').classList.add('hidden');
+            document.getElementById('win-screen').classList.remove('hidden');
+            let n1 = document.getElementById('t1').value, n2 = document.getElementById('t2').value;
+            if(s1 >= s2) { res(n1,s1,n2,s2); } else { res(n2,s2,n1,s1); }
+            confetti({ particleCount: 200, spread: 80 });
+        }
+    }
+
+    function res(wN, wS, lN, lS) {
+        document.getElementById('winner-text').innerText = wN + " WINS! 🏆";
+        document.getElementById('gold-name').innerText = wN; document.getElementById('gold-score').innerText = wS;
+        document.getElementById('silver-name').innerText = lN; document.getElementById('silver-score').innerText = lS;
     }
 </script>
 </body>
