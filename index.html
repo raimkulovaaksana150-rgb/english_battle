@@ -106,81 +106,103 @@
 
 <script>
     const quizData = {
-        animals: [
-            {q:"elephant", s:"Large animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
-            {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
-            {q:"zebra", s:"Animal with black and white stripes.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"},
-            {q:"monkey", s:"Loves bananas and climbing trees.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
-            {q:"rabbit", s:"Has long ears and jumps.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
-            {q:"tiger", s:"Large orange cat with black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616416.png"},
-            {q:"panda", s:"Black and white bear from China.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311038.png"},
-            {q:"fox", s:"Smart orange animal with a bushy tail.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
-            {q:"bear", s:"Large strong animal that loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616424.png"},
-            {q:"giraffe", s:"Has a very long neck to eat leaves.", i:"https://cdn-icons-png.flaticon.com/512/616/616434.png"},
-            {q:"wolf", s:"Wild grey dog that howls at the moon.", i:"https://cdn-icons-png.flaticon.com/512/616/616441.png"},
-            {q:"kangaroo", s:"Animal from Australia that hops.", i:"https://cdn-icons-png.flaticon.com/512/616/616437.png"}
-        ],
-        fruits: [
-            {q:"apple", s:"Red or green round fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
-            {q:"banana", s:"Long yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
-            {q:"orange", s:"Orange color and juicy.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
-            {q:"grapes", s:"Small purple or green balls.", i:"https://cdn-icons-png.flaticon.com/512/1155/1155252.png"},
-            {q:"lemon", s:"Yellow and very sour fruit.", i:"https://cdn-icons-png.flaticon.com/512/1423/1423146.png"},
-            {q:"pear", s:"Green fruit shaped like a bell.", i:"https://cdn-icons-png.flaticon.com/512/3137/3137022.png"},
-            {q:"strawberry", s:"Small red fruit with tiny seeds.", i:"https://cdn-icons-png.flaticon.com/512/590/590685.png"},
-            {q:"watermelon", s:"Big green fruit, red inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909804.png"},
-            {q:"cherry", s:"Small, round and red fruit.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311029.png"},
-            {q:"kiwi", s:"Brown and fuzzy, green inside.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728731.png"},
-            {q:"pineapple", s:"Large tropical fruit with spikes.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728751.png"},
-            {q:"mango", s:"Sweet yellow tropical fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909786.png"}
-        ],
-        school: [
-            {q:"pencil", s:"Used for writing.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
-            {q:"book", s:"You read this for knowledge.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
-            {q:"bag", s:"You carry books in it.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
-            {q:"ruler", s:"Used to measure lines.", i:"https://cdn-icons-png.flaticon.com/512/567/567222.png"},
-            {q:"eraser", s:"Used to remove pencil marks.", i:"https://cdn-icons-png.flaticon.com/512/2301/2301213.png"},
-            {q:"pen", s:"Used for writing with ink.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250615.png"},
-            {q:"desk", s:"Table for students in school.", i:"https://cdn-icons-png.flaticon.com/512/3516/3516482.png"},
-            {q:"copybook", s:"Paper for writing lessons.", i:"https://cdn-icons-png.flaticon.com/512/2641/2641525.png"},
-            {q:"glue", s:"Used to stick paper together.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069204.png"},
-            {q:"scissors", s:"Used to cut paper.", i:"https://cdn-icons-png.flaticon.com/512/3566/3566373.png"},
-            {q:"board", s:"Teacher writes on this in class.", i:"https://cdn-icons-png.flaticon.com/512/2062/2062327.png"},
-            {q:"sharpener", s:"Used to make pencils sharp.", i:"https://cdn-icons-png.flaticon.com/512/567/567228.png"}
-        ],
-            {q:"red", s:"Color of a tomato.", i:"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400"},
-            {q:"yellow", s:"Color of the sun.", i:"https://images.unsplash.com/photo-1551029506-0807d4a21f6b?w=400"},
-            {q:"green", s:"Color of grass.", i:"https://images.unsplash.com/photo-1543332164-6e82f355badc?w=400"}
-        ],
-       body: [
-            {q:"eye", s:"You see with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990145.png"},
-            {q:"nose", s:"You smell with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990146.png"},
-            {q:"ear", s:"You hear with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990149.png"},
-            {q:"mouth", s:"You eat and speak with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990150.png"},
-            {q:"hand", s:"You hold things with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990147.png"},
-            {q:"leg", s:"You walk with these.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990148.png"},
-            {q:"head", s:"Part of body with hair and face.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990151.png"},
-            {q:"foot", s:"You put shoes on this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990152.png"},
-            {q:"finger", s:"You have five on each hand.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990153.png"},
-            {q:"hair", s:"Grows on your head.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990154.png"},
-            {q:"tooth", s:"White parts inside the mouth.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990155.png"},
-            {q:"shoulder", s:"Joins your arm to your body.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990156.png"}
-        ],
-        clothes: [
-            {q:"shirt", s:"Clothing for the upper body.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503380.png"},
-            {q:"trousers", s:"Clothing for the legs.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503381.png"},
-            {q:"dress", s:"Clothing for girls and women.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503382.png"},
-            {q:"shoes", s:"You wear these on your feet.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503383.png"},
-            {q:"hat", s:"You wear this on your head.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503384.png"},
-            {q:"socks", s:"You wear these inside shoes.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503385.png"},
-            {q:"jacket", s:"Wear this when it is cold.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503386.png"},
-            {q:"skirt", s:"Bottom clothing for girls.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503387.png"},
-            {q:"gloves", s:"Wear these on your hands.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503388.png"},
-            {q:"scarf", s:"Wear this around your neck.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503389.png"},
-            {q:"t-shirt", s:"Casual short-sleeve shirt.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503390.png"},
-            {q:"boots", s:"Strong shoes for winter.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503391.png"}
-        ]
-    }; // БУЛ ЖЕРДЕ КАША ЖАБЫЛАТ, ЭСКИСИН ӨЧҮРГӨНДӨ БУНУ УНУТПАҢЫЗ
+    animals: [
+        {q:"elephant", s:"Large animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
+        {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
+        {q:"zebra", s:"Animal with black and white stripes.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"},
+        {q:"monkey", s:"Loves bananas and climbing trees.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
+        {q:"rabbit", s:"Has long ears and jumps.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
+        {q:"tiger", s:"Large orange cat with black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616416.png"},
+        {q:"panda", s:"Black and white bear from China.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311038.png"},
+        {q:"fox", s:"Smart orange animal with a bushy tail.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
+        {q:"bear", s:"Large strong animal that loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616424.png"},
+        {q:"giraffe", s:"Has a very long neck to eat leaves.", i:"https://cdn-icons-png.flaticon.com/512/616/616434.png"},
+        {q:"wolf", s:"Wild grey dog that howls at the moon.", i:"https://cdn-icons-png.flaticon.com/512/616/616441.png"},
+        {q:"kangaroo", s:"Animal from Australia that hops.", i:"https://cdn-icons-png.flaticon.com/512/616/616437.png"}
+    ],
+    fruits: [
+        {q:"apple", s:"Red or green round fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
+        {q:"banana", s:"Long yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
+        {q:"orange", s:"Orange color and juicy.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
+        {q:"grapes", s:"Small purple or green balls.", i:"https://cdn-icons-png.flaticon.com/512/1155/1155252.png"},
+        {q:"lemon", s:"Yellow and very sour fruit.", i:"https://cdn-icons-png.flaticon.com/512/1423/1423146.png"},
+        {q:"pear", s:"Green fruit shaped like a bell.", i:"https://cdn-icons-png.flaticon.com/512/3137/3137022.png"},
+        {q:"strawberry", s:"Small red fruit with tiny seeds.", i:"https://cdn-icons-png.flaticon.com/512/590/590685.png"},
+        {q:"watermelon", s:"Big green fruit, red inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909804.png"},
+        {q:"cherry", s:"Small, round and red fruit.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311029.png"},
+        {q:"kiwi", s:"Brown and fuzzy, green inside.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728731.png"},
+        {q:"pineapple", s:"Large tropical fruit with spikes.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728751.png"},
+        {q:"mango", s:"Sweet yellow tropical fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909786.png"}
+    ],
+    school: [
+        {q:"pencil", s:"Used for writing.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
+        {q:"book", s:"You read this for knowledge.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
+        {q:"bag", s:"You carry books in it.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
+        {q:"ruler", s:"Used to measure lines.", i:"https://cdn-icons-png.flaticon.com/512/567/567222.png"},
+        {q:"eraser", s:"Used to remove pencil marks.", i:"https://cdn-icons-png.flaticon.com/512/2301/2301213.png"},
+        {q:"pen", s:"Used for writing with ink.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250615.png"},
+        {q:"desk", s:"Table for students in school.", i:"https://cdn-icons-png.flaticon.com/512/3516/3516482.png"},
+        {q:"copybook", s:"Paper for writing lessons.", i:"https://cdn-icons-png.flaticon.com/512/2641/2641525.png"},
+        {q:"glue", s:"Used to stick paper together.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069204.png"},
+        {q:"scissors", s:"Used to cut paper.", i:"https://cdn-icons-png.flaticon.com/512/3566/3566373.png"},
+        {q:"board", s:"Teacher writes on this in class.", i:"https://cdn-icons-png.flaticon.com/512/2062/2062327.png"},
+        {q:"sharpener", s:"Used to make pencils sharp.", i:"https://cdn-icons-png.flaticon.com/512/567/567228.png"}
+    ],
+    colors: [
+        {q:"red", s:"Color of a tomato.", i:"https://cdn-icons-png.flaticon.com/512/590/590685.png"},
+        {q:"blue", s:"Color of the sky.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909829.png"},
+        {q:"green", s:"Color of grass.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
+        {q:"yellow", s:"Color of the sun.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
+        {q:"orange", s:"Color of an orange fruit.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
+        {q:"purple", s:"Color of grapes.", i:"https://cdn-icons-png.flaticon.com/512/1155/1155252.png"},
+        {q:"pink", s:"Color of a flamingo.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909831.png"},
+        {q:"brown", s:"Color of chocolate.", i:"https://cdn-icons-png.flaticon.com/512/616/616424.png"},
+        {q:"black", s:"Color of night.", i:"https://cdn-icons-png.flaticon.com/512/2311/2311038.png"},
+        {q:"white", s:"Color of snow.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"}
+    ],
+    family: [
+        {q:"mother", s:"Your female parent.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532724.png"},
+        {q:"father", s:"Your male parent.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532734.png"},
+        {q:"brother", s:"Your male sibling.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532753.png"},
+        {q:"sister", s:"Your female sibling.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532739.png"},
+        {q:"baby", s:"A very young child.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532731.png"},
+        {q:"grandmother", s:"Your mother's mother.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532750.png"},
+        {q:"grandfather", s:"Your mother's father.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532747.png"},
+        {q:"son", s:"A person's male child.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532742.png"},
+        {q:"daughter", s:"A person's female child.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532755.png"},
+        {q:"uncle", s:"Brother of your parent.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532745.png"},
+        {q:"aunt", s:"Sister of your parent.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532749.png"},
+        {q:"family", s:"Group of related people.", i:"https://cdn-icons-png.flaticon.com/512/3532/3532721.png"}
+    ],
+    body: [
+        {q:"eye", s:"You see with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990145.png"},
+        {q:"nose", s:"You smell with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990146.png"},
+        {q:"ear", s:"You hear with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990149.png"},
+        {q:"mouth", s:"You eat and speak with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990150.png"},
+        {q:"hand", s:"You hold things with this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990147.png"},
+        {q:"leg", s:"You walk with these.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990148.png"},
+        {q:"head", s:"Part of body with hair and face.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990151.png"},
+        {q:"foot", s:"You put shoes on this.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990152.png"},
+        {q:"finger", s:"You have five on each hand.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990153.png"},
+        {q:"hair", s:"Grows on your head.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990154.png"},
+        {q:"tooth", s:"White parts inside the mouth.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990155.png"},
+        {q:"shoulder", s:"Joins your arm to your body.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990156.png"}
+    ],
+    clothes: [
+        {q:"shirt", s:"Clothing for the upper body.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503380.png"},
+        {q:"trousers", s:"Clothing for the legs.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503381.png"},
+        {q:"dress", s:"Clothing for girls and women.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503382.png"},
+        {q:"shoes", s:"You wear these on your feet.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503383.png"},
+        {q:"hat", s:"You wear this on your head.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503384.png"},
+        {q:"socks", s:"You wear these inside shoes.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503385.png"},
+        {q:"jacket", s:"Wear this when it is cold.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503386.png"},
+        {q:"skirt", s:"Bottom clothing for girls.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503387.png"},
+        {q:"gloves", s:"Wear these on your hands.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503388.png"},
+        {q:"scarf", s:"Wear this around your neck.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503389.png"},
+        {q:"t-shirt", s:"Casual short-sleeve shirt.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503390.png"},
+        {q:"boots", s:"Strong shoes for winter.", i:"https://cdn-icons-png.flaticon.com/512/2503/2503391.png"}
+    ]
+};
 
     let p1L=[], p2L=[], p1I=0, p2I=0, s1=0, s2=0, playing=false, bonusGiven=false;
 
