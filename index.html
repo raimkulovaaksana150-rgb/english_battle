@@ -15,46 +15,41 @@
         .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
         .arena-container { display: flex; width: 98%; gap: 15px; height: 95vh; padding: 10px; box-sizing: border-box; }
         .arena { flex: 1; background: rgba(0,0,0,0.6); border: 3px solid var(--gold); border-radius: 25px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
-        .q-img { width: 100%; height: 260px; object-fit: contain; border-radius: 15px; background: white; border: 2px solid white; }
+        .q-img { width: 100%; height: 280px; object-fit: contain; border-radius: 15px; background: white; border: 3px solid white; }
         .score { font-size: 3.5rem; color: var(--gold); font-weight: bold; margin: 0; }
-        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; transition: 0.3s; }
-        
-        /* Түстөр */
+        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; transition: 0.2s; }
         .ans-in.correct { background: var(--green) !important; color: white; border-color: var(--green); }
         .ans-in.wrong { background: var(--red) !important; color: white; border-color: var(--red); }
-        
-        .btn { padding: 12px 20px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: #010a24; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .btn { padding: 12px 20px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: #010a24; transition: 0.3s; margin: 5px; }
     </style>
 </head>
 <body>
 
 <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
 <audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
-<audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio> <div class="sidebar">
+
+<div class="sidebar">
     <div class="profile-img">
         <img src="96064.jpg" alt="Aksana" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
     </div>
     <p style="font-weight: bold; color: #fff; font-size: 1.2rem; margin: 5px 0;">Aksana Tukubai kyzy</p>
-    <p style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">Kenesh Secondary School</p>
+    <p style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">English Speed Battle</p>
     <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 20px 0;">
-    <p style="font-size: 0.8rem; color: #bdc3c7;">Be careful with spelling!</p>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h1 style="color:var(--gold);">ENTER TEAM NAMES</h1>
+        <h1 style="color:var(--gold);">TEAM NAMES</h1>
         <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px;">
-            <input type="text" id="t1" value="TEAM A" style="padding:15px; font-size:1.5rem; border-radius:10px;">
-            <input type="text" id="t2" value="TEAM B" style="padding:15px; font-size:1.5rem; border-radius:10px;">
+            <input type="text" id="t1" value="TEAM A" style="padding:15px; font-size:1.5rem; border-radius:10px; width:40%;">
+            <input type="text" id="t2" value="TEAM B" style="padding:15px; font-size:1.5rem; border-radius:10px; width:40%;">
         </div>
-        <button class="btn" style="font-size: 1.5rem;" onclick="openMenu()">START GAME ➔</button>
+        <button class="btn" onclick="openMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
-        <div class="menu-grid">
+        <h2 style="color:var(--gold);">SELECT TOPIC (12 Questions)</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
             <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
             <button class="btn" onclick="startBattle('school')">🎒 School</button>
@@ -63,25 +58,25 @@
     </div>
 
     <div id="battle-screen" class="arena-container hidden">
-        <div class="arena" id="arena-1">
-            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
+        <div class="arena">
+            <h2 id="name-1" style="color:#ff4757;"></h2>
             <div class="score" id="score-1">0</div>
             <img id="img-1" class="q-img">
-            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
-            <input type="text" id="input-1" class="ans-in" placeholder="Enter key..." onkeydown="handleKey(event, 1)">
+            <p id="text-1" style="font-size:1.5rem; font-weight:bold;"></p>
+            <input type="text" id="input-1" class="ans-in" oninput="autoCheck(1)">
         </div>
-        <div class="arena" id="arena-2">
-            <h2 id="name-2" style="color:var(--accent); margin:0;"></h2>
+        <div class="arena">
+            <h2 id="name-2" style="color:var(--accent);"></h2>
             <div class="score" id="score-2">0</div>
             <img id="img-2" class="q-img">
-            <p id="text-2" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
-            <input type="text" id="input-2" class="ans-in" placeholder="Enter key..." onkeydown="handleKey(event, 2)">
+            <p id="text-2" style="font-size:1.5rem; font-weight:bold;"></p>
+            <input type="text" id="input-2" class="ans-in" oninput="autoCheck(2)">
         </div>
     </div>
 
     <div id="win-screen" class="box hidden">
         <h1 id="winner-text" style="color:var(--gold); font-size:3.5rem;"></h1>
-        <button class="btn" onclick="location.reload()">RESTART</button>
+        <button class="btn" onclick="location.reload()">PLAY AGAIN</button>
     </div>
 </div>
 
@@ -90,50 +85,58 @@
         animals: [
             {q:"elephant", s:"Large animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
             {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
-            {q:"tiger", s:"Large cat with orange and black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616428.png"},
-            {q:"snake", s:"Long animal with no legs.", i:"https://cdn-icons-png.flaticon.com/512/616/616431.png"},
-            {q:"bear", s:"Large forest animal, loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616411.png"},
-            {q:"monkey", s:"Loves bananas and climbing.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
-            {q:"giraffe", s:"It has a very long neck.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
             {q:"zebra", s:"Black and white stripes.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"},
-            {q:"rabbit", s:"Has long ears and jumps.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
-            {q:"wolf", s:"Wild dog that howls.", i:"https://cdn-icons-png.flaticon.com/512/616/616423.png"}
+            {q:"giraffe", s:"It has a long neck.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
+            {q:"monkey", s:"Loves bananas.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
+            {q:"rabbit", s:"Has long ears.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
+            {q:"tiger", s:"Orange with black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616428.png"},
+            {q:"snake", s:"Long and dangerous.", i:"https://cdn-icons-png.flaticon.com/512/616/616431.png"},
+            {q:"crocodile", s:"Lives in water, sharp teeth.", i:"https://cdn-icons-png.flaticon.com/512/616/616441.png"},
+            {q:"bear", s:"Loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616411.png"},
+            {q:"penguin", s:"Bird but cannot fly.", i:"https://cdn-icons-png.flaticon.com/512/616/616408.png"},
+            {q:"wolf", s:"Wild forest dog.", i:"https://cdn-icons-png.flaticon.com/512/616/616423.png"}
         ],
         fruits: [
-            {q:"apple", s:"Red or green fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
+            {q:"apple", s:"Red round fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
             {q:"banana", s:"Long yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
-            {q:"orange", s:"Juicy orange fruit.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
-            {q:"watermelon", s:"Big green fruit, red inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909784.png"},
-            {q:"lemon", s:"Sour yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909815.png"},
-            {q:"grape", s:"Small purple or green fruits.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909841.png"},
-            {q:"pear", s:"Green fruit, narrow at top.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909831.png"},
-            {q:"cherry", s:"Small red fruit with a stone.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909768.png"},
-            {q:"kiwi", s:"Brown fuzzy skin, green inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909772.png"},
-            {q:"peach", s:"Soft orange-pink fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909763.png"}
+            {q:"orange", s:"Orange and juicy.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
+            {q:"watermelon", s:"Big and green fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909784.png"},
+            {q:"grape", s:"Small and purple.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909841.png"},
+            {q:"pear", s:"Green fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909831.png"},
+            {q:"strawberry", s:"Small red berry.", i:"https://cdn-icons-png.flaticon.com/512/590/590777.png"},
+            {q:"lemon", s:"Very sour.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909815.png"},
+            {q:"cherry", s:"Small red fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909768.png"},
+            {q:"pineapple", s:"Prickly skin.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909813.png"},
+            {q:"kiwi", s:"Green inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909772.png"},
+            {q:"peach", s:"Sweet and soft.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909763.png"}
         ],
         school: [
-            {q:"pencil", s:"Used for writing.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
-            {q:"book", s:"Read this for knowledge.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
-            {q:"bag", s:"You carry books in it.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
-            {q:"ruler", s:"Used to draw lines.", i:"https://cdn-icons-png.flaticon.com/512/588/588383.png"},
-            {q:"eraser", s:"Used to clean marks.", i:"https://cdn-icons-png.flaticon.com/512/2544/2544111.png"},
+            {q:"pencil", s:"To draw and write.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
+            {q:"book", s:"Read it.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
+            {q:"bag", s:"Put books inside.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
+            {q:"ruler", s:"Draw lines.", i:"https://cdn-icons-png.flaticon.com/512/588/588383.png"},
+            {q:"eraser", s:"Clean pencil marks.", i:"https://cdn-icons-png.flaticon.com/512/2544/2544111.png"},
+            {q:"teacher", s:"Who helps you learn.", i:"https://cdn-icons-png.flaticon.com/512/1995/1995531.png"},
+            {q:"desk", s:"Table at school.", i:"https://cdn-icons-png.flaticon.com/512/3233/3233961.png"},
+            {q:"map", s:"Shows the world.", i:"https://cdn-icons-png.flaticon.com/512/854/854878.png"},
+            {q:"glue", s:"Sticks paper.", i:"https://cdn-icons-png.flaticon.com/512/2963/2963914.png"},
             {q:"pen", s:"Writes with ink.", i:"https://cdn-icons-png.flaticon.com/512/588/588395.png"},
-            {q:"desk", s:"Table you sit at.", i:"https://cdn-icons-png.flaticon.com/512/3233/3233961.png"},
-            {q:"teacher", s:"Person who helps you learn.", i:"https://cdn-icons-png.flaticon.com/512/1995/1995531.png"},
-            {q:"map", s:"Shows countries and seas.", i:"https://cdn-icons-png.flaticon.com/512/854/854878.png"},
-            {q:"glue", s:"Used to stick things.", i:"https://cdn-icons-png.flaticon.com/512/2963/2963914.png"}
+            {q:"sharpener", s:"Sharpens pencils.", i:"https://cdn-icons-png.flaticon.com/512/167/167733.png"},
+            {q:"notebook", s:"Write lessons here.", i:"https://cdn-icons-png.flaticon.com/512/2951/2951151.png"}
         ],
         verbs: [
-            {q:"run", s:"Move fast on legs.", i:"https://cdn-icons-png.flaticon.com/512/10334/10334808.png"},
-            {q:"swim", s:"Move in water.", i:"https://cdn-icons-png.flaticon.com/512/2405/2405374.png"},
-            {q:"jump", s:"Push off the ground.", i:"https://cdn-icons-png.flaticon.com/512/3593/3593510.png"},
-            {q:"read", s:"Look at words.", i:"https://cdn-icons-png.flaticon.com/512/3389/3389081.png"},
-            {q:"sleep", s:"Rest at night.", i:"https://cdn-icons-png.flaticon.com/512/3094/3094831.png"},
-            {q:"eat", s:"Put food in mouth.", i:"https://cdn-icons-png.flaticon.com/512/3565/3565407.png"},
-            {q:"drink", s:"Swallow liquid.", i:"https://cdn-icons-png.flaticon.com/512/3100/3100555.png"},
-            {q:"write", s:"Make words with pen.", i:"https://cdn-icons-png.flaticon.com/512/3389/3389063.png"},
-            {q:"sing", s:"Make music with voice.", i:"https://cdn-icons-png.flaticon.com/512/3083/3083430.png"},
-            {q:"dance", s:"Move body to music.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069213.png"}
+            {q:"run", s:"Fast movement.", i:"https://cdn-icons-png.flaticon.com/512/10334/10334808.png"},
+            {q:"swim", i:"https://cdn-icons-png.flaticon.com/512/2405/2405374.png", s:"Move in water."},
+            {q:"jump", i:"https://cdn-icons-png.flaticon.com/512/3593/3593510.png", s:"Up and down."},
+            {q:"read", i:"https://cdn-icons-png.flaticon.com/512/3389/3389081.png", s:"Understand words."},
+            {q:"sleep", i:"https://cdn-icons-png.flaticon.com/512/3094/3094831.png", s:"Rest at night."},
+            {q:"eat", i:"https://cdn-icons-png.flaticon.com/512/3565/3565407.png", s:"Consume food."},
+            {q:"drink", i:"https://cdn-icons-png.flaticon.com/512/3100/3100555.png", s:"Take liquid."},
+            {q:"write", i:"https://cdn-icons-png.flaticon.com/512/3389/3389063.png", s:"Use a pen."},
+            {q:"sing", i:"https://cdn-icons-png.flaticon.com/512/3083/3083430.png", s:"Voice music."},
+            {q:"dance", i:"https://cdn-icons-png.flaticon.com/512/3069/3069213.png", s:"Move to music."},
+            {q:"fly", i:"https://cdn-icons-png.flaticon.com/512/3133/3133177.png", s:"Move in air."},
+            {q:"cook", i:"https://cdn-icons-png.flaticon.com/512/3448/3448099.png", s:"Make food."}
         ]
     };
 
@@ -169,36 +172,25 @@
         if(p==1) setTimeout(()=>inp.focus(), 50);
     }
 
-    // ENTER басылганда текшерет
-    function handleKey(event, p) {
-        if (event.key === "Enter") {
-            validate(p);
-        }
-    }
-
-    function validate(p) {
+    function autoCheck(p) {
         if(!playing) return;
         let inp = document.getElementById('input-'+p);
         let val = inp.value.toLowerCase().trim();
-        let l = (p==1)?p1L:p2L;
-        let i = (p==1)?p1I:p2I;
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
 
-        inp.disabled = true; // Текшерип жатканда жаза албайт
-
-        if (val === l[i].q) {
-            // ТУУРА ЖАЗСА
-            document.getElementById('correct-sound').play();
-            inp.classList.add('correct');
-            if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
-            else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
-        } else {
-            // КАТА ЖАЗСА
-            inp.classList.add('wrong');
-            if(p==1) { p1I++; } else { p2I++; }
+        if (val.length >= l[i].q.length) {
+            inp.disabled = true;
+            if (val === l[i].q) {
+                document.getElementById('correct-sound').play();
+                inp.classList.add('correct');
+                if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+                else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+            } else {
+                inp.classList.add('wrong');
+                if(p==1) { p1I++; } else { p2I++; }
+            }
+            setTimeout(() => load(p), 400);
         }
-
-        // 0.6 секунддан кийин кийинки суроо
-        setTimeout(() => load(p), 600);
     }
 
     function finish() {
@@ -206,8 +198,8 @@
         document.getElementById('battle-screen').classList.add('hidden');
         document.getElementById('win-screen').classList.remove('hidden');
         let n1 = document.getElementById('t1').value, n2 = document.getElementById('t2').value;
-        let win = s1 > s2 ? n1 : (s2 > s1 ? n2 : "DRAW");
-        document.getElementById('winner-text').innerText = win + " WINS! 🏆";
+        let res = s1 > s2 ? n1 : (s2 > s1 ? n2 : "DRAW");
+        document.getElementById('winner-text').innerText = res + " WINS! 🏆";
         confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
     }
 </script>
