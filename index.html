@@ -188,26 +188,24 @@
     if(!playing) return;
     let inp = document.getElementById('input-'+p);
     let val = inp.value.toLowerCase().trim();
-    let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+    let list = (p==1) ? p1L : p2L; 
+    let idx = (p==1) ? p1I : p2I;
+    let correctWord = list[idx].q;
 
-    // Эгер жооп ТУУРА болсо
-    if(val === l[i].q) {
-        document.getElementById('correct-sound').play();
+    // 1. ТУУРА ЖООП: Сөз толук жана туура жазылса
+    if(val === correctWord) {
         inp.classList.add('correct');
         inp.disabled = true;
         if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
         else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
         setTimeout(() => load(p), 400);
     } 
-    // Эгер жооп КАТА болсо (автоматтык түрдө кийинкиге өтөт)
-    else if (val.length >= l[i].q.length) {
-        inp.classList.add('wrong'); // Рамка кызарат
+    // 2. КАТА ЖООП: Жазылган тамга туура жооптун башталышына дал келбесе
+    else if (val !== correctWord.substring(0, val.length)) {
+        inp.classList.add('wrong'); // Рамка дароо кызарат
         inp.disabled = true;
-        // Упай кошпостон, индекс гана көбөйөт (кийинки суроо үчүн)
-        if(p==1) p1I++; 
-        else p2I++; 
-        
-        setTimeout(() => load(p), 600); // 0.6 секунддан кийин жаңы суроо жүктөлөт
+        if(p==1) p1I++; else p2I++;
+        setTimeout(() => load(p), 600); // 0.6 сек кийин жаңы суроо
     }
 }
 
