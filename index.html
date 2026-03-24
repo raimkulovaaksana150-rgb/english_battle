@@ -9,7 +9,7 @@
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
         
         .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; z-index: 10; text-align: center; }
-        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; }
+        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; position: relative; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         
         .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
@@ -21,12 +21,10 @@
         .q-img { width: 100%; height: 260px; object-fit: cover; border-radius: 15px; border: 2px solid white; }
         .score { font-size: 3.5rem; color: var(--gold); font-weight: bold; margin: 0; }
         .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; }
+        .ans-in.correct { background: #2ecc71 !important; color: white; }
         
-        .ans-in.correct { background: #2ecc71 !important; color: white; border-color: #2ecc71; }
-        .ans-in.wrong { background: #e74c3c !important; color: white; border-color: #e74c3c; }
-        
-        .btn { padding: 12px 20px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: #010a24; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); }
+        .btn { padding: 15px 30px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: #010a24; transition: 0.3s; margin-top: 10px; }
+        .btn:hover { transform: scale(1.05); background: #f39c12; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .bonus-badge { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; display: none; font-size: 0.8rem; animation: pulse 1s infinite; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
@@ -39,46 +37,29 @@
 
 <div class="sidebar">
     <div class="profile-img">
-        <img src="https://img.icons8.com/bubbles/200/teacher.png" alt="Aksana">
+        <img src="96064.jpg" alt="Aksana" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
     </div>
     <h3 style="color:var(--gold); font-size: 0.8rem; text-transform: uppercase;">Source of Knowledge</h3>
     <p style="font-weight: bold; color: #fff; font-size: 1.2rem; margin: 5px 0;">Aksana Tukubai kyzy</p>
     <p style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">Kenesh General Education School</p>
     <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 20px 0;">
-    <p style="font-size: 0.8rem; color: #bdc3c7;">Bonus for Speed: +50 pts</p>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h1 style="color:var(--gold); font-size: 2.2rem;">ENTER TEAM NAMES</h1>
+        <h1 style="color:var(--gold); font-size: 2.5rem;">WELCOME TO SPEED BATTLE</h1>
+        <p>Enter Team Names to Start</p>
         <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px; align-items: center;">
             <input type="text" id="t1" value="TEAM A" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
             <span style="font-size: 2rem;">VS</span>
             <input type="text" id="t2" value="TEAM B" style="padding:15px; font-size:1.5rem; border-radius:10px; width: 35%;">
         </div>
-        <button class="btn" style="font-size: 1.5rem;" onclick="openMenu()">CONTINUE ➔</button>
+        <button class="btn" onclick="openMenu()">CONTINUE ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
+        <h2 style="color:var(--gold);">SELECT CATEGORY</h2>
         <div class="menu-grid">
             <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
             <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="startBattle('school')">🎒 School</button>
-            <button class="btn" onclick="startBattle('colors')">🎨 Colors</button>
-            <button class="btn" onclick="startBattle('family')">👨‍👩‍👧 Family</button>
-            <button class="btn" onclick="startBattle('body')">🦴 Body Parts</button>
-            <button class="btn" onclick="startBattle('clothes')">👕 Clothes</button>
-        </div>
-    </div>
-
-    <div id="battle-screen" class="arena-container hidden">
-        <div class="arena">
-            <div class="bonus-badge" id="bonus-1">⚡ FIRST FINISH! +50</div>
-            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
-            <div class="score" id="score-1">0</div>
-            <img id="img-1" class="q-img">
-            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
-            <input type="text" id="input-1" class="ans-in" autocomplete="off" placeholder="..." oninput="check(1)">
-        </div>
-        <div class="arena
+            <button class="btn" onclick
