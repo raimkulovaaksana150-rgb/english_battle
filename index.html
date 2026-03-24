@@ -2,93 +2,214 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Speed Battle - Aksana Tukubai kyzy</title>
+    <title>English Speed Battle - Aksana Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; }
+        :root { --gold: #f1c40f; --dark: #010a24; --accent: #00d4ff; --red: #ff4757; --green: #2ecc71; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
-        
-        .sidebar { width: 260px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; z-index: 100; text-align: center; }
-        .profile-img { width: 120px; height: 120px; background: #fff; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; margin-bottom: 15px; }
+        .sidebar { width: 280px; background: #051937; border-right: 4px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 25px 15px; z-index: 10; text-align: center; }
+        .profile-img { width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 20px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .main-stage { margin-left: 260px; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .main-stage { margin-left: 280px; height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; text-align: center; width: 600px; border: 2px solid var(--gold); backdrop-filter: blur(10px); }
+        .box { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 1px solid var(--gold); backdrop-filter: blur(10px); }
+        .arena-container { display: flex; width: 98%; gap: 15px; height: 95vh; padding: 10px; box-sizing: border-box; }
+        .arena { flex: 1; background: rgba(0,0,0,0.6); border: 3px solid var(--gold); border-radius: 25px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
+        .q-img { width: 100%; height: 260px; object-fit: contain; border-radius: 15px; background: white; border: 2px solid white; }
+        .score { font-size: 3.5rem; color: var(--gold); font-weight: bold; margin: 0; }
+        .ans-in { width: 90%; padding: 15px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; font-weight: bold; color: #010a24; transition: 0.3s; }
         
-        .arena-container { display: flex; width: 95%; gap: 20px; height: 90vh; }
-        .arena { flex: 1; background: rgba(0,0,0,0.5); border: 2px solid var(--gold); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
-        .q-img { width: 100%; height: 250px; object-fit: contain; border-radius: 10px; background: #fff; }
-        .score { font-size: 3rem; color: var(--gold); font-weight: bold; margin: 10px 0; }
-        .ans-in { width: 80%; padding: 12px; font-size: 1.5rem; text-align: center; border-radius: 10px; border: none; outline: none; font-weight: bold; }
+        /* Түстөр */
+        .ans-in.correct { background: var(--green) !important; color: white; border-color: var(--green); }
+        .ans-in.wrong { background: var(--red) !important; color: white; border-color: var(--red); }
         
-        .btn { padding: 15px 30px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: #010a24; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .btn { padding: 12px 20px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: #010a24; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
-
-<div class="sidebar">
+<audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+<audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio> <div class="sidebar">
     <div class="profile-img">
-        <img src="96064.jpg" alt="Teacher" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
+        <img src="96064.jpg" alt="Aksana" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'">
     </div>
-    <p style="font-weight: bold; margin: 5px 0;">Aksana Tukubai kyzy</p>
-    <p style="font-size: 0.8rem; color: var(--accent);">English Teacher</p>
-    <hr style="width: 80%; border: 0.5px solid var(--gold); opacity: 0.5;">
-    <p style="font-size: 0.7rem;">Kenesh Secondary School</p>
+    <p style="font-weight: bold; color: #fff; font-size: 1.2rem; margin: 5px 0;">Aksana Tukubai kyzy</p>
+    <p style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">Kenesh Secondary School</p>
+    <hr style="width: 85%; border: 0.5px solid var(--gold); opacity: 0.3; margin: 20px 0;">
+    <p style="font-size: 0.8rem; color: #bdc3c7;">Be careful with spelling!</p>
 </div>
 
 <div class="main-stage">
     <div id="setup-screen" class="box">
-        <h2 style="color:var(--gold);">ENTER TEAM NAMES</h2>
-        <input type="text" id="t1" value="TEAM 1" style="padding:10px; margin: 10px; width: 70%; font-size: 1.2rem; border-radius: 5px;"><br>
-        <input type="text" id="t2" value="TEAM 2" style="padding:10px; margin: 10px; width: 70%; font-size: 1.2rem; border-radius: 5px;"><br><br>
-        <button class="btn" onclick="goToMenu()">CONTINUE ➔</button>
+        <h1 style="color:var(--gold);">ENTER TEAM NAMES</h1>
+        <div style="margin: 30px 0; display: flex; justify-content: center; gap: 20px;">
+            <input type="text" id="t1" value="TEAM A" style="padding:15px; font-size:1.5rem; border-radius:10px;">
+            <input type="text" id="t2" value="TEAM B" style="padding:15px; font-size:1.5rem; border-radius:10px;">
+        </div>
+        <button class="btn" style="font-size: 1.5rem;" onclick="openMenu()">START GAME ➔</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
-        <h2 style="color:var(--gold);">CHOOSE CATEGORY</h2>
+        <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
         <div class="menu-grid">
-            <button class="btn" onclick="startGame('animals')">🦁 Animals</button>
-            <button class="btn" onclick="startGame('fruits')">🍎 Fruits</button>
-            <button class="btn" onclick="startGame('school')">🎒 School</button>
-            <button class="btn" onclick="startGame('colors')">🎨 Colors</button>
+            <button class="btn" onclick="startBattle('animals')">🦁 Animals</button>
+            <button class="btn" onclick="startBattle('fruits')">🍎 Fruits</button>
+            <button class="btn" onclick="startBattle('school')">🎒 School</button>
+            <button class="btn" onclick="startBattle('verbs')">🏃 Verbs</button>
         </div>
     </div>
 
     <div id="battle-screen" class="arena-container hidden">
-        <div class="arena">
-            <h3 id="name-1" style="color: #ff4757;"></h3>
+        <div class="arena" id="arena-1">
+            <h2 id="name-1" style="color:#ff4757; margin:0;"></h2>
             <div class="score" id="score-1">0</div>
-            <img id="img-1" class="q-img" src="">
-            <p id="hint-1" style="font-weight: bold;"></p>
-            <input type="text" id="input-1" class="ans-in" placeholder="Type here..." oninput="checkAnswer(1)">
+            <img id="img-1" class="q-img">
+            <p id="text-1" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
+            <input type="text" id="input-1" class="ans-in" placeholder="Enter key..." onkeydown="handleKey(event, 1)">
         </div>
-        <div class="arena">
-            <h3 id="name-2" style="color: var(--accent);"></h3>
+        <div class="arena" id="arena-2">
+            <h2 id="name-2" style="color:var(--accent); margin:0;"></h2>
             <div class="score" id="score-2">0</div>
-            <img id="img-2" class="q-img" src="">
-            <p id="hint-2" style="font-weight: bold;"></p>
-            <input type="text" id="input-2" class="ans-in" placeholder="Type here..." oninput="checkAnswer(2)">
+            <img id="img-2" class="q-img">
+            <p id="text-2" style="font-size:1.4rem; font-weight:bold; height:60px;"></p>
+            <input type="text" id="input-2" class="ans-in" placeholder="Enter key..." onkeydown="handleKey(event, 2)">
         </div>
     </div>
 
     <div id="win-screen" class="box hidden">
-        <h1 id="winner-text" style="color:var(--gold); font-size: 3rem;"></h1>
+        <h1 id="winner-text" style="color:var(--gold); font-size:3.5rem;"></h1>
         <button class="btn" onclick="location.reload()">RESTART</button>
     </div>
 </div>
 
 <script>
-const data = {
-    animals: [
-        {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
-        {q:"elephant", s:"Very big animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
-        {q:"rabbit", s:"Loves carrots and jumping.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"}
-    ],
-    fruits: [
-        {q:"apple", s:"Red or green fruit.", i:"https://cdn
+    const quizData = {
+        animals: [
+            {q:"elephant", s:"Large animal with a trunk.", i:"https://cdn-icons-png.flaticon.com/512/616/616430.png"},
+            {q:"lion", s:"The king of the jungle.", i:"https://cdn-icons-png.flaticon.com/512/616/616412.png"},
+            {q:"tiger", s:"Large cat with orange and black stripes.", i:"https://cdn-icons-png.flaticon.com/512/616/616428.png"},
+            {q:"snake", s:"Long animal with no legs.", i:"https://cdn-icons-png.flaticon.com/512/616/616431.png"},
+            {q:"bear", s:"Large forest animal, loves honey.", i:"https://cdn-icons-png.flaticon.com/512/616/616411.png"},
+            {q:"monkey", s:"Loves bananas and climbing.", i:"https://cdn-icons-png.flaticon.com/512/616/616432.png"},
+            {q:"giraffe", s:"It has a very long neck.", i:"https://cdn-icons-png.flaticon.com/512/616/616438.png"},
+            {q:"zebra", s:"Black and white stripes.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069156.png"},
+            {q:"rabbit", s:"Has long ears and jumps.", i:"https://cdn-icons-png.flaticon.com/512/616/616444.png"},
+            {q:"wolf", s:"Wild dog that howls.", i:"https://cdn-icons-png.flaticon.com/512/616/616423.png"}
+        ],
+        fruits: [
+            {q:"apple", s:"Red or green fruit.", i:"https://cdn-icons-png.flaticon.com/512/415/415682.png"},
+            {q:"banana", s:"Long yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909761.png"},
+            {q:"orange", s:"Juicy orange fruit.", i:"https://cdn-icons-png.flaticon.com/512/1728/1728765.png"},
+            {q:"watermelon", s:"Big green fruit, red inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909784.png"},
+            {q:"lemon", s:"Sour yellow fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909815.png"},
+            {q:"grape", s:"Small purple or green fruits.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909841.png"},
+            {q:"pear", s:"Green fruit, narrow at top.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909831.png"},
+            {q:"cherry", s:"Small red fruit with a stone.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909768.png"},
+            {q:"kiwi", s:"Brown fuzzy skin, green inside.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909772.png"},
+            {q:"peach", s:"Soft orange-pink fruit.", i:"https://cdn-icons-png.flaticon.com/512/2909/2909763.png"}
+        ],
+        school: [
+            {q:"pencil", s:"Used for writing.", i:"https://cdn-icons-png.flaticon.com/512/1250/1250614.png"},
+            {q:"book", s:"Read this for knowledge.", i:"https://cdn-icons-png.flaticon.com/512/2232/2232688.png"},
+            {q:"bag", s:"You carry books in it.", i:"https://cdn-icons-png.flaticon.com/512/2990/2990008.png"},
+            {q:"ruler", s:"Used to draw lines.", i:"https://cdn-icons-png.flaticon.com/512/588/588383.png"},
+            {q:"eraser", s:"Used to clean marks.", i:"https://cdn-icons-png.flaticon.com/512/2544/2544111.png"},
+            {q:"pen", s:"Writes with ink.", i:"https://cdn-icons-png.flaticon.com/512/588/588395.png"},
+            {q:"desk", s:"Table you sit at.", i:"https://cdn-icons-png.flaticon.com/512/3233/3233961.png"},
+            {q:"teacher", s:"Person who helps you learn.", i:"https://cdn-icons-png.flaticon.com/512/1995/1995531.png"},
+            {q:"map", s:"Shows countries and seas.", i:"https://cdn-icons-png.flaticon.com/512/854/854878.png"},
+            {q:"glue", s:"Used to stick things.", i:"https://cdn-icons-png.flaticon.com/512/2963/2963914.png"}
+        ],
+        verbs: [
+            {q:"run", s:"Move fast on legs.", i:"https://cdn-icons-png.flaticon.com/512/10334/10334808.png"},
+            {q:"swim", s:"Move in water.", i:"https://cdn-icons-png.flaticon.com/512/2405/2405374.png"},
+            {q:"jump", s:"Push off the ground.", i:"https://cdn-icons-png.flaticon.com/512/3593/3593510.png"},
+            {q:"read", s:"Look at words.", i:"https://cdn-icons-png.flaticon.com/512/3389/3389081.png"},
+            {q:"sleep", s:"Rest at night.", i:"https://cdn-icons-png.flaticon.com/512/3094/3094831.png"},
+            {q:"eat", s:"Put food in mouth.", i:"https://cdn-icons-png.flaticon.com/512/3565/3565407.png"},
+            {q:"drink", s:"Swallow liquid.", i:"https://cdn-icons-png.flaticon.com/512/3100/3100555.png"},
+            {q:"write", s:"Make words with pen.", i:"https://cdn-icons-png.flaticon.com/512/3389/3389063.png"},
+            {q:"sing", s:"Make music with voice.", i:"https://cdn-icons-png.flaticon.com/512/3083/3083430.png"},
+            {q:"dance", s:"Move body to music.", i:"https://cdn-icons-png.flaticon.com/512/3069/3069213.png"}
+        ]
+    };
+
+    let p1L=[], p2L=[], p1I=0, p2I=0, s1=0, s2=0, playing=false;
+
+    function openMenu() {
+        document.getElementById('bg-music').play().catch(()=>{});
+        document.getElementById('setup-screen').classList.add('hidden');
+        document.getElementById('menu-screen').classList.remove('hidden');
+    }
+
+    function startBattle(t) {
+        p1L = [...quizData[t]].sort(() => Math.random() - 0.5);
+        p2L = [...quizData[t]].sort(() => Math.random() - 0.5);
+        document.getElementById('name-1').innerText = document.getElementById('t1').value;
+        document.getElementById('name-2').innerText = document.getElementById('t2').value;
+        document.getElementById('menu-screen').classList.add('hidden');
+        document.getElementById('battle-screen').classList.remove('hidden');
+        playing = true; p1I = 0; p2I = 0; s1 = 0; s2 = 0;
+        load(1); load(2);
+    }
+
+    function load(p) {
+        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+        if(i >= l.length) { 
+            if(p1I >= p1L.length && p2I >= p2L.length) finish(); 
+            return; 
+        }
+        document.getElementById('img-'+p).src = l[i].i;
+        document.getElementById('text-'+p).innerText = l[i].s;
+        let inp = document.getElementById('input-'+p);
+        inp.value = ""; inp.className = "ans-in"; inp.disabled = false;
+        if(p==1) setTimeout(()=>inp.focus(), 50);
+    }
+
+    // ENTER басылганда текшерет
+    function handleKey(event, p) {
+        if (event.key === "Enter") {
+            validate(p);
+        }
+    }
+
+    function validate(p) {
+        if(!playing) return;
+        let inp = document.getElementById('input-'+p);
+        let val = inp.value.toLowerCase().trim();
+        let l = (p==1)?p1L:p2L;
+        let i = (p==1)?p1I:p2I;
+
+        inp.disabled = true; // Текшерип жатканда жаза албайт
+
+        if (val === l[i].q) {
+            // ТУУРА ЖАЗСА
+            document.getElementById('correct-sound').play();
+            inp.classList.add('correct');
+            if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+            else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+        } else {
+            // КАТА ЖАЗСА
+            inp.classList.add('wrong');
+            if(p==1) { p1I++; } else { p2I++; }
+        }
+
+        // 0.6 секунддан кийин кийинки суроо
+        setTimeout(() => load(p), 600);
+    }
+
+    function finish() {
+        playing = false;
+        document.getElementById('battle-screen').classList.add('hidden');
+        document.getElementById('win-screen').classList.remove('hidden');
+        let n1 = document.getElementById('t1').value, n2 = document.getElementById('t2').value;
+        let win = s1 > s2 ? n1 : (s2 > s1 ? n2 : "DRAW");
+        document.getElementById('winner-text').innerText = win + " WINS! 🏆";
+        confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+    }
+</script>
+</body>
+</html>
