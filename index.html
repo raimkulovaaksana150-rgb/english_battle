@@ -109,14 +109,14 @@
         animals: [
             {q:"elephant", s:"Large animal with a trunk.", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
             {q:"lion", s:"The king of the jungle.", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
-            {q:"zebra", s:"Animal with black and white stripes.", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=400"}
+            {q:"tiger", s:"Animal with black and yellow stripes.", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=400"}
         ],
         fruits: [
             {q:"apple", s:"Red or green round fruit.", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"},
             {q:"banana", s:"Long yellow fruit.", i:"https://images.unsplash.com/photo-1571771894821-ad9b588640ba?w=400"}
         ],
         school: [
-            {q:"pencil", s:"Used for writing.", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
+            {q:"pen", s:"Used for writing.", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
             {q:"book", s:"You read this for knowledge.", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"}
         ],
         verbs: [
@@ -184,19 +184,32 @@
         if(p==1) setTimeout(()=>inp.focus(), 10);
     }
 
-    function check(p) {
-        if(!playing) return;
-        let inp = document.getElementById('input-'+p);
-        let val = inp.value.toLowerCase().trim();
-        let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
-        if(val === l[i].q) {
-            document.getElementById('correct-sound').play();
-            inp.classList.add('correct'); inp.disabled = true;
-            if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
-            else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
-            setTimeout(()=>load(p), 400);
-        }
+  function check(p) {
+    if(!playing) return;
+    let inp = document.getElementById('input-'+p);
+    let val = inp.value.toLowerCase().trim();
+    let l = (p==1)?p1L:p2L; let i = (p==1)?p1I:p2I;
+
+    // Эгер жооп ТУУРА болсо
+    if(val === l[i].q) {
+        document.getElementById('correct-sound').play();
+        inp.classList.add('correct');
+        inp.disabled = true;
+        if(p==1) { s1+=20; p1I++; document.getElementById('score-1').innerText = s1; }
+        else { s2+=20; p2I++; document.getElementById('score-2').innerText = s2; }
+        setTimeout(() => load(p), 400);
+    } 
+    // Эгер жооп КАТА болсо (автоматтык түрдө кийинкиге өтөт)
+    else if (val.length >= l[i].q.length) {
+        inp.classList.add('wrong'); // Рамка кызарат
+        inp.disabled = true;
+        // Упай кошпостон, индекс гана көбөйөт (кийинки суроо үчүн)
+        if(p==1) p1I++; 
+        else p2I++; 
+        
+        setTimeout(() => load(p), 600); // 0.6 секунддан кийин жаңы суроо жүктөлөт
     }
+}
 
     function finish() {
         if(p1I >= p1L.length && p2I >= p2L.length) {
