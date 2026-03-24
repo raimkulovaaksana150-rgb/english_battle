@@ -16,7 +16,7 @@
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
         .arena-container { display: flex; width: 95%; gap: 20px; height: 90vh; }
         .arena { flex: 1; background: rgba(0,0,0,0.6); border: 2px solid var(--gold); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
-        .q-img { max-width: 220px; max-height: 200px; object-fit: contain; margin-bottom: 10px; border-radius: 10px; }
+        .q-img { max-width: 250px; max-height: 220px; object-fit: contain; margin-bottom: 10px; background: white; border-radius: 15px; padding: 10px; }
         .score { font-size: 4rem; color: var(--gold); font-weight: bold; }
         .ans-in { width: 85%; padding: 15px; font-size: 2rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; background: white; color: black; }
         .wrong { border-color: var(--red) !important; background: #ffcccc !important; animation: shake 0.3s; }
@@ -43,8 +43,8 @@
     <div id="setup-screen" class="box">
         <h1 style="color:var(--gold); letter-spacing: 2px;">ENTER YOUR TEAM NAME</h1>
         <div style="display:flex; gap:20px; margin: 30px 0;">
-            <input type="text" id="t1" value="LIONS" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
-            <input type="text" id="t2" value="EAGLES" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
+            <input type="text" id="t1" value="A" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
+            <input type="text" id="t2" value="B" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
         </div>
         <button class="btn" style="width: 250px;" onclick="openMenu()">CONTINUE</button>
     </div>
@@ -67,13 +67,13 @@
         <div class="arena">
             <h2 id="name-1" style="color:#ff4757;"></h2>
             <div class="score" id="score-1">0</div>
-            <img id="img-1" class="q-img">
+            <img id="img-1" class="q-img" src="">
             <input type="text" id="input-1" class="ans-in" onkeydown="handleEnter(event, 1)" placeholder="Type & Enter" autocomplete="off">
         </div>
         <div class="arena">
             <h2 id="name-2" style="color:#00d4ff;"></h2>
             <div class="score" id="score-2">0</div>
-            <img id="img-2" class="q-img">
+            <img id="img-2" class="q-img" src="">
             <input type="text" id="input-2" class="ans-in" onkeydown="handleEnter(event, 2)" placeholder="Type & Enter" autocomplete="off">
         </div>
     </div>
@@ -85,70 +85,71 @@
 </div>
 
 <script>
+    // Сүрөттөрдүн шилтемелерин жаңырттым
     const quizData = {
         animals: [
-            {q:"lion", i:"https://img.icons8.com/color/240/lion.png"}, {q:"elephant", i:"https://img.icons8.com/color/240/elephant.png"},
-            {q:"monkey", i:"https://img.icons8.com/color/240/monkey.png"}, {q:"zebra", i:"https://img.icons8.com/color/240/zebra.png"},
-            {q:"tiger", i:"https://img.icons8.com/color/240/tiger-side-view.png"}, {q:"panda", i:"https://img.icons8.com/color/240/panda.png"},
-            {q:"fox", i:"https://img.icons8.com/color/240/fox.png"}, {q:"rabbit", i:"https://img.icons8.com/color/240/rabbit.png"},
-            {q:"bear", i:"https://img.icons8.com/color/240/bear.png"}, {q:"wolf", i:"https://img.icons8.com/color/240/wolf.png"},
-            {q:"giraffe", i:"https://img.icons8.com/color/240/giraffe.png"}, {q:"cat", i:"https://img.icons8.com/color/240/cat.png"}
+            {q:"lion", i:"https://img.icons8.com/plasticine/200/lion.png"}, {q:"elephant", i:"https://img.icons8.com/plasticine/200/elephant.png"},
+            {q:"monkey", i:"https://img.icons8.com/plasticine/200/monkey.png"}, {q:"zebra", i:"https://img.icons8.com/plasticine/200/zebra.png"},
+            {q:"tiger", i:"https://img.icons8.com/plasticine/200/tiger.png"}, {q:"panda", i:"https://img.icons8.com/plasticine/200/panda.png"},
+            {q:"fox", i:"https://img.icons8.com/plasticine/200/fox.png"}, {q:"rabbit", i:"https://img.icons8.com/plasticine/200/rabbit.png"},
+            {q:"bear", i:"https://img.icons8.com/plasticine/200/bear.png"}, {q:"wolf", i:"https://img.icons8.com/plasticine/200/wolf.png"},
+            {q:"giraffe", i:"https://img.icons8.com/plasticine/200/giraffe.png"}, {q:"cat", i:"https://img.icons8.com/plasticine/200/cat.png"}
         ],
         fruits: [
-            {q:"apple", i:"https://img.icons8.com/color/240/apple.png"}, {q:"banana", i:"https://img.icons8.com/color/240/banana.png"},
-            {q:"orange", i:"https://img.icons8.com/color/240/orange.png"}, {q:"grapes", i:"https://img.icons8.com/color/240/grapes.png"},
-            {q:"lemon", i:"https://img.icons8.com/color/240/lemon.png"}, {q:"pear", i:"https://img.icons8.com/color/240/pear.png"},
-            {q:"cherry", i:"https://img.icons8.com/color/240/cherry.png"}, {q:"kiwi", i:"https://img.icons8.com/color/240/kiwi.png"},
-            {q:"mango", i:"https://img.icons8.com/color/240/mango.png"}, {q:"pineapple", i:"https://img.icons8.com/color/240/pineapple.png"},
-            {q:"watermelon", i:"https://img.icons8.com/color/240/watermelon.png"}, {q:"strawberry", i:"https://img.icons8.com/color/240/strawberry.png"}
+            {q:"apple", i:"https://img.icons8.com/plasticine/200/apple.png"}, {q:"banana", i:"https://img.icons8.com/plasticine/200/banana.png"},
+            {q:"orange", i:"https://img.icons8.com/plasticine/200/orange.png"}, {q:"grapes", i:"https://img.icons8.com/plasticine/200/grapes.png"},
+            {q:"lemon", i:"https://img.icons8.com/plasticine/200/lemon.png"}, {q:"pear", i:"https://img.icons8.com/plasticine/200/pear.png"},
+            {q:"cherry", i:"https://img.icons8.com/plasticine/200/cherry.png"}, {q:"kiwi", i:"https://img.icons8.com/plasticine/200/kiwi.png"},
+            {q:"mango", i:"https://img.icons8.com/plasticine/200/mango.png"}, {q:"pineapple", i:"https://img.icons8.com/plasticine/200/pineapple.png"},
+            {q:"watermelon", i:"https://img.icons8.com/plasticine/200/watermelon.png"}, {q:"strawberry", i:"https://img.icons8.com/plasticine/200/strawberry.png"}
         ],
         school: [
-            {q:"pen", i:"https://img.icons8.com/color/240/pen.png"}, {q:"pencil", i:"https://img.icons8.com/color/240/pencil.png"},
-            {q:"book", i:"https://img.icons8.com/color/240/book.png"}, {q:"bag", i:"https://img.icons8.com/color/240/backpack.png"},
-            {q:"ruler", i:"https://img.icons8.com/color/240/ruler.png"}, {q:"eraser", i:"https://img.icons8.com/color/240/eraser.png"},
-            {q:"desk", i:"https://img.icons8.com/color/240/desk.png"}, {q:"map", i:"https://img.icons8.com/color/240/map.png"},
-            {q:"glue", i:"https://img.icons8.com/color/240/glue.png"}, {q:"copybook", i:"https://img.icons8.com/color/240/spiral-bound-booklet.png"},
-            {q:"paper", i:"https://img.icons8.com/color/240/paper.png"}, {q:"sharpener", i:"https://img.icons8.com/color/240/pencil-sharpener.png"}
+            {q:"pen", i:"https://img.icons8.com/plasticine/200/pen.png"}, {q:"pencil", i:"https://img.icons8.com/plasticine/200/pencil.png"},
+            {q:"book", i:"https://img.icons8.com/plasticine/200/book.png"}, {q:"bag", i:"https://img.icons8.com/plasticine/200/backpack.png"},
+            {q:"ruler", i:"https://img.icons8.com/plasticine/200/ruler.png"}, {q:"eraser", i:"https://img.icons8.com/plasticine/200/eraser.png"},
+            {q:"desk", i:"https://img.icons8.com/plasticine/200/desk.png"}, {q:"map", i:"https://img.icons8.com/plasticine/200/map.png"},
+            {q:"glue", i:"https://img.icons8.com/plasticine/200/glue.png"}, {q:"notebook", i:"https://img.icons8.com/plasticine/200/notebook.png"},
+            {q:"paper", i:"https://img.icons8.com/plasticine/200/paper.png"}, {q:"sharpener", i:"https://img.icons8.com/plasticine/200/pencil-sharpener.png"}
         ],
         verbs: [
-            {q:"run", i:"https://img.icons8.com/color/240/run.png"}, {q:"swim", i:"https://img.icons8.com/color/240/swim.png"},
-            {q:"jump", i:"https://img.icons8.com/color/240/jump.png"}, {q:"read", i:"https://img.icons8.com/color/240/reading.png"},
-            {q:"sleep", i:"https://img.icons8.com/color/240/sleeping-in-bed.png"}, {q:"eat", i:"https://img.icons8.com/color/240/eat.png"},
-            {q:"drink", i:"https://img.icons8.com/color/240/drink.png"}, {q:"sing", i:"https://img.icons8.com/color/240/singing.png"},
-            {q:"dance", i:"https://img.icons8.com/color/240/dance.png"}, {q:"draw", i:"https://img.icons8.com/color/240/draw.png"},
-            {q:"fly", i:"https://img.icons8.com/color/240/fly.png"}, {q:"write", i:"https://img.icons8.com/color/240/write.png"}
+            {q:"run", i:"https://img.icons8.com/plasticine/200/run.png"}, {q:"swim", i:"https://img.icons8.com/plasticine/200/swim.png"},
+            {q:"jump", i:"https://img.icons8.com/plasticine/200/jump.png"}, {q:"read", i:"https://img.icons8.com/plasticine/200/reading.png"},
+            {q:"sleep", i:"https://img.icons8.com/plasticine/200/sleeping-in-bed.png"}, {q:"eat", i:"https://img.icons8.com/plasticine/200/eat.png"},
+            {q:"drink", i:"https://img.icons8.com/plasticine/200/drink.png"}, {q:"sing", i:"https://img.icons8.com/plasticine/200/singing.png"},
+            {q:"dance", i:"https://img.icons8.com/plasticine/200/dance.png"}, {q:"draw", i:"https://img.icons8.com/plasticine/200/draw.png"},
+            {q:"fly", i:"https://img.icons8.com/plasticine/200/fly.png"}, {q:"write", i:"https://img.icons8.com/plasticine/200/write.png"}
         ],
         colors: [
-            {q:"red", i:"https://img.icons8.com/color/240/red-square.png"}, {q:"blue", i:"https://img.icons8.com/color/240/blue-square.png"},
-            {q:"green", i:"https://img.icons8.com/color/240/green-square.png"}, {q:"yellow", i:"https://img.icons8.com/color/240/yellow-square.png"},
-            {q:"black", i:"https://img.icons8.com/color/240/black-square.png"}, {q:"white", i:"https://img.icons8.com/color/240/white-square.png"},
-            {q:"pink", i:"https://img.icons8.com/color/240/pink-square.png"}, {q:"purple", i:"https://img.icons8.com/color/240/purple-square.png"},
-            {q:"orange", i:"https://img.icons8.com/color/240/orange-square.png"}, {q:"brown", i:"https://img.icons8.com/color/240/brown-square.png"},
-            {q:"grey", i:"https://img.icons8.com/color/240/grey-square.png"}, {q:"gold", i:"https://img.icons8.com/color/240/gold-bars.png"}
+            {q:"red", i:"https://img.icons8.com/color/200/red-square.png"}, {q:"blue", i:"https://img.icons8.com/color/200/blue-square.png"},
+            {q:"green", i:"https://img.icons8.com/color/200/green-square.png"}, {q:"yellow", i:"https://img.icons8.com/color/200/yellow-square.png"},
+            {q:"black", i:"https://img.icons8.com/color/200/black-square.png"}, {q:"white", i:"https://img.icons8.com/color/200/white-square.png"},
+            {q:"pink", i:"https://img.icons8.com/color/200/pink-square.png"}, {q:"purple", i:"https://img.icons8.com/color/200/purple-square.png"},
+            {q:"orange", i:"https://img.icons8.com/color/200/orange-square.png"}, {q:"brown", i:"https://img.icons8.com/color/200/brown-square.png"},
+            {q:"grey", i:"https://img.icons8.com/color/200/grey-square.png"}, {q:"gold", i:"https://img.icons8.com/color/200/gold-bars.png"}
         ],
         family: [
-            {q:"father", i:"https://img.icons8.com/color/240/father.png"}, {q:"mother", i:"https://img.icons8.com/color/240/mother.png"},
-            {q:"baby", i:"https://img.icons8.com/color/240/baby.png"}, {q:"brother", i:"https://img.icons8.com/color/240/brother.png"},
-            {q:"sister", i:"https://img.icons8.com/color/240/sister.png"}, {q:"grandpa", i:"https://img.icons8.com/color/240/grandfather.png"},
-            {q:"grandma", i:"https://img.icons8.com/color/240/grandmother.png"}, {q:"son", i:"https://img.icons8.com/color/240/son.png"},
-            {q:"daughter", i:"https://img.icons8.com/color/240/daughter.png"}, {q:"uncle", i:"https://img.icons8.com/color/240/uncle.png"},
-            {q:"aunt", i:"https://img.icons8.com/color/240/aunt.png"}, {q:"family", i:"https://img.icons8.com/color/240/family.png"}
+            {q:"father", i:"https://img.icons8.com/plasticine/200/father.png"}, {q:"mother", i:"https://img.icons8.com/plasticine/200/mother.png"},
+            {q:"baby", i:"https://img.icons8.com/plasticine/200/baby.png"}, {q:"brother", i:"https://img.icons8.com/plasticine/200/brother.png"},
+            {q:"sister", i:"https://img.icons8.com/plasticine/200/sister.png"}, {q:"grandpa", i:"https://img.icons8.com/plasticine/200/grandfather.png"},
+            {q:"grandma", i:"https://img.icons8.com/plasticine/200/grandmother.png"}, {q:"son", i:"https://img.icons8.com/plasticine/200/son.png"},
+            {q:"daughter", i:"https://img.icons8.com/plasticine/200/daughter.png"}, {q:"uncle", i:"https://img.icons8.com/plasticine/200/uncle.png"},
+            {q:"aunt", i:"https://img.icons8.com/plasticine/200/aunt.png"}, {q:"family", i:"https://img.icons8.com/plasticine/200/family.png"}
         ],
         body: [
-            {q:"eye", i:"https://img.icons8.com/color/240/eye.png"}, {q:"nose", i:"https://img.icons8.com/color/240/nose.png"},
-            {q:"hand", i:"https://img.icons8.com/color/240/hand.png"}, {q:"leg", i:"https://img.icons8.com/color/240/leg.png"},
-            {q:"ear", i:"https://img.icons8.com/color/240/ear.png"}, {q:"mouth", i:"https://img.icons8.com/color/240/mouth.png"},
-            {q:"teeth", i:"https://img.icons8.com/color/240/tooth.png"}, {q:"hair", i:"https://img.icons8.com/color/240/hair.png"},
-            {q:"arm", i:"https://img.icons8.com/color/240/arm.png"}, {q:"knee", i:"https://img.icons8.com/color/240/knee.png"},
-            {q:"finger", i:"https://img.icons8.com/color/240/finger.png"}, {q:"face", i:"https://img.icons8.com/color/240/face.png"}
+            {q:"eye", i:"https://img.icons8.com/plasticine/200/eye.png"}, {q:"nose", i:"https://img.icons8.com/plasticine/200/nose.png"},
+            {q:"hand", i:"https://img.icons8.com/plasticine/200/hand.png"}, {q:"leg", i:"https://img.icons8.com/plasticine/200/leg.png"},
+            {q:"ear", i:"https://img.icons8.com/plasticine/200/ear.png"}, {q:"mouth", i:"https://img.icons8.com/plasticine/200/mouth.png"},
+            {q:"teeth", i:"https://img.icons8.com/plasticine/200/tooth.png"}, {q:"hair", i:"https://img.icons8.com/plasticine/200/hair.png"},
+            {q:"arm", i:"https://img.icons8.com/plasticine/200/arm.png"}, {q:"knee", i:"https://img.icons8.com/plasticine/200/knee.png"},
+            {q:"finger", i:"https://img.icons8.com/plasticine/200/finger.png"}, {q:"face", i:"https://img.icons8.com/plasticine/200/face.png"}
         ],
         clothes: [
-            {q:"t-shirt", i:"https://img.icons8.com/color/240/t-shirt.png"}, {q:"pants", i:"https://img.icons8.com/color/240/trousers.png"},
-            {q:"dress", i:"https://img.icons8.com/color/240/dress.png"}, {q:"hat", i:"https://img.icons8.com/color/240/hat.png"},
-            {q:"shoes", i:"https://img.icons8.com/color/240/shoes.png"}, {q:"skirt", i:"https://img.icons8.com/color/240/skirt.png"},
-            {q:"socks", i:"https://img.icons8.com/color/240/socks.png"}, {q:"jacket", i:"https://img.icons8.com/color/240/jacket.png"},
-            {q:"shirt", i:"https://img.icons8.com/color/240/shirt.png"}, {q:"cap", i:"https://img.icons8.com/color/240/cap.png"},
-            {q:"gloves", i:"https://img.icons8.com/color/240/gloves.png"}, {q:"scarf", i:"https://img.icons8.com/color/240/scarf.png"}
+            {q:"t-shirt", i:"https://img.icons8.com/plasticine/200/t-shirt.png"}, {q:"pants", i:"https://img.icons8.com/plasticine/200/trousers.png"},
+            {q:"dress", i:"https://img.icons8.com/plasticine/200/dress.png"}, {q:"hat", i:"https://img.icons8.com/plasticine/200/hat.png"},
+            {q:"shoes", i:"https://img.icons8.com/plasticine/200/shoes.png"}, {q:"skirt", i:"https://img.icons8.com/plasticine/200/skirt.png"},
+            {q:"socks", i:"https://img.icons8.com/plasticine/200/socks.png"}, {q:"jacket", i:"https://img.icons8.com/plasticine/200/jacket.png"},
+            {q:"shirt", i:"https://img.icons8.com/plasticine/200/shirt.png"}, {q:"cap", i:"https://img.icons8.com/plasticine/200/cap.png"},
+            {q:"gloves", i:"https://img.icons8.com/plasticine/200/gloves.png"}, {q:"scarf", i:"https://img.icons8.com/plasticine/200/scarf.png"}
         ]
     };
 
@@ -166,6 +167,8 @@
         p1I = 0; p2I = 0; s1 = 0; s2 = 0;
         document.getElementById('name-1').innerText = document.getElementById('t1').value;
         document.getElementById('name-2').innerText = document.getElementById('t2').value;
+        document.getElementById('score-1').innerText = 0;
+        document.getElementById('score-2').innerText = 0;
         document.getElementById('menu-screen').classList.add('hidden');
         document.getElementById('battle-screen').classList.remove('hidden');
         load(1); load(2);
@@ -192,6 +195,7 @@
         let list = (p==1) ? p1L : p2L;
         let idx = (p==1) ? p1I : p2I;
         if (idx >= list.length) return;
+        
         inp.disabled = true;
         if (val === list[idx].q) {
             inp.classList.add('correct');
@@ -201,7 +205,7 @@
             inp.classList.add('wrong');
             if(p==1) p1I++; else p2I++; 
         }
-        setTimeout(() => load(p), 400);
+        setTimeout(() => load(p), 500);
     }
 
     function finish() {
