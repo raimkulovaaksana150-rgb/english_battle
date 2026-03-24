@@ -2,39 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>English Battle - Aksana Professional</title>
+    <title>English Battle - Music & 12 Questions</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --gold: #f1c40f; --dark: #010a24; --red: #ff4757; --green: #2ecc71; }
+        :root { --gold: #f1c40f; --dark: #010a24; --red: #ff4757; --green: #2ecc71; --accent: #00d4ff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow: hidden; }
         .sidebar { width: 260px; background: #051937; border-right: 3px solid var(--gold); height: 100vh; position: fixed; left: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; text-align: center; }
         .profile-img { width: 120px; height: 120px; background: #fff; border-radius: 50%; border: 4px solid var(--gold); overflow: hidden; margin-bottom: 15px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         .main-stage { margin-left: 260px; height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none !important; }
-        .box { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center; width: 800px; border: 2px solid var(--gold); backdrop-filter: blur(10px); }
+        .box { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center; width: 850px; border: 2px solid var(--gold); backdrop-filter: blur(10px); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
         .arena-container { display: flex; width: 95%; gap: 20px; height: 90vh; }
         .arena { flex: 1; background: rgba(0,0,0,0.6); border: 2px solid var(--gold); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; }
-        .q-img { width: 220px; height: 220px; object-fit: contain; }
-        .score { font-size: 4rem; color: var(--gold); font-weight: bold; }
-        .ans-in { width: 85%; padding: 15px; font-size: 2rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; transition: 0.2s; background: white; color: black; }
-        
+        .q-img { width: 200px; height: 200px; object-fit: contain; }
+        .score { font-size: 3.5rem; color: var(--gold); font-weight: bold; }
+        .ans-in { width: 85%; padding: 12px; font-size: 1.8rem; text-align: center; border-radius: 12px; border: 4px solid #fff; outline: none; background: white; color: black; }
         .wrong { border-color: var(--red) !important; background: #ffcccc !important; animation: shake 0.3s; }
         .correct { border-color: var(--green) !important; background: #e6ffed !important; }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .btn { padding: 20px; background: var(--gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.5rem; color: #010a24; width: 100%; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .btn { padding: 12px; background: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.1rem; color: #010a24; width: 100%; transition: 0.2s; }
+        .btn:hover { transform: scale(1.02); background: #f39c12; }
     </style>
 </head>
 <body>
 
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
 <div class="sidebar">
-    <div class="profile-img"><img src="96064.jpg" onerror="this.src='https://img.icons8.com/bubbles/200/teacher.png'"></div>
+    <div class="profile-img"><img src="https://img.icons8.com/bubbles/200/teacher.png"></div>
     <h3 style="margin: 10px 0;">Aksana Tukubai kyzy</h3>
     <p style="color:var(--accent); font-weight: bold;">Kenesh General School</p>
     <p style="color:var(--gold); margin-top: 20px;">MASTER CLASS 2026</p>
@@ -44,17 +43,23 @@
     <div id="setup-screen" class="box">
         <h1 style="color:var(--gold);">BATTLE REGISTRATION</h1>
         <div style="display:flex; gap:20px; margin: 30px 0;">
-            <input type="text" id="t1" value="LIONS" style="flex:1; padding:15px; font-size:1.5rem; text-align:center;">
-            <input type="text" id="t2" value="EAGLES" style="flex:1; padding:15px; font-size:1.5rem; text-align:center;">
+            <input type="text" id="t1" value="LIONS" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
+            <input type="text" id="t2" value="EAGLES" style="flex:1; padding:15px; font-size:1.5rem; text-align:center; border-radius:10px; border:none;">
         </div>
-        <button class="btn" onclick="openMenu()">CONTINUE</button>
+        <button class="btn" style="width: 200px;" onclick="openMenu()">CONTINUE</button>
     </div>
 
     <div id="menu-screen" class="box hidden">
         <h2 style="color:var(--gold);">CHOOSE TOPIC</h2>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <button class="btn" onclick="start('animals')">🦁 ANIMALS</button>
-            <button class="btn" onclick="start('school')">🎒 SCHOOL ITEMS</button>
+        <div class="menu-grid">
+            <button class="btn" onclick="start('animals')">🦁 Animals</button>
+            <button class="btn" onclick="start('fruits')">🍎 Fruits</button>
+            <button class="btn" onclick="start('school')">🎒 School</button>
+            <button class="btn" onclick="start('verbs')">🏃 Verbs</button>
+            <button class="btn" onclick="start('colors')">🎨 Colors</button>
+            <button class="btn" onclick="start('family')">👨‍👩‍👧 Family</button>
+            <button class="btn" onclick="start('body')">🦴 Body Parts</button>
+            <button class="btn" onclick="start('clothes')">👕 Clothes</button>
         </div>
     </div>
 
@@ -63,43 +68,88 @@
             <h2 id="name-1" style="color:#ff4757;"></h2>
             <div class="score" id="score-1">0</div>
             <img id="img-1" class="q-img">
-            <input type="text" id="input-1" class="ans-in" onkeydown="handleEnter(event, 1)" placeholder="Type & Enter" autocomplete="off">
+            <input type="text" id="input-1" class="ans-in" onkeydown="handleEnter(event, 1)" placeholder="Enter!" autocomplete="off">
         </div>
         <div class="arena">
             <h2 id="name-2" style="color:#00d4ff;"></h2>
             <div class="score" id="score-2">0</div>
             <img id="img-2" class="q-img">
-            <input type="text" id="input-2" class="ans-in" onkeydown="handleEnter(event, 2)" placeholder="Type & Enter" autocomplete="off">
+            <input type="text" id="input-2" class="ans-in" onkeydown="handleEnter(event, 2)" placeholder="Enter!" autocomplete="off">
         </div>
     </div>
 
     <div id="win-screen" class="box hidden">
         <h1 id="winner-text" style="color:var(--gold); font-size:4rem;"></h1>
-        <button class="btn" onclick="location.reload()">PLAY AGAIN</button>
+        <button class="btn" style="width: 200px;" onclick="location.reload()">PLAY AGAIN</button>
     </div>
 </div>
 
 <script>
+    // Ар бир темада 12ден суроо
     const quizData = {
         animals: [
-            {q:"lion", i:"https://img.icons8.com/color/240/lion.png"},
-            {q:"elephant", i:"https://img.icons8.com/color/240/elephant.png"},
-            {q:"monkey", i:"https://img.icons8.com/color/240/monkey.png"},
-            {q:"zebra", i:"https://img.icons8.com/color/240/zebra.png"},
-            {q:"tiger", i:"https://img.icons8.com/color/240/tiger-side-view.png"},
-            {q:"panda", i:"https://img.icons8.com/color/240/panda.png"},
-            {q:"fox", i:"https://img.icons8.com/color/240/fox.png"},
-            {q:"rabbit", i:"https://img.icons8.com/color/240/rabbit.png"}
+            {q:"lion", i:"https://img.icons8.com/color/240/lion.png"}, {q:"elephant", i:"https://img.icons8.com/color/240/elephant.png"},
+            {q:"monkey", i:"https://img.icons8.com/color/240/monkey.png"}, {q:"zebra", i:"https://img.icons8.com/color/240/zebra.png"},
+            {q:"tiger", i:"https://img.icons8.com/color/240/tiger-side-view.png"}, {q:"panda", i:"https://img.icons8.com/color/240/panda.png"},
+            {q:"fox", i:"https://img.icons8.com/color/240/fox.png"}, {q:"rabbit", i:"https://img.icons8.com/color/240/rabbit.png"},
+            {q:"bear", i:"https://img.icons8.com/color/240/bear.png"}, {q:"wolf", i:"https://img.icons8.com/color/240/wolf.png"},
+            {q:"giraffe", i:"https://img.icons8.com/color/240/giraffe.png"}, {q:"cat", i:"https://img.icons8.com/color/240/cat.png"}
+        ],
+        fruits: [
+            {q:"apple", i:"https://img.icons8.com/color/240/apple.png"}, {q:"banana", i:"https://img.icons8.com/color/240/banana.png"},
+            {q:"orange", i:"https://img.icons8.com/color/240/orange.png"}, {q:"grapes", i:"https://img.icons8.com/color/240/grapes.png"},
+            {q:"lemon", i:"https://img.icons8.com/color/240/lemon.png"}, {q:"pear", i:"https://img.icons8.com/color/240/pear.png"},
+            {q:"cherry", i:"https://img.icons8.com/color/240/cherry.png"}, {q:"kiwi", i:"https://img.icons8.com/color/240/kiwi.png"},
+            {q:"mango", i:"https://img.icons8.com/color/240/mango.png"}, {q:"pineapple", i:"https://img.icons8.com/color/240/pineapple.png"},
+            {q:"watermelon", i:"https://img.icons8.com/color/240/watermelon.png"}, {q:"strawberry", i:"https://img.icons8.com/color/240/strawberry.png"}
         ],
         school: [
-            {q:"pen", i:"https://img.icons8.com/color/240/pen.png"},
-            {q:"pencil", i:"https://img.icons8.com/color/240/pencil.png"},
-            {q:"book", i:"https://img.icons8.com/color/240/book.png"},
-            {q:"bag", i:"https://img.icons8.com/color/240/backpack.png"},
-            {q:"ruler", i:"https://img.icons8.com/color/240/ruler.png"},
-            {q:"desk", i:"https://img.icons8.com/color/240/desk.png"},
-            {q:"map", i:"https://img.icons8.com/color/240/map.png"},
-            {q:"glue", i:"https://img.icons8.com/color/240/glue.png"}
+            {q:"pen", i:"https://img.icons8.com/color/240/pen.png"}, {q:"pencil", i:"https://img.icons8.com/color/240/pencil.png"},
+            {q:"book", i:"https://img.icons8.com/color/240/book.png"}, {q:"bag", i:"https://img.icons8.com/color/240/backpack.png"},
+            {q:"ruler", i:"https://img.icons8.com/color/240/ruler.png"}, {q:"eraser", i:"https://img.icons8.com/color/240/eraser.png"},
+            {q:"desk", i:"https://img.icons8.com/color/240/desk.png"}, {q:"map", i:"https://img.icons8.com/color/240/map.png"},
+            {q:"glue", i:"https://img.icons8.com/color/240/glue.png"}, {q:"scissors", i:"https://img.icons8.com/color/240/scissors.png"},
+            {q:"paper", i:"https://img.icons8.com/color/240/paper.png"}, {q:"sharpener", i:"https://img.icons8.com/color/240/pencil-sharpener.png"}
+        ],
+        verbs: [
+            {q:"run", i:"https://img.icons8.com/color/240/run.png"}, {q:"swim", i:"https://img.icons8.com/color/240/swim.png"},
+            {q:"jump", i:"https://img.icons8.com/color/240/jump.png"}, {q:"read", i:"https://img.icons8.com/color/240/reading.png"},
+            {q:"sleep", i:"https://img.icons8.com/color/240/sleeping-in-bed.png"}, {q:"eat", i:"https://img.icons8.com/color/240/eat.png"},
+            {q:"drink", i:"https://img.icons8.com/color/240/drink.png"}, {q:"sing", i:"https://img.icons8.com/color/240/singing.png"},
+            {q:"dance", i:"https://img.icons8.com/color/240/dance.png"}, {q:"draw", i:"https://img.icons8.com/color/240/draw.png"},
+            {q:"fly", i:"https://img.icons8.com/color/240/fly.png"}, {q:"write", i:"https://img.icons8.com/color/240/write.png"}
+        ],
+        colors: [
+            {q:"red", i:"https://img.icons8.com/color/240/red-square.png"}, {q:"blue", i:"https://img.icons8.com/color/240/blue-square.png"},
+            {q:"green", i:"https://img.icons8.com/color/240/green-square.png"}, {q:"yellow", i:"https://img.icons8.com/color/240/yellow-square.png"},
+            {q:"black", i:"https://img.icons8.com/color/240/black-square.png"}, {q:"white", i:"https://img.icons8.com/color/240/white-square.png"},
+            {q:"pink", i:"https://img.icons8.com/color/240/pink-square.png"}, {q:"purple", i:"https://img.icons8.com/color/240/purple-square.png"},
+            {q:"orange", i:"https://img.icons8.com/color/240/orange-square.png"}, {q:"brown", i:"https://img.icons8.com/color/240/brown-square.png"},
+            {q:"grey", i:"https://img.icons8.com/color/240/grey-square.png"}, {q:"gold", i:"https://img.icons8.com/color/240/gold-bars.png"}
+        ],
+        family: [
+            {q:"father", i:"https://img.icons8.com/color/240/father.png"}, {q:"mother", i:"https://img.icons8.com/color/240/mother.png"},
+            {q:"baby", i:"https://img.icons8.com/color/240/baby.png"}, {q:"brother", i:"https://img.icons8.com/color/240/brother.png"},
+            {q:"sister", i:"https://img.icons8.com/color/240/sister.png"}, {q:"grandpa", i:"https://img.icons8.com/color/240/grandfather.png"},
+            {q:"grandma", i:"https://img.icons8.com/color/240/grandmother.png"}, {q:"son", i:"https://img.icons8.com/color/240/son.png"},
+            {q:"daughter", i:"https://img.icons8.com/color/240/daughter.png"}, {q:"uncle", i:"https://img.icons8.com/color/240/uncle.png"},
+            {q:"aunt", i:"https://img.icons8.com/color/240/aunt.png"}, {q:"family", i:"https://img.icons8.com/color/240/family.png"}
+        ],
+        body: [
+            {q:"eye", i:"https://img.icons8.com/color/240/eye.png"}, {q:"nose", i:"https://img.icons8.com/color/240/nose.png"},
+            {q:"hand", i:"https://img.icons8.com/color/240/hand.png"}, {q:"leg", i:"https://img.icons8.com/color/240/leg.png"},
+            {q:"ear", i:"https://img.icons8.com/color/240/ear.png"}, {q:"mouth", i:"https://img.icons8.com/color/240/mouth.png"},
+            {q:"teeth", i:"https://img.icons8.com/color/240/tooth.png"}, {q:"hair", i:"https://img.icons8.com/color/240/hair.png"},
+            {q:"arm", i:"https://img.icons8.com/color/240/arm.png"}, {q:"knee", i:"https://img.icons8.com/color/240/knee.png"},
+            {q:"finger", i:"https://img.icons8.com/color/240/finger.png"}, {q:"face", i:"https://img.icons8.com/color/240/face.png"}
+        ],
+        clothes: [
+            {q:"t-shirt", i:"https://img.icons8.com/color/240/t-shirt.png"}, {q:"pants", i:"https://img.icons8.com/color/240/trousers.png"},
+            {q:"dress", i:"https://img.icons8.com/color/240/dress.png"}, {q:"hat", i:"https://img.icons8.com/color/240/hat.png"},
+            {q:"shoes", i:"https://img.icons8.com/color/240/shoes.png"}, {q:"skirt", i:"https://img.icons8.com/color/240/skirt.png"},
+            {q:"socks", i:"https://img.icons8.com/color/240/socks.png"}, {q:"jacket", i:"https://img.icons8.com/color/240/jacket.png"},
+            {q:"shirt", i:"https://img.icons8.com/color/240/shirt.png"}, {q:"cap", i:"https://img.icons8.com/color/240/cap.png"},
+            {q:"gloves", i:"https://img.icons8.com/color/240/gloves.png"}, {q:"scarf", i:"https://img.icons8.com/color/240/scarf.png"}
         ]
     };
 
@@ -111,6 +161,9 @@
     }
 
     function start(topic) {
+        // Музыканы ойнотуу
+        document.getElementById('bgMusic').play();
+        
         p1L = [...quizData[topic]].sort(()=>Math.random()-0.5);
         p2L = [...quizData[topic]].sort(()=>Math.random()-0.5);
         p1I = 0; p2I = 0; s1 = 0; s2 = 0;
@@ -130,48 +183,39 @@
         }
         document.getElementById('img-'+p).src = list[idx].i;
         let inp = document.getElementById('input-'+p);
-        inp.value = ""; 
-        inp.className = "ans-in";
-        inp.disabled = false;
+        inp.value = ""; inp.className = "ans-in"; inp.disabled = false;
         if(p==1) inp.focus();
     }
 
-    function handleEnter(event, p) {
-        if (event.key === "Enter") {
-            check(p);
-        }
-    }
+    function handleEnter(event, p) { if (event.key === "Enter") check(p); }
 
     function check(p) {
         let inp = document.getElementById('input-'+p);
         let val = inp.value.toLowerCase().trim();
         let list = (p==1) ? p1L : p2L;
         let idx = (p==1) ? p1I : p2I;
-        
         if (idx >= list.length) return;
         
-        let correctAns = list[idx].q;
         inp.disabled = true;
 
-        if (val === correctAns) {
+        if (val === list[idx].q) {
             inp.classList.add('correct');
             if(p==1) { s1+=10; p1I++; document.getElementById('score-1').innerText = s1; }
             else { s2+=10; p2I++; document.getElementById('score-2').innerText = s2; }
-            setTimeout(() => load(p), 400);
         } else {
             inp.classList.add('wrong');
             if(p==1) p1I++; else p2I++; 
-            setTimeout(() => load(p), 400);
         }
+        setTimeout(() => load(p), 400);
     }
 
     function finish() {
+        document.getElementById('bgMusic').pause(); // Музыканы токтотуу
         document.getElementById('battle-screen').classList.add('hidden');
         document.getElementById('win-screen').classList.remove('hidden');
         let n1 = document.getElementById('t1').value;
         let n2 = document.getElementById('t2').value;
-        let winName = s1 > s2 ? n1 : (s2 > s1 ? n2 : "DRAW");
-        document.getElementById('winner-text').innerText = winName + " WINS! 🏆";
+        document.getElementById('winner-text').innerText = s1 > s2 ? n1 + " WINS! 🏆" : (s2 > s1 ? n2 + " WINS! 🏆" : "DRAW! 🤝");
         confetti({ particleCount: 150, spread: 70 });
     }
 </script>
