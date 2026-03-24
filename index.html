@@ -118,42 +118,101 @@
 <script>
     const quizData = {
         animals: [
-            {q:"elephant", s:"Large animal with a trunk.", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=400"},
-            {q:"lion", s:"The king of the jungle.", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400"},
-            {q:"tiger", s:"Animal with black and yellow stripes.", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=400"}
-        ],
+    {q:"elephant", s:"Large animal with a trunk.", i:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=500"},
+    {q:"lion", s:"The king of the jungle.", i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=500"},
+    {q:"tiger", s:"Animal with black and yellow stripes.", i:"https://images.unsplash.com/photo-1555273335-fa53dc64817c?w=500"},
+    {q:"monkey", s:"Loves bananas and climbing trees.", i:"https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=500"},
+    {q:"rabbit", s:"Has long ears and likes carrots.", i:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=500"},
+    {q:"giraffe", s:"Has a very long neck.", i:"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500"},
+    {q:"penguin", s:"A bird that can swim but cannot fly.", i:"https://images.unsplash.com/photo-1517783999520-f068d7431a60?w=500"},
+    {q:"snake", s:"A long reptile with no legs.", i:"https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=500"},
+    {q:"zebra", s:"Has black and white stripes.", i:"https://images.unsplash.com/photo-1501705388883-4ed8a543392c?w=500"},
+    {q:"cow", s:"A farm animal that gives us milk.", i:"https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=500"}
+],
         fruits: [
-            {q:"apple", s:"Red or green round fruit.", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"},
-            {q:"banana", s:"Long yellow fruit.", i:"https://images.unsplash.com/photo-1571771894821-ad9b588640ba?w=400"}
-        ],
-        school: [
-            {q:"pen", s:"Used for writing.", i:"https://images.unsplash.com/photo-1510172951991-856a654063f9?w=400"},
-            {q:"book", s:"You read this for knowledge.", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"}
-        ],
-        verbs: [
-            {q:"run", s:"To move fast on legs.", i:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400"},
-            {q:"swim", s:"To move in water.", i:"https://images.unsplash.com/photo-1519315585047-ad8a19a40869?w=400"}
-        ],
-        colors: [
-            {q:"red", s:"Color of a tomato.", i:"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400"},
-            {q:"yellow", s:"Color of the sun.", i:"https://images.unsplash.com/photo-1551029506-0807d4a21f6b?w=400"},
-            {q:"green", s:"Color of grass.", i:"https://images.unsplash.com/photo-1543332164-6e82f355badc?w=400"}
-        ],
+    {q:"apple", s:"Red or green round fruit.", i:"https://images.unsplash.com/photo-1560806887-1e4cd0b6ced6?w=500"},
+    {q:"banana", s:"Long yellow fruit.", i:"https://images.unsplash.com/photo-1571771894821-ad9b58a33646?w=500"},
+    {q:"orange", s:"Round orange fruit with a lot of juice.", i:"https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=500"},
+    {q:"grapes", s:"Small green or purple fruits in bunches.", i:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=500"},
+    {q:"watermelon", s:"Big green fruit, red inside with seeds.", i:"https://images.unsplash.com/photo-1587049633562-ad380204c731?w=500"},
+    {q:"strawberry", s:"Small red fruit with seeds on the outside.", i:"https://images.unsplash.com/photo-1464960350463-9835a877e85d?w=500"},
+    {q:"pineapple", s:"Has a tough skin and a crown of leaves.", i:"https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=500"},
+    {q:"pear", s:"Green or yellow fruit shaped like a bell.", i:"https://images.unsplash.com/photo-1514756331096-242f390ef4a9?w=500"},
+    {q:"cherry", s:"Small, round, red fruit with a stone inside.", i:"https://images.unsplash.com/photo-1528825871115-3581a5387919?w=500"},
+    {q:"lemon", s:"Very sour yellow fruit.", i:"https://images.unsplash.com/photo-1585059895312-5e769c6ba274?w=500"}
+],
+           school: [
+    {q:"pen", s:"Used for writing with ink.", i:"https://images.unsplash.com/photo-1585336261022-69c66d11ef9d?w=500"},
+    {q:"book", s:"You read this for knowledge.", i:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"},
+    {q:"pencil", s:"You can draw and erase with this.", i:"https://images.unsplash.com/photo-1512044459814-1517489d215b?w=500"},
+    {q:"eraser", s:"Used to remove pencil marks.", i:"https://images.unsplash.com/photo-1555412654-72a95a495858?w=500"},
+    {q:"ruler", s:"Used to measure length or draw straight lines.", i:"https://images.unsplash.com/photo-1586075010633-2470fd20786b?w=500"},
+    {q:"backpack", s:"You carry your books in this.", i:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500"},
+    {q:"scissors", s:"Used for cutting paper.", i:"https://images.unsplash.com/photo-1539627670102-369f7d8a66ed?w=500"},
+    {q:"desk", s:"A table where students sit and study.", i:"https://images.unsplash.com/photo-1518455027359-f3f8132d0a8d?w=500"},
+    {q:"teacher", s:"A person who helps students learn.", i:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500"},
+    {q:"blackboard", s:"Teachers write on this in the classroom.", i:"https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?w=500"}
+],
+            verbs: [
+    {q:"run", s:"To move fast on legs.", i:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500"},
+    {q:"swim", s:"To move in water.", i:"https://images.unsplash.com/photo-1519315585047-ad8a19a408f9?w=500"},
+    {q:"jump", s:"To push yourself into the air.", i:"https://images.unsplash.com/photo-1511910849309-0dffb8785146?w=500"},
+    {q:"read", s:"To look at words and understand them.", i:"https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500"},
+    {q:"write", s:"To use a pen or pencil on paper.", i:"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500"},
+    {q:"sleep", s:"To rest your body at night.", i:"https://images.unsplash.com/photo-1520206159572-218225932867?w=500"},
+    {q:"eat", s:"To put food in your mouth.", i:"https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500"},
+    {q:"drink", s:"To take water or juice into your body.", i:"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500"},
+    {q:"sing", s:"To make musical sounds with your voice.", i:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500"},
+    {q:"dance", s:"To move your body to music.", i:"https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500"}
+],
+           colors: [
+    {q:"red", s:"The color of a tomato or a strawberry.", i:"https://images.unsplash.com/photo-1550411234-7473e5002939?w=500"},
+    {q:"blue", s:"The color of the sky or the ocean.", i:"https://images.unsplash.com/photo-1501426026826-31c667bdf23d?w=500"},
+    {q:"green", s:"The color of grass and leaves.", i:"https://images.unsplash.com/photo-1501004899824-047c8e15ad3c?w=500"},
+    {q:"yellow", s:"The color of the sun or a lemon.", i:"https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=500"},
+    {q:"pink", s:"The color of many flowers and flamingos.", i:"https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=500"},
+    {q:"orange", s:"The color of a carrot or a tiger.", i:"https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?w=500"},
+    {q:"purple", s:"The color of grapes or a lavender flower.", i:"https://images.unsplash.com/photo-1518241411428-f62334007994?w=500"},
+    {q:"white", s:"The color of snow or milk.", i:"https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500"},
+    {q:"black", s:"The color of coal or the night sky.", i:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=500"},
+    {q:"brown", s:"The color of chocolate or a potato.", i:"https://images.unsplash.com/photo-1505245208761-ba872912fac0?w=500"}
+],
         family: [
-            {q:"mother", s:"She loves you very much.", i:"https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400"},
-            {q:"father", s:"The head of the family.", i:"https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400"},
-            {q:"baby", s:"The youngest person in a family.", i:"https://images.unsplash.com/photo-1519689689353-89707927ca20?w=400"}
-        ],
-        body: [
-            {q:"hand", s:"Part of the arm.", i:"https://images.unsplash.com/photo-1511174511562-5f7f18b854f8?w=400"},
-            {q:"eye", s:"You see with this.", i:"https://images.unsplash.com/photo-1544567451-247b68c9ddf1?w=400"},
-            {q:"nose", s:"You smell with this.", i:"https://images.unsplash.com/photo-1521256424599-2a91255e2b02?w=400"}
-        ],
-        clothes: [
-            {q:"hat", s:"You wear this on your head.", i:"https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?w=400"},
-            {q:"dress", s:"Girls often wear this.", i:"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=400"},
-            {q:"shoes", s:"You wear these on your feet.", i:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"}
-        ]
+    {q:"father", s:"He is your dad.", i:"https://images.unsplash.com/photo-1550005810-3507bc0d742b?w=500"},
+    {q:"mother", s:"She is your mom.", i:"https://images.unsplash.com/photo-1544126592-807daa2b565b?w=500"},
+    {q:"brother", s:"A boy child of your parents.", i:"https://images.unsplash.com/photo-1520461690505-1a2f9011667b?w=500"},
+    {q:"sister", s:"A girl child of your parents.", i:"https://images.unsplash.com/photo-1551048632-24e444b48a3e?w=500"},
+    {q:"grandfather", s:"Your father's or mother's father.", i:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500"},
+    {q:"grandmother", s:"Your father's or mother's mother.", i:"https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=500"},
+    {q:"baby", s:"A very young child.", i:"https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500"},
+    {q:"uncle", s:"Your father's or mother's brother.", i:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500"},
+    {q:"aunt", s:"Your father's or mother's sister.", i:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500"},
+    {q:"family", s:"Parents and their children.", i:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500"}
+],
+       body: [
+    {q:"head", s:"The top part of your body.", i:"https://images.unsplash.com/photo-1541604193435-22287d32c2c2?w=500"},
+    {q:"eye", s:"You use these to see things.", i:"https://images.unsplash.com/photo-1544485344-24ba9ca12dee?w=500"},
+    {q:"nose", s:"You use this to smell flowers.", i:"https://images.unsplash.com/photo-1582233221916-c22881a4d38b?w=500"},
+    {q:"mouth", s:"You use this to eat and speak.", i:"https://images.unsplash.com/photo-1506466010722-395aa2bef877?w=500"},
+    {q:"ear", s:"You use these to hear sounds.", i:"https://images.unsplash.com/photo-1590132801210-979927902047?w=500"},
+    {q:"hand", s:"You have five fingers on each...", i:"https://images.unsplash.com/photo-1532009230728-9ec241284558?w=500"},
+    {q:"leg", s:"You use these for walking.", i:"https://images.unsplash.com/photo-1536922246289-88c42f957773?w=500"},
+    {q:"arm", s:"Between your shoulder and hand.", i:"https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500"},
+    {q:"hair", s:"It grows on top of your head.", i:"https://images.unsplash.com/photo-1522337360744-c0819d4001c8?w=500"},
+    {q:"face", s:"The front part of your head.", i:"https://images.unsplash.com/photo-1509439581779-629cffb27f07?w=500"}
+],
+       clothes: [
+    {q:"shirt", s:"A piece of clothing for the upper body.", i:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500"},
+    {q:"pants", s:"Clothing for the legs.", i:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500"},
+    {q:"dress", s:"A one-piece garment for girls or women.", i:"https://images.unsplash.com/photo-1539008835279-4346ef05419a?w=500"},
+    {q:"shoes", s:"You wear these on your feet.", i:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"},
+    {q:"hat", s:"You wear this on your head.", i:"https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?w=500"},
+    {q:"skirt", s:"A piece of clothing that hangs from the waist.", i:"https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500"},
+    {q:"socks", s:"You wear these inside your shoes.", i:"https://images.unsplash.com/photo-1582962232989-99794117216b?w=500"},
+    {q:"jacket", s:"A short coat for cool weather.", i:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500"},
+    {q:"gloves", s:"You wear these on your hands in winter.", i:"https://images.unsplash.com/photo-1516934955-a48560318e0b?w=500"},
+    {q:"scarf", s:"Worn around the neck to keep warm.", i:"https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500"}
+],
     };
 
     let p1L=[], p2L=[], p1I=0, p2I=0, s1=0, s2=0, playing=false, bonusGiven=false;
